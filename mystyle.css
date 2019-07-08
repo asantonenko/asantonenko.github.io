@@ -1,0 +1,110 @@
+body{
+	color:navy;font-size:20px;
+	background: #E6E6FA;
+	padding:0;
+}  
+p.Attention
+{
+font-family: 'Georgia', sans-serif;
+  margin:5px;
+  padding:1px;
+  background:#fee;
+  text-align:justify;
+  text-indent:10px;
+ font-size:20px;
+border: thin solid #000080;
+font-style: italic;
+}
+	
+p
+{
+font-family: 'Ultra', sans-serif;
+  margin:5px;
+  padding:1px;
+  background:#eee;
+  text-align:justify;
+  text-indent:10px;
+ font-size:20px;
+}
+p:first-line
+{
+  font-family:arial;
+}
+p:first-letter
+{
+  font-size:25px;
+}
+table {	font-family:"Courier New";
+ 	margin-left: 15%;
+	font-size: 14pt;
+	color: #000000;
+	line-height: 1.5em;
+	margin:auto}      
+
+td {border: thin solid #000080;}
+th {border: thin solid #000080;}
+ul {color:navy; font-family: Verdana, Arial, Helvetica, sans-serif; font-size:20px; line-height: 2em;background:#eee; }         
+ol {color:navy; font-family: Verdana, Arial, Helvetica, sans-serif;font-size:20px; line-height: 2em;  list-style-type:decimal;background:#eee; }         
+li {color:navy; text-align=left; font-family: Verdana, Arial, Helvetica, sans-serif; font-size:20px; line-height: 2em;background:#eee;}
+#s2 {width:33%}
+#s1 {width:50%}
+
+a.menu {
+ color:#34495e; 
+  line-height: 1.2; 
+  position: relative; 
+  padding: 0 14px; 
+  text-transform: uppercase;
+}
+a.menu:after {
+  content: "";
+  height: 100%;
+  min-width: 4px;
+  background: #34495e;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: .5s;
+}
+a.menu:hover:after {
+  min-width: 100%;
+  background: #95a5a6;
+  opacity: .35;
+}
+tr:hover {
+background:#95a5a6;
+}
+h1 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Ultra', sans-serif;  
+    font-size: 36px;
+    line-height: 42px;
+    text-transform: uppercase;
+    text-shadow: 0 2px white, 0 3px #777;
+}
+
+h2 {
+    margin: 1em 0 0.5em 0;
+    color:darkred;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: 'Orienta', sans-serif;
+    text-shadow: 0 2px white, 0 3px #777;
+    text-transform: uppercase;
+}
+ 
+h3 {
+    margin: 1em 0 0.5em 0;
+    color:navy;
+    font-size: 22px;
+    line-height: 40px;
+    font-weight: normal;
+    text-shadow: 0 2px white, 0 3px #777;
+    font-family: 'Orienta', sans-serif;
+    letter-spacing: 1px;
+    font-style: italic;
+    text-align:center;
+}
