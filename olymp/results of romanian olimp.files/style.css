@@ -1,0 +1,42 @@
+BODY {
+	BACKGROUND-COLOR: white; COLOR: black; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif, serif; FONT-SIZE: 11px
+}
+TD {
+	FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif, serif; FONT-SIZE: 11px
+}
+A {
+	COLOR: blue
+}
+A:hover {
+	COLOR: red; TEXT-DECORATION: none
+}
+HR {
+	COLOR: #1d72b8; WIDTH: 75%
+}
+H1 {
+	FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif, serif; FONT-SIZE: 30px
+}
+H2 {
+	FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif, serif; FONT-SIZE: 24px
+}
+H3 {
+	FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif, serif; FONT-SIZE: 18px
+}
+H4 {
+	FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif, serif; FONT-SIZE: 12px
+}
+TABLE.meniu {
+	BACKGROUND-COLOR: #ffffff
+}
+TR.meniu {
+	BACKGROUND-COLOR: #add8e6
+}
+A.meniu {
+	COLOR: black; FONT-WEIGHT: bolder; TEXT-DECORATION: none
+}
+A.meniu:hover {
+	COLOR: red; TEXT-DECORATION: none
+}
+PRE {
+	FONT-SIZE: 12px
+}
