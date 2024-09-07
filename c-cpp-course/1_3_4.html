@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<p>Що якщо Ви хочете перевірити, як працює деяка програма деякою мовою програмування? Тоді Вам знадобиться середовище для редагування, компіляції та запуску програми - так зване <em>інтегроване середовище розробки</em> (<em>integrated development environment</em> , IDE). Подібні середовища є як офлайнові - у вигляді програми для Windows/Linux/Mac OS чи Android/iOS - наприклад, кросплатформова безкоштовна Code::Blocks або також кросплатформова і безкоштовна Microsoft Visual Studio Code. Але так як Ви зараз, очевидно використовуєте браузер (ну або мобільний додаток stepik), то логічніше познайомитися з онлайн IDE, для роботи яких потрібний тільки браузер. Мабуть, однією з найзручніших і найфункціональніших онлайн IDE є <a href="https://www.onlinegdb.com/" rel="noopener noreferrer nofollow">OnlineGDB</a>. Давайте візьмемо нашу програму</p>
+
+<pre><code class="language-cpp">// Програма Привіт, світе!
+#include &lt;iostream&gt;
+
+int main()
+{
+    std::cout &lt;&lt; "Привіт, світе!" &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+
+<p>і перевіримо її роботу на <a href="https://onlinegdb.com/Hy1Z3rEUH" rel="nofollow noopener noreferrer" target="_blank">OnlineGDB</a>, <a href="http://cpp.sh/2ndve" rel="nofollow noopener noreferrer" target="_blank">cpp.sh</a> , <a href="http://ideone.com/zu8Ruc" rel="nofollow noopener noreferrer" target="_blank">ideone</a>  або <a href="https://wandbox.org/permlink/C8nTU6XUgS5rX41v" rel="nofollow noopener noreferrer" target="_blank">Wandbox</a>. Тут наведені прямі посилання на цю програму на цих платформах. Виконайте програму "Привіт, світе!" послідовно за даними чотирьом посиланням (для знайомства з даними системами). Запустити програму на OnlineGDB дуже просто - натисніть зелену кнопку з написом Run. На ресурсі cpp.sh потрібно натиснути кнопку Run, а на ideone результат відразу ж буде у підписаному вікні "stdout". Якщо ж Ви хочете внести зміни до цієї програми, то натискаєте кнопку fork (в ideone) / Fork this (в OnlineGDB), створюючи нову версію, а потім зелену кнопку Run. Після запуску програми на ideone результат дивитися в віконці "stdout" - і оскільки тепер це вже Ваша програма, можна не створювати нову версію (fork) знову, а натиснути кнопку редагувати і потім кнопку Submit для запуску програми (робота з ideone трохи заплутана, на жаль)! В onlineGDB після того як Ви зробили fork деякої програми, її теж можна редагувати, зберігати або розповсюджувати далі за допомогою кнопки Share. На Wandbox Ви відразу можете побачити результати роботи програми (це те, що в чорному вікні написано білим кольором, саме білим!, а не іншим), а також змінити програму та натиснути кнопку Run для запуску зміненої програми.</p>
+
+<p>Майже ту ж програму, але вже написану з використанням конструкції <code><strong>using namespace</strong> std;</code>:</p>
+
+<pre><code class="language-cpp">// Програма Привіт, світе!
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main()
+{
+    cout &lt;&lt; "Привіт, світе!" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+<p>можна знайти за посиланнями на <a href="https://onlinegdb.com/HyjBhSELr" rel="nofollow noopener noreferrer" style="font-size: inherit; font-weight: inherit;" target="_blank">OnlineGDB</a>, <a href="http://cpp.sh/44c5x" rel="nofollow noopener noreferrer" style="font-size: inherit; font-weight: inherit;" target="_blank">cpp.sh</a> или <a href="http://ideone.com/hPP6M4" rel="nofollow noopener noreferrer" style="font-size: inherit; font-weight: inherit;" target="_blank">ideone</a> чи <a href="http://melpon.org/wandbox/permlink/LvghgP6Ix4gdRk8I" rel="nofollow noopener noreferrer" style="font-size: inherit; font-weight: inherit;" target="_blank">Wandbox</a>.</p>
+
+<p><em>Підказка: </em>Якщо Ви налаштовані серйозно використовувати OnlineGDB або ideone, дуже раджу зареєструватися на цих системах. Втім, в систему OnlineGDB можна заходити також через Google, Facebook або Github аккаунт. Реєстрація дозволить Вам зберігати програми у своєму обліковому записі та переглядати та сортувати список написаних Вами програм — що є дуже зручним — у будь-якому місці світу, де є Інтернет, у Вас є доступ до всіх написаних Вами програм. Також підкреслю, що і в системі stepik, у будь-якому місці світу, де є Інтернет, у Вас є доступ до всіх Ваших рішень (як успішних, так і помилкових) завдань даної платформи.</p>

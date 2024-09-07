@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+ <script type="text/javascript" async
+   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+ </script>
+
+
+<p>Но все же, продвинутый калькулятор умеет выполнять не только 4 арифметические операции, но и рассчитывать значения различных функций. Давайте попробуем рассчитать значения функций для некоторого аргумента.</p>
+
+<p>Чтобы запустить некоторую функцию в языках C и C++, нужно указать имя функции и в скобках её аргументы или параметры. Например, рассмотрим сопоставление некоторым математическим выражениям их эквивалентов в C/C++:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 500px;">
+	<thead>
+		<tr>
+			<th>Математическое выражение</th>
+			<th>Выражение на языках C/C++</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><span class="math-tex">\(2x\)</span></td>
+			<td style="text-align: center;"><code>2*x</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><span class="math-tex">\({x+y \over xy}\)</span></td>
+			<td style="text-align: center;"><code>(x+y)/(x*y)</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><span class="math-tex">\(\sqrt{x}\)</span></td>
+			<td style="text-align: center;"><code>sqrt(x)</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><span class="math-tex">\(x ^ y\)</span></td>
+			<td style="text-align: center;"><code>pow(x,y)</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Функция <code>pow</code> имеет два параметра, которые отделяются друг от друга запятой.</p>
+
+<p>Итак, напишем калькулятор, который будет вычислять функции одного аргумента. Для начала введем с клавиатуры аргумент функции, который назовём <code>x</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;  //заголовочный файл для ввода и вывода
+
+using namespace std; //используем пространство std
+
+int main()    //основная функция программы
+{             //начало основного блока                 
+    double x; //Аргумент (параметр) функций  
+
+    cout &lt;&lt; "Введите аргумент функций (вещественное число):" &lt;&lt; endl; //Выводим подсказку
+    cin &gt;&gt; x;                                                         //Вводим значение с клавиатуры
+
+    //Здесь будет остальная часть программы
+
+    return 0;     //сообщаем, что программа успешно завершила работу
+}                 //конец основного блока</code></pre>
+
+<p>Теперь добавим вывод рассчитанных значений разных функций:  </p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cmath&gt;     //заголовочный файл для математических функций
+
+using namespace std; 
+
+int main()    
+{                           
+    double x; 
+    cout &lt;&lt; "Введите аргумент функций (вещественное число):" &lt;&lt; endl; 
+    cin &gt;&gt; x;                                                         
+    
+    cout &lt;&lt; "Квадрат           " &lt;&lt; x &lt;&lt; " = " &lt;&lt; x*x      &lt;&lt; endl;  //Печатаем квадрат x
+    cout &lt;&lt; "Куб               " &lt;&lt; x &lt;&lt; " = " &lt;&lt; pow(x,3) &lt;&lt; endl;  //Печатаем куб x
+    cout &lt;&lt; "Квадратный корень " &lt;&lt; x &lt;&lt; " = " &lt;&lt; sqrt(x)  &lt;&lt; endl;  //Печатаем квадратный корень x
+    cout &lt;&lt; "Экспонента        " &lt;&lt; x &lt;&lt; " = " &lt;&lt; exp(x)   &lt;&lt; endl;  //Печатаем экспоненту x
+    cout &lt;&lt; "Натурал. логарифм " &lt;&lt; x &lt;&lt; " = " &lt;&lt; log(x)   &lt;&lt; endl;  //Печатаем натуральный логарифм x
+    cout &lt;&lt; "Десятич. логарифм " &lt;&lt; x &lt;&lt; " = " &lt;&lt; log10(x) &lt;&lt; endl;  //Печатаем десятичный логарифм x    
+    cout &lt;&lt; "Синус             " &lt;&lt; x &lt;&lt; " = " &lt;&lt; sin(x)   &lt;&lt; endl;  //Печатаем синус x
+    cout &lt;&lt; "Косинус           " &lt;&lt; x &lt;&lt; " = " &lt;&lt; cos(x)   &lt;&lt; endl;  //Печатаем косинус x
+    cout &lt;&lt; "Тангенс           " &lt;&lt; x &lt;&lt; " = " &lt;&lt; tan(x)   &lt;&lt; endl;  //Печатаем тангенс x
+    cout &lt;&lt; "Арксинус          " &lt;&lt; x &lt;&lt; " = " &lt;&lt; asin(x)  &lt;&lt; endl;  //Печатаем арксинус x
+    cout &lt;&lt; "Арккосинус        " &lt;&lt; x &lt;&lt; " = " &lt;&lt; acos(x)  &lt;&lt; endl;  //Печатаем арккосинус x
+    cout &lt;&lt; "Арктангенс        " &lt;&lt; x &lt;&lt; " = " &lt;&lt; atan(x)  &lt;&lt; endl;  //Печатаем арктангенс x
+
+    return 0;     
+}                 </code></pre>
+
+<p>Напомню, что в коде выше прокомментированы только новые строки. Для использования математических функций нужно подключить заголовочный файл <code>cmath</code> (или заголовочный файл <code>math.h</code> в языке C). Как Вы видите стандартных функций квадрат и куб в языках C/C++ нет, но можно записать квадрат и куб через функцию <code>pow</code> как вторую и третью степень: <code>pow(x,2)</code> и <code>pow(x,3)</code> или просто через умножение как <code>x*x</code> и <code>x*x*x</code>. Также отмечу, что в языках C/C++ для некоторых функций используются обозначения отличные от общепринятых в математике (создатели языка Си плохо помнили стандартные математические обозначения?). Кстати, я не стал заводить по переменной для хранения результатов вычисления функций – иначе было бы очень много переменных в программе. Вместо этого я просто сразу вывел вычисленные значения в поток вывода <code>cout</code>.</p>
+
+<p>Проверить работу данной программы (или увидеть программу целиком с комментариями для каждой строки текста) можно по адресу: <a href="https://onlinegdb.com/Gg-G29Vzr" rel="noopener noreferrer nofollow"  target="_blank">https://onlinegdb.com/Gg-G29Vzr</a></p>

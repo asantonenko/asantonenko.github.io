@@ -1,0 +1,130 @@
+<p>Цей курс присвячено основам мов C (Сі) та C++ (Сі-плюс-плюс), і приблизно відповідає програмі першого курсу спеціальності комп&#39;ютерна інженерія Одеського національного університету імені І. І. Мечникова.</p>
+
+<p>У першій частині курсу використовується структурно-процедурна парадигма програмування, характерна для мови C, але також підтримується мовою C++.</p>
+
+<h1>Історія створення C/C++</h1>
+
+<p>Попередниками мови C були такі мови:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+	<caption>Попередники мови C</caption>
+	<thead>
+		<tr>
+			<th>Мова</th>
+			<th>Рік</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>BCPL</td>
+			<td>1966</td>
+		</tr>
+		<tr>
+			<td>B (Бі)</td>
+			<td>1969</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Мова програмування C з&#39;явилася в 1972 році і була розроблена співробітником Bell Labs Деннісом Рітчі для реалізації операційної системи UNIX. Як назву мови взята англійська буква C (за аналогією зі своїм попередником, назвою якого була попередня буква англійського алфавіту B). Спочатку було багато різних, часто не зовсім сумісних версій мови C. Важливим етапом розвитку мови програмування є прийняття офіційного стандарту. У 1978 році з&#39;явилася книга Браяна Кернігана і Денніса Рітчі <a href="https://uk.wikipedia.org/wiki/C_(%D0%BC%D0%BE%D0%B2%D0%B0_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F)#:~:text=%C2%AB%D0%9C%D0%BE%D0%B2%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F%20%D0%A1%D1%96%C2%BB" rel="noopener noreferrer nofollow">&laquo;Мова програмування Сі&raquo;</a> (англ. The C Programming Language), яка довгий час була єдиним довідковим керівництвом і де-факто стандартом мови. Версію мови C описану в цій книзі зазвичай називають &laquo;K&amp;R&raquo; C. Робота над офіційною стандартизацією мови C була розпочата в 1983 році і, нарешті, в 1989 році Американський національний інститут стандартів (ANSI) затвердив стандарт ANSI X3.159-1989 &laquo;Мова Програмування C&raquo;, ця версія мови зазвичай відома під такими назвами як ANSI C або C89 &mdash; за роком затвердження стандарту. У 1990 цей стандарт (з декількома незначними модифікаціями) ратифікувала&nbsp;<a href="https://uk.wikipedia.org/wiki/ISO" rel="noopener noreferrer nofollow" title="ISO">Міжнародна Організація із Стандартизації</a>&nbsp;(ISO)&nbsp;під назвою ISO/IEC 9899:1990, чи, скорочено, ISO C.&nbsp;Цей стандарт також став відомим під назвою C90. Але по суті C89 і С90 описує ту саму мову, просто стандарт був прийнятий різними організаціями. Цей стандарт був суттєво оновлений у березні 2000 року (але називається, тим не менш, стандарт С99) і далі в 2011 році &mdash; стандарт С11 та в 2018 році&nbsp;&mdash; стандарт С17.&nbsp;Стандарт C99 ввів декілька нових особливостей, &nbsp;багато з яких вже були реалізовані на той час у декількох&nbsp;компіляторах. Деякі з нових можливостей&nbsp;були запозичені з мови C++, таким чином можна сказати, що у версіях С99 та C11 була збільшена сумісність з мовою С++.</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+	<caption>Основні версії мови C</caption>
+	<thead>
+		<tr>
+			<th>Версія</th>
+			<th>Рік</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>початкова версія</td>
+			<td style="text-align:center">1972</td>
+		</tr>
+		<tr>
+			<td>&laquo;K&amp;R&raquo; C</td>
+			<td style="text-align:center">1978</td>
+		</tr>
+		<tr>
+			<td>С89 (ANSI C) / С90 (ISO C)</td>
+			<td style="text-align:center">1989, 1990</td>
+		</tr>
+		<tr>
+			<td>С99</td>
+			<td style="text-align:center">2000</td>
+		</tr>
+		<tr>
+			<td>С11</td>
+			<td style="text-align:center">2011</td>
+		</tr>
+		<tr>
+			<td>С17</td>
+			<td style="text-align:center">2018</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>У цьому курсі ми орієнтуватимемося лише на стандартні версії мови C, насамперед на стандарт C99.</p>
+
+<p>Мова C++ виникла в 1980-х роках, як розширення мови Сі, її автор &mdash; <a href="https://uk.wikipedia.org/wiki/%D0%91%27%D1%8F%D1%80%D0%BD_%D0%A1%D1%82%D1%80%D0%B0%D1%83%D1%81%D1%82%D1%80%D1%83%D0%BF" rel="noopener noreferrer nofollow">Б&#39;ярн Страуструп</a>. Ранні версії мови, що спочатку мали назву C with classes (Сі з класами), стали доступні з 1980 року. Розробляючи мову C with classes, Страуструп написав програму Cfront &mdash; транслятор, що переробляє вихідний код C з класами у вихідний код простого C. До випуску стандарту функцію опису мови виконували написані Страуструпом друковані роботи по C++ (опис мови, довідковий посібник і так далі). Зокрема, в 1985 році вийшло перше видання книги Б&#39;ярна Страуструпа &laquo;<a href="https://uk.wikipedia.org/wiki/%D0%9C%D0%BE%D0%B2%D0%B0_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F_%D0%A1%2B%2B_(%D0%BA%D0%BD%D0%B8%D0%B3%D0%B0)" rel="noopener noreferrer nofollow">Мова програмування C++</a>&raquo;, що забезпечує перший опис мови C++, що було надзвичайно важливо через відсутність офіційного стандарту. Перший стандарт мови C++ був ратифікований лише в 1998 році &mdash; його повна назва ISO/IEC 14882:1998 &laquo;Standard for the C++ Programming Language&raquo;, але зазвичай він коротко називається за роком його створення &mdash; C++98. У стандарті 2003 року C++03 присутні лише незначні технічні виправлення, але в 2011 році був значно оновлений і отримав назву <a href="https://uk.wikipedia.org/wiki/C%2B%2B11" rel="noopener noreferrer nofollow" title="">C++11</a>. В 2014 році з&#39;явився стандарт <a href="https://uk.wikipedia.org/wiki/C%2B%2B14" rel="noopener noreferrer nofollow" title="C++14">C++14</a>, котрий можна розглядати як невелике розширення для&nbsp;C++11, яке в основному містить виправлення помилок і незначні покращення. В 2017 році був представлений оновлений стандарт&nbsp;<a href="https://uk.wikipedia.org/wiki/C%2B%2B17" rel="noopener noreferrer nofollow" title="C++17">C++17</a>, а 4 вересня 2020 року&nbsp;затверджено стандарт&nbsp;<a href="https://uk.wikipedia.org/wiki/C%2B%2B20" rel="noopener noreferrer nofollow" title="C++20">C++20</a>.&nbsp;Ця версія має набагато більше нововведень в порівнянні з C++14 та C++17.</p>
+
+<p>&nbsp;</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+	<caption>Основні версії мови С++</caption>
+	<thead>
+		<tr>
+			<th>Версія</th>
+			<th>Рік</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>&laquo;C with classes&raquo;</td>
+			<td style="text-align:center">1980</td>
+		</tr>
+		<tr>
+			<td>Cfront 1.0</td>
+			<td style="text-align:center">1985</td>
+		</tr>
+		<tr>
+			<td>Cfront 2.0</td>
+			<td style="text-align:center">1989</td>
+		</tr>
+		<tr>
+			<td>С++98 (ANSI C++/ISO C++)</td>
+			<td style="text-align:center">1998</td>
+		</tr>
+		<tr>
+			<td>С++03</td>
+			<td style="text-align:center">2003</td>
+		</tr>
+		<tr>
+			<td><a href="https://uk.wikipedia.org/wiki/C%2B%2B11" rel="noopener noreferrer nofollow" title="">C++11</a></td>
+			<td style="text-align:center">2011</td>
+		</tr>
+		<tr>
+			<td><a href="https://uk.wikipedia.org/wiki/C%2B%2B14" rel="noopener noreferrer nofollow" title="C++14">C++14</a></td>
+			<td style="text-align:center">2014</td>
+		</tr>
+		<tr>
+			<td><a href="https://uk.wikipedia.org/wiki/C%2B%2B17" rel="noopener noreferrer nofollow" title="C++17">C++17</a></td>
+			<td style="text-align:center">2017</td>
+		</tr>
+		<tr>
+			<td><a href="https://uk.wikipedia.org/wiki/C%2B%2B20" rel="noopener noreferrer nofollow" title="C++20">C++20</a></td>
+			<td style="text-align:center">2020</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Цей курс орієнтується, насамперед, на більш-менш сучасні версії мови C++, такі як C++11, C++14 і C++17 (які не дуже відрізняються друг від друга). Також, поки що курс не включає жодних нових можливостей найактуальнішої версії стандарту С++20, крім деякої довідкової інформації загального характеру. Для нових конструкцій мови вказано в якому стандарті вони з&#39;явилися (а також часто показано, як можна реалізувати такі конструкції в старих версіях мови). Тож якщо Ваш компілятор підтримує лише відносно старі версії мови, це не так страшно. Втім, підтримка C++11 дуже бажана &mdash; у цьому стандарті мова була дуже суттєво доповнена, тому раджу орієнтуватися лише на літературу, компілятори та&nbsp;середовища, що підтримують і враховують особливості C++11.</p>
+
+<p>У цьому кроці використана наступна література:</p>
+
+<ol>
+	<li><a href="https://uk.wikipedia.org/wiki/C_(%D0%BC%D0%BE%D0%B2%D0%B0_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F)" rel="noopener noreferrer nofollow">https://uk.wikipedia.org/wiki/C_(мова_програмування)</a></li>
+	<li><a href="https://uk.wikipedia.org/wiki/ANSI_C" rel="noopener noreferrer nofollow">https://uk.wikipedia.org/wiki/ANSI_C</a></li>
+	<li><a href="https://en.wikipedia.org/wiki/ANSI_C" rel="noopener noreferrer nofollow">https://en.wikipedia.org/wiki/ANSI_C</a></li>
+	<li><a href="https://uk.wikipedia.org/wiki/C%2B%2B" rel="noopener noreferrer nofollow">https://uk.wikipedia.org/wiki/C++</a></li>
+</ol>
