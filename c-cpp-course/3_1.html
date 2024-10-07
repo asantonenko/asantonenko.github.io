@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bot-design.css">
+    <title>Navigation with Iframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 80vh;
+            border: 1px solid #ccc;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>3.1 Введення в операції<a href="3.html" class="button">Назад до модуля 3</a></h1>
+
+<nav>
+    <button onclick="navigate('3_1_1.html')">Крок 1</button>
+    <button onclick="navigate('3_1_2.html')">Крок 2</button>
+    <button onclick="navigate('3_1_3.html')">Крок 3</button>
+</nav>
+
+<iframe id="contentFrame" src="3_1_1.html"></iframe>
+
+<script>
+    function navigate(page) {
+        document.getElementById('contentFrame').src = page;
+    }
+</script>
+
+</body>
+</html>
