@@ -1,0 +1,162 @@
+<p>У мовах C і C++ є такі бінарні логічні операції:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 700px;">
+	<thead>
+		<tr>
+			<th>Знак</th>
+			<th>Операція</th>
+			<th>Приклад виразу</th>
+			<th>Результат</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align: center;">!</td>
+			<td>Логічне заперечення, НІ  </td>
+			<td>! <strong>true</strong></td>
+			<td><strong>false</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">&amp;&amp;</td>
+			<td>Логічне множення,<br>
+			кон'юнкція, І  </td>
+			<td><strong>true </strong>&amp;&amp;<strong> false</strong></td>
+			<td><strong>false</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">||</td>
+			<td>Логічна додавання, диз'юнкція, АБО    </td>
+			<td><strong>true || false</strong></td>
+			<td><strong>true </strong></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Наведемо повну таблицю істинності для даних логічних операцій:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 400px;">
+	<caption>Таблиця істинності логічних операцій мови С++</caption>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><strong>x</strong></td>
+			<td style="text-align: center;"><strong>y</strong></td>
+			<td style="text-align: center;"><strong>! x</strong></td>
+			<td style="text-align: center;"><strong>x &amp;&amp; y</strong></td>
+			<td style="text-align: center;"><strong>x || y</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>true</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>true</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+			<td style="text-align: center;"><strong>false</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+			<td style="text-align: center;"><strong>true</strong></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>У старих версіях мови Сі, у яких немає типу bool, ця таблиця виглядає так:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 300px;">
+	<caption>Таблиця істинності логічних операцій мови С</caption>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><strong>x</strong></td>
+			<td style="text-align: center;"><strong>y</strong></td>
+			<td style="text-align: center;"><strong>! x</strong></td>
+			<td style="text-align: center;"><strong>x &amp;&amp; y</strong></td>
+			<td style="text-align: center;"><strong>x || y</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>1</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>1</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+			<td style="text-align: center;"><strong>1</strong></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Але це лише дещо спрощене розуміння, що логічна змінна може містити тільки значення 0 (false) і 1 (true). Так як в мові C використовуються цілі типи в якості логічних, то і в C++ це допускається. Числа, що не рівні 0, вважаються істинними, рівні 0 - хибними. Тому, в результаті отримуємо таку зведену таблицю:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 400px;">
+	<caption>Таблиця істинності логічних операцій мови С/С++ для цілих аргументів</caption>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><strong>x</strong></td>
+			<td style="text-align: center;"><strong>y</strong></td>
+			<td style="text-align: center;"><strong>! x</strong></td>
+			<td style="text-align: center;"><strong>x &amp;&amp; y</strong></td>
+			<td style="text-align: center;"><strong>x || y</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>true </strong>(1)</td>
+			<td style="text-align: center;"><strong>false </strong>(0)</td>
+			<td style="text-align: center;"><strong>false </strong>(0)</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>не 0</strong></td>
+			<td style="text-align: center;"><strong>true </strong>(1)</td>
+			<td style="text-align: center;"><strong>false </strong>(0)</td>
+			<td style="text-align: center;"><strong>true </strong>(1)</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>не 0</strong></td>
+			<td style="text-align: center;"><strong>0</strong></td>
+			<td style="text-align: center;"><strong>false </strong>(0)</td>
+			<td style="text-align: center;"><strong>false </strong>(0)</td>
+			<td style="text-align: center;"><strong>true </strong>(1)</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong>не 0</strong></td>
+			<td style="text-align: center;"><strong>не 0</strong></td>
+			<td style="text-align: center;"><strong>false </strong>(0)</td>
+			<td style="text-align: center;"><strong>true </strong>(1)</td>
+			<td style="text-align: center;"><strong>true </strong>(1)</td>
+		</tr>
+	</tbody>
+</table>

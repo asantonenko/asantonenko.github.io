@@ -1,0 +1,87 @@
+<p>Наведемо всі операції складеного присвоєння у вигляді таблиці:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 940px;">
+	<thead>
+		<tr>
+			<th>Назва</th>
+			<th> Операція            </th>
+			<th>Запис операції</th>
+			<th>Працює як операція</th>
+			<th>Сенс</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Додавання, поєднане з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>+=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>+=</strong> b</code></td>
+			<td style="text-align: center;"><code>a <strong>=</strong> a <strong>+</strong> b</code></td>
+			<td>Збільшити значення змінної <code>a</code> на <code>b</code></td>
+		</tr>
+		<tr>
+			<td>Віднімання, поєднане з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>-=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>-=</strong> b</code></td>
+			<td style="text-align: center;"><code>a <strong>=</strong> a - b</code></td>
+			<td>Зменшити значення змінної <code>a</code> на <code>b</code></td>
+		</tr>
+		<tr>
+			<td>Множення, поєднане з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>*=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>*=</strong> b</code></td>
+			<td style="text-align: center;"><code>a = a * b</code></td>
+			<td>Збільшити значення змінної <code>a</code> у <code>b</code> разів</td>
+		</tr>
+		<tr>
+			<td>Ділення, поєднане з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>/=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>/=</strong> b</code></td>
+			<td style="text-align: center;"><code>a = a / b</code></td>
+			<td>Зменшити значення змінної <code>a</code> у <code>b</code> разів</td>
+		</tr>
+		<tr>
+			<td>Остача від ділення, поєднана з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>%=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>%=</strong> m</code></td>
+			<td style="text-align: center;"><code>a = a % m</code></td>
+			<td>Взяти  <code>a</code>  за модулем <code>m</code> </td>
+		</tr>
+		<tr>
+			<td>Побітове «І» (AND), поєднане з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>&amp;=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>&amp;=</strong> m</code></td>
+			<td style="text-align: center;"><code>a = a &amp; m</code></td>
+			<td>Накласти на число <code>a</code> маску  <code>m</code> </td>
+		</tr>
+		<tr>
+			<td>Побітове «АБО» (or), поєднане з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>|=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>|=</strong> m</code></td>
+			<td style="text-align: center;"><code>a = a | m</code></td>
+			<td>Накласти на число <code>a</code> <br>
+			or-маску  <code>m</code> </td>
+		</tr>
+		<tr>
+			<td>Побітове «розділяюче АБО» (xor), поєднане з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>^=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>^=</strong> m</code></td>
+			<td style="text-align: center;"><code>a = a ^ m</code></td>
+			<td>Накласти на число <code>a</code> <br>
+			xor-маску  <code>m</code> </td>
+		</tr>
+		<tr>
+			<td>Побітовий зсув вліво, поєднаний з присвоєнням</td>
+			<td style="text-align: center;"><strong><code>&lt;&lt;=</code></strong></td>
+			<td style="text-align: center;"><code>a <strong>&lt;&lt;=</strong> b</code></td>
+			<td style="text-align: center;"><code>a = a &lt;&lt; b</code></td>
+			<td>Зсунути число <code>a</code> на <code>b</code> біт вліво</td>
+		</tr>
+		<tr>
+			<td>Побітовий зсув вправо, поєднаний з присвоєнням</td>
+			<td style="text-align: center;"><code><strong>&gt;&gt;=</strong></code></td>
+			<td style="text-align: center;"><code>a <strong>&gt;&gt;=</strong> b</code></td>
+			<td style="text-align: center;"><code>a = a &gt;&gt; b</code></td>
+			<td>Зсунути число <code>a</code> на <code>b</code> біт вправо</td>
+		</tr>
+	</tbody>
+</table>
