@@ -1,0 +1,268 @@
+<p>Если в выражении встречаются много различных операторов, то встаёт вопрос, в какой последовательности они выполняются? Данная проблема характерна не только для программирования, но и для математики. Например, как вычисляется математическое выражение <span class="math-tex">\(1+2\cdot5\)</span>? Вначале 2 складывается с 2 и результат (3) домножается на 5? Или, наоборот, вначале 2 домножается на 5 и, затем, к числу 1 прибавляется результат умножения (10)? Из школы мы знаем, что в математике принят второй вариант - вначале выполняется умножение - и описывается данное правило при помощи так называемого <em>приоритета операций</em>. Например, умножение и деление выполняется до сложения и вычитания.</p>
+
+<p>Приведем таблицу приоритета всех операций языка C++ из <a href="https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%B2_C_%D0%B8_C%2B%2B" rel="noopener noreferrer nofollow">https://ru.wikipedia.org/wiki/Операторы_в_C_и_C++</a>. В языке Си операций чуть меньше, но порядок приоритетов их такой же как и в языке C++.</p>
+
+<table border="2">
+	<tbody>
+		<tr>
+			<th>Приоритет</th>
+			<th>Оператор</th>
+			<th>Описание</th>
+			<th>Ассоциативность</th>
+		</tr>
+		<tr>
+			<th>1</th>
+			<td><code>::</code></td>
+			<td>Раскрытие области видимости</td>
+			<td rowspan="1">Нет</td>
+		</tr>
+		<tr>
+			<th rowspan="11">2</th>
+			<td><code>++</code></td>
+			<td>Суффиксный (постфиксный) инкремент</td>
+			<td rowspan="11">Слева направо</td>
+		</tr>
+		<tr>
+			<td><code>--</code></td>
+			<td>Суффиксный (постфиксный) декремент</td>
+		</tr>
+		<tr>
+			<td><code>()</code></td>
+			<td>Вызов <a href="https://ru.wikipedia.org/wiki/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)" rel="noopener noreferrer nofollow" title="Функция (программирование)">функции</a></td>
+		</tr>
+		<tr>
+			<td><code>[]</code></td>
+			<td>Взятие элемента массива</td>
+		</tr>
+		<tr>
+			<td><code>.</code></td>
+			<td>Выбор элемента по ссылке</td>
+		</tr>
+		<tr>
+			<td><code>-&gt;</code></td>
+			<td>Выбор элемента по указателю</td>
+		</tr>
+		<tr>
+			<td><code>typeid()</code></td>
+			<td>Определение типа (только C++; см <a href="https://ru.wikipedia.org/wiki/Typeid" rel="noopener noreferrer nofollow" title="Typeid">typeid</a>)</td>
+		</tr>
+		<tr>
+			<td><code>const_cast</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0" rel="noopener noreferrer nofollow" title="Приведение типа">Приведение типа</a> (только C++) (см <a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0#const_cast" rel="noopener noreferrer nofollow" title="Приведение типа">const cast</a>)</td>
+		</tr>
+		<tr>
+			<td><code>dynamic_cast</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0" rel="noopener noreferrer nofollow" title="Приведение типа">Приведение типа</a> (только C++) (см <a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0#dynamic_cast" rel="noopener noreferrer nofollow" title="Приведение типа">dynamic cast</a>)</td>
+		</tr>
+		<tr>
+			<td><code>reinterpret_cast</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%BB%D0%B0%D0%BC%D0%B1%D1%83%D1%80_%D1%82%D0%B8%D0%BF%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8" rel="noopener noreferrer nofollow" title="Каламбур типизации">Каламбур типизации</a> (только C++) (см <a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0#reinterpret_cast" rel="noopener noreferrer nofollow" title="Приведение типа">reinterpret_cast</a>)</td>
+		</tr>
+		<tr>
+			<td><code>static_cast</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0" rel="noopener noreferrer nofollow" title="Приведение типа">Приведение типа</a> (только C++) (см <a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0#static_cast" rel="noopener noreferrer nofollow" title="Приведение типа">static cast</a>)</td>
+		</tr>
+		<tr>
+			<th rowspan="12">3</th>
+			<td><code>++</code></td>
+			<td>Префиксный <a href="https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D0%BA%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%82" rel="noopener noreferrer nofollow" title="Инкремент">инкремент</a></td>
+			<td rowspan="12">Справа налево</td>
+		</tr>
+		<tr>
+			<td><code>--</code></td>
+			<td>Префиксный декремент</td>
+		</tr>
+		<tr>
+			<td><code>+</code></td>
+			<td>Унарный плюс</td>
+		</tr>
+		<tr>
+			<td><code>-</code></td>
+			<td>Унарный минус</td>
+		</tr>
+		<tr>
+			<td><code>!</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9E%D1%82%D1%80%D0%B8%D1%86%D0%B0%D0%BD%D0%B8%D0%B5" rel="noopener noreferrer nofollow" title="Отрицание">Логическое НЕ</a></td>
+		</tr>
+		<tr>
+			<td><code>~</code></td>
+			<td>Побитовое НЕ</td>
+		</tr>
+		<tr>
+			<td><code>(<em>type</em>)</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%B8%D0%BF%D0%B0" rel="noopener noreferrer nofollow" title="Приведение типа">Приведение типа</a> в стиле Си</td>
+		</tr>
+		<tr>
+			<td><code>*</code></td>
+			<td>Разыменование <a href="https://ru.wikipedia.org/wiki/%D0%A3%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)" rel="noopener noreferrer nofollow" title="Указатель (программирование)">указателя</a></td>
+		</tr>
+		<tr>
+			<td><code>&amp;</code></td>
+			<td>Взятие <a href="https://ru.wikipedia.org/wiki/%D0%A3%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)" rel="noopener noreferrer nofollow" title="Указатель (программирование)">адреса</a> объекта</td>
+		</tr>
+		<tr>
+			<td><code>sizeof</code></td>
+			<td><a href="https://ru.wikipedia.org/w/index.php?title=Sizeof&amp;action=edit&amp;redlink=1" rel="noopener noreferrer nofollow" title="Sizeof (страница отсутствует)">Sizeof</a> (определение размера в байтах)</td>
+		</tr>
+		<tr>
+			<td><code>new</code>, <code>new[]</code></td>
+			<td>Выделение динамической памяти (только C++)</td>
+		</tr>
+		<tr>
+			<td><code>delete</code>, <code>delete[]</code></td>
+			<td>Освобождение динамической памяти (только C++)</td>
+		</tr>
+		<tr>
+			<th rowspan="2">4</th>
+			<td><code>.*</code></td>
+			<td>Указатель на член (только C++)</td>
+			<td rowspan="20">Слева направо</td>
+		</tr>
+		<tr>
+			<td><code>-&gt;*</code></td>
+			<td>Указатель на член (только C++)</td>
+		</tr>
+		<tr>
+			<th rowspan="3">5</th>
+			<td><code>*</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%A3%D0%BC%D0%BD%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5" rel="noopener noreferrer nofollow" title="Умножение">Умножение</a></td>
+		</tr>
+		<tr>
+			<td><code>/</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%94%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_(%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0)" rel="noopener noreferrer nofollow" title="Деление (математика)">Деление</a></td>
+		</tr>
+		<tr>
+			<td><code>%</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%94%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81_%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%BE%D0%BC" rel="noopener noreferrer nofollow" title="Деление с остатком">Получение остатка от деления</a></td>
+		</tr>
+		<tr>
+			<th rowspan="2">6</th>
+			<td><code>+</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5" rel="noopener noreferrer nofollow" title="Сложение">Сложение</a></td>
+		</tr>
+		<tr>
+			<td><code>-</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%92%D1%8B%D1%87%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D0%B5" rel="noopener noreferrer nofollow" title="Вычитание">Вычитание</a></td>
+		</tr>
+		<tr>
+			<th rowspan="2">7</th>
+			<td><code>&lt;&lt;</code></td>
+			<td>Побитовый сдвиг влево</td>
+		</tr>
+		<tr>
+			<td><code>&gt;&gt;</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%91%D0%B8%D1%82%D0%BE%D0%B2%D1%8B%D0%B9_%D1%81%D0%B4%D0%B2%D0%B8%D0%B3" rel="noopener noreferrer nofollow" title="Битовый сдвиг">Побитовый сдвиг</a> вправо</td>
+		</tr>
+		<tr>
+			<th rowspan="4">8</th>
+			<td><code>&lt;</code></td>
+			<td>Меньше</td>
+		</tr>
+		<tr>
+			<td><code>&lt;=</code></td>
+			<td>Меньше или равно</td>
+		</tr>
+		<tr>
+			<td><code>&gt;</code></td>
+			<td>Больше</td>
+		</tr>
+		<tr>
+			<td><code>&gt;=</code></td>
+			<td>Больше или равно</td>
+		</tr>
+		<tr>
+			<th rowspan="2">9</th>
+			<td><code>==</code></td>
+			<td>Равенство</td>
+		</tr>
+		<tr>
+			<td><code>!=</code></td>
+			<td>Неравенство</td>
+		</tr>
+		<tr>
+			<th>10</th>
+			<td><code>&amp;</code></td>
+			<td>Побитовое И (and)</td>
+		</tr>
+		<tr>
+			<th>11</th>
+			<td><code>^</code></td>
+			<td>Побитовое исключающее ИЛИ (xor)</td>
+		</tr>
+		<tr>
+			<th>12</th>
+			<td><code>|</code></td>
+			<td>Побитовое ИЛИ (or)</td>
+		</tr>
+		<tr>
+			<th>13</th>
+			<td><code>&amp;&amp;</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BD%D1%8A%D1%8E%D0%BD%D0%BA%D1%86%D0%B8%D1%8F" rel="noopener noreferrer nofollow" title="Конъюнкция">Логическое И</a></td>
+		</tr>
+		<tr>
+			<th>14</th>
+			<td><code>||</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%94%D0%B8%D0%B7%D1%8A%D1%8E%D0%BD%D0%BA%D1%86%D0%B8%D1%8F" rel="noopener noreferrer nofollow" title="Дизъюнкция">Логическое ИЛИ</a></td>
+		</tr>
+		<tr>
+			<th rowspan="13">15</th>
+			<td><code>?:</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%80%D0%BD%D0%B0%D1%80%D0%BD%D0%B0%D1%8F_%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0%D1%8F_%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F" rel="noopener noreferrer nofollow" title="Тернарная условная операция">Тернарная условная операция</a></td>
+			<td rowspan="13">Справа налево</td>
+		</tr>
+		<tr>
+			<td><code>=</code></td>
+			<td><a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D1%81%D0%B2%D0%B0%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5" rel="noopener noreferrer nofollow" title="Присваивание">Присваивание</a></td>
+		</tr>
+		<tr>
+			<td><code>+=</code></td>
+			<td>Сложение, совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>-=</code></td>
+			<td>Вычитание, совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>*=</code></td>
+			<td>Умножение, совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>/=</code></td>
+			<td>Деление, совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>%=</code></td>
+			<td>Вычисление остатка от деления, совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>&lt;&lt;=</code></td>
+			<td>Побитовый сдвиг влево, совмещённый с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>&gt;&gt;=</code></td>
+			<td>Побитовый сдвиг вправо, совмещённый с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>&amp;=</code></td>
+			<td>Побитовое «И», совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>|=</code></td>
+			<td>Побитовое «ИЛИ», совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>^=</code></td>
+			<td>Побитовое «исключающее ИЛИ» (xor), совмещённое с присваиванием</td>
+		</tr>
+		<tr>
+			<td><code>throw</code></td>
+			<td>Операция создания <a href="https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D0%B8%D1%81%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B9" rel="noopener noreferrer nofollow" title="Обработка исключений">исключения</a> (только C++)</td>
+		</tr>
+		<tr>
+			<th>16</th>
+			<td><code>,</code></td>
+			<td>Операция «запятая»</td>
+			<td>Слева направо</td>
+		</tr>
+	</tbody>
+</table>

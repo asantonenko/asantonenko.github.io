@@ -1,0 +1,166 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+ <script type="text/javascript" async
+   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+ </script>
+
+<p>В языках программирование выражение строится из некоторых базовых блоков - <em>операндов,</em> при помощи некоторых конструкций - <em>операций</em> и <em>вызовов функций</em>. </p>
+
+<p>Таким образом, следующие базовые (атомарные) конструкции являются выражениями:</p>
+
+<ol>
+	<li>переменные (или точнее - имена переменных);</li>
+	<li>константы - как именованные, так и литералы;</li>
+	<li>в некоторых редких случаях, имена типов и функций.</li>
+</ol>
+
+<p>Примерами более сложных выражений является:</p>
+
+<ol>
+	<li>применение операций (унарных, бинарных или тернарной) к более простым выражениям;</li>
+	<li>некоторое выражение, записанное в скобках;</li>
+	<li>результаты вызовов функций, а также применения методов. </li>
+</ol>
+
+<p> <strong>Примеры:</strong></p>
+
+<p>Пусть объявлены следующие переменные:</p>
+
+<pre><code class="language-cpp">int x, y;
+double z;
+char c;
+bool flag;
+string str;
+</code></pre>
+
+<p>Тогда простейшими выражениями будут (записаны по одному в строку): </p>
+
+<pre><code>x
+y
+z
+c
+str
+10
+1.5
+"Привет!"</code></pre>
+
+<p> Первые пять выражений - это имена переменных, а последние три - литералы (константы).</p>
+
+<p>Из данных и других простейших выражений можно получать более сложные выражения при помощи операций, например:</p>
+
+<pre><code class="language-cpp">x++
+--y
+-x
+2 + 2
+1.5 * 3
+x + 5
+str + "!"
+z = 1.5
+cout &lt;&lt; "Привет!"
+cin &gt;&gt; y
+flag ? x : 0</code></pre>
+
+<p>В первых трех примерах используются по одной унарной операции, в семи следующих - по одной бинарной и в последнем примере - тернарная операция. Заметим, что в качестве операндов используются как переменные простых типов (<code>x</code>, <code>y</code>, <code>z</code>, <code>flag</code>), так и объекты (<code>str</code>, <code>cin</code>, <code>cout</code>) - переменные более сложных типов, а также литералы (<code>2</code>, <code>1.5</code>, <code>3</code>, <code>5</code>, <code>"!"</code>, <code>"Привет!"</code>, <code>0</code>).</p>
+
+<p>Заметим, что каждая операция возвращает некоторое значение, поэтому каждое из выражений выше имеет некоторое значение. Напишем значения выражений для всех выражений:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 700px;">
+	<caption>Значение выражений</caption>
+	<thead>
+		<tr>
+			<th>Выражение</th>
+			<th>Значение</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><code>x++</code></td>
+			<td style="text-align: center;">исходное (неувеличенное) значение переменной <code>x</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>--y</code></td>
+			<td style="text-align: center;">измененное (уменьшенное на 1) значение переменной <code>y</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>-x</code></td>
+			<td style="text-align: center;">число, противоположное значению переменной <code>x</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>2 + 2</code></td>
+			<td style="text-align: center;"><code>4</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>1.5 * 3</code></td>
+			<td style="text-align: center;"><code>4.5</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>x + 5</code></td>
+			<td style="text-align: center;"><span style="color: #000000;">значение, на 5 большее, чем значение переменной <code>x</code></span></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>str + "!"</code></td>
+			<td style="text-align: center;"><span style="color: #000000;">значение строки </span><code>str</code><span style="color: #000000;"> с добавленным знаком </span><code>"!"</code><span style="color: #000000;"> в конце</span></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>z = 1.5</code></td>
+			<td style="text-align: center;">значение переменной <code>z</code>, равное <code>1.5</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>cout &lt;&lt; "Привет!"</code></td>
+			<td style="text-align: center;">поток вывода <code>cout</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>cin &gt;&gt; y</code></td>
+			<td style="text-align: center;">поток ввода <code>cin</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>flag ? x : 0</code></td>
+			<td style="text-align: center;">если <code>flag</code> истинна, то <code>x</code>, иначе <code>0</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Некоторые из данных выражений имеют побочное действие - перечислим данные побочные эффекты:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 700px;">
+	<caption>Побочные эффекты выражений</caption>
+	<thead>
+		<tr>
+			<th>Выражение</th>
+			<th>Побочный эффект</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><code>x++</code></td>
+			<td style="text-align: center;">увеличение значения переменной <code>x</code> на 1</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>--y</code></td>
+			<td style="text-align: center;">уменьшение значения переменной <code>y</code> на 1</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>z = 1.5</code></td>
+			<td style="text-align: center;">присвоение переменной <code>z</code> значения 1.5</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>cout &lt;&lt; "Привет!"</code></td>
+			<td style="text-align: center;">Вывод строки <code>"Привет!"</code> в стандартный поток вывода</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>cin &gt;&gt; y</code></td>
+			<td style="text-align: center;">Ввод значения переменной <code>y</code> со стандартного потока ввода</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Перечисленные пять выражений, которые имеют побочные эффекты можно превратить в операторы, поставив точку с запятой в конце выражения. Мы получим следующие операторы-выражения:</p>
+
+<pre><code class="language-cpp">x++;
+--y;
+z = 1.5;
+cout &lt;&lt; "Привет!";
+cin &gt;&gt; y;</code></pre>
+
+<p>Сделав это, мы игнорируем значения данных выражений, оставляя только их побочные эффекты (указанные в таблице выше). Конечно же и другие выражения (не имеющие побочных эффектов) тоже можно превратить в операторы-выражения, но это не имеет особого смысла, так как никаких действий осуществляться не будет.</p>

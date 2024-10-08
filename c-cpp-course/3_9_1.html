@@ -1,0 +1,89 @@
+<p>Во всех версиях языков C/C++ также есть следующие операции:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 975px;">
+	<thead>
+		<tr>
+			<th>Синтаксис операции</th>
+			<th>Название операции</th>
+			<th>Пример применения операции</th>
+			<th>Примечание</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><code>f<strong>(</strong>a1, a2<strong>)</strong></code></td>
+			<td>Функтор<br>
+			(вызов функции)</td>
+			<td style="text-align: center;"><span style="color: #000000;"><code>pow(x,2)</code><br>
+			<code>sin(x)</code></span><br>
+			<code>printf("x=%d\n",x)<br>
+			rand()</code></td>
+			<td>вначале имя функции и в скобках её параметры через запятую,<br>
+			скобки нужны, даже если у функции нет параметров,<br>
+			вызывает функцию с заданными параметрами</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>a<strong>,</strong> b</code></td>
+			<td>Операция «запятая»</td>
+			<td style="text-align: center;"><code>x = 5, y = 7</code></td>
+			<td>вычисляет выражение <code>a</code>, потом выражение  <code>b</code>,<br>
+			результат - значение выражения <code>b</code></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>a <strong>?</strong> b <strong>:</strong> c</code></td>
+			<td>Тернарная условная операция</td>
+			<td style="text-align: center;"><code>(x&gt;0)?x:-x</code></td>
+			<td>возвращает значение <code>b</code>, если <code>a</code> истинно, иначе значение <code>c</code><br>
+			подробности см. в уроке "Операторы ветвления"</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code><strong>sizeof</strong>(a)<br>
+			<strong>sizeof</strong>(<em>type</em>)</code></td>
+			<td>Определение размера</td>
+			<td>
+			<p style="text-align: center;"><code><strong>sizeof</strong>(x)<br>
+			<strong>sizeof</strong>(<strong>int</strong>)</code></p>
+			</td>
+			<td>определение размера в байтах переменной <code>a</code> или типа <em><code>type</code> </em></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><code>(<em>type</em>) a</code></td>
+			<td>Приведение типа</td>
+			<td style="text-align: center;"><code>(<strong>double</strong>) x</code></td>
+			<td>приводит значение переменной <code>a</code> к типу <em><code>type</code></em></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Обратите внимание на некоторую тонкость: пусть есть некоторая функция <code>f</code> и задано выражение: <code>f(x,y)</code>. Как его трактовать? Это функция с двумя параметрами или это функция с одним параметром <code>x,y</code> - полученным как результат операции «запятая»? В таких случаях всегда трактуется однозначно - запятая в скобках после имени функции всегда обозначает разделитель параметров, а не операцию «запятая». Т.е. <code>f(x,y)</code> - это вызов функции с двумя параметрами.</p>
+
+<p>Операция «запятая» используется обычно тогда, когда по синтаксису необходимо использовать одно выражение, а необходимо записать два и более выражений. </p>
+
+<p><strong>Пример</strong>: В цикле</p>
+
+<pre><code>for (i = 0, j = n - 1; i &lt; j; i++, j--)
+{
+    ...
+}</code></pre>
+
+<p>используются сразу две управляющие переменные. До первой точки с запятой в круглых скобках расположено одно выражение - инициализация цикла, но мы по сути вписали применение двух операций присваивания, условие продолжения - пока <code>i &lt; j</code>, а в итерации - выражении после второй точки с запятой - описывается изменения сразу двух переменных - увеличении переменной <code>i</code> и уменьшения переменной <code>j</code> - нам опять понадобилась операция «запятая», чтобы записать два выражения в одном.  Таким образом, в цикле переменная <code>i</code> будет увеличиваться, а переменная <code>j</code> будет уменьшаться, пока они не встретятся в середине. Подробнее о циклах, см. урок "Операторы цикла".</p>
+
+<p>Операцией «запятая» не нужно злоупотреблять. Если необходимо несколько действий внутри оператора <strong><code>if</code></strong>, <strong><code>while</code></strong>, <strong><code>do</code> <code>while</code> </strong>или <strong><code>for</code> </strong>используйте фигурные скобки, а не операцию «запятая». </p>
+
+<p>Т.е. вместо </p>
+
+<pre><code>if (b &lt; 0) a=-a, b=-b;</code></pre>
+
+<p>пишите </p>
+
+<pre><code>if (b &lt; 0) {a=-a; b=-b;}</code></pre>
+
+<p>или еще лучше </p>
+
+<pre><code>if (b &lt; 0) 
+{
+   a = -a; 
+   b = -b;
+}</code></pre>
+
+<p>Подробнее о том, зачем здесь нужны фигурные скобки, см. шаг "Составной оператор" урока "<a href="https://stepik.org/lesson/773545/" rel="noopener noreferrer nofollow">Структурное программирование</a>", а также урок "<a href="https://stepik.org/lesson/773546/" rel="noopener noreferrer nofollow">Операторы ветвления</a>".</p>
