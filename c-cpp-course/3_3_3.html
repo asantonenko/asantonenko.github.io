@@ -1,0 +1,43 @@
+<div class="question" id="question1">
+
+<p>Як записати цей логічний вираз на С++:<br />
+<br />
+Число <code>n</code> ділиться на <code>5</code> без остачі?</p>
+
+        <label><input type="radio" name="q1" value="0"> n / 5</label><br>
+        <label><input type="radio" name="q1" value="0"> n % 5 </label><br>
+        <label><input type="radio" name="q1" value="0"> n / 5 == 0 </label><br>
+        <label><input type="radio" name="q1" value="1"> n % 5 == 0 </label><br>
+        <label><input type="radio" name="q1" value="0"> n / 5 = 0 </label><br>
+        <label><input type="radio" name="q1" value="0"> n % 5 = 0 </label><br>
+        <label><input type="radio" name="q1" value="0"> n % 0 == 5 </label><br>
+        <label><input type="radio" name="q1" value="0"> n % 0 = 5 </label><br>
+        <label><input type="radio" name="q1" value="0"> n % 5 == 1 </label><br>
+        <label><input type="radio" name="q1" value="0"> n % 5 != 0 </label><br>
+    </div>
+
+    <button onclick="checkAnswers()">Перевірити відповіді</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function checkAnswers() {
+            const correctAnswers = ['1'];
+            const questionNumber = 10;
+            const checkboxes = document.querySelectorAll('input[name="q1"]:checked');
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (correctAnswers.includes(checkbox.value)) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            });
+
+            const result = document.getElementById('result');
+            result.textContent = `Ви вибрали ${correctCount} правильних варіантів із ${correctAnswers.length} можливих і ${incorrectCount} неправильних варіантів із ${questionNumber - correctAnswers.length} можливих.`;
+        }
+    </script>
+

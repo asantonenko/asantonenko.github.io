@@ -1,0 +1,45 @@
+<div class="question" id="question1">
+
+<p>Як записати цей логічний вираз на С++ (виберіть<em> усі </em>правильні варіанти):<br>
+Число n парне?</p>
+
+<p>Як Ви вважаєте який з варіантів оптимальний.</p>
+
+        <label><input type="checkbox" name="q1" value="0"> n</label><br>
+        <label><input type="checkbox" name="q1" value="0"> 2 </label><br>
+        <label><input type="checkbox" name="q1" value="0"> n % 2 </label><br>
+        <label><input type="checkbox" name="q1" value="0"> n / 2 </label><br>
+        <label><input type="checkbox" name="q1" value="0"> n / 2 == 0 </label><br>
+        <label><input type="checkbox" name="q1" value="1"> n % 2 == 0 </label><br>
+        <label><input type="checkbox" name="q1" value="0"> n % 2 = 0 </label><br>
+        <label><input type="checkbox" name="q1" value="1"> 0 == n % 2 </label><br>
+        <label><input type="checkbox" name="q1" value="0"> 0 = n % 2 </label><br>
+        <label><input type="checkbox" name="q1" value="1"> n / 2 * 2 == n </label><br>
+        <label><input type="checkbox" name="q1" value="0"> n / 2 * 2 == 0 </label><br>
+    </div>
+
+    <button onclick="checkAnswers()">Перевірити відповіді</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function checkAnswers() {
+            const correctAnswers = ['1', '1', '1'];
+            const questionNumber = 11;
+            const checkboxes = document.querySelectorAll('input[name="q1"]:checked');
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (correctAnswers.includes(checkbox.value)) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            });
+
+            const result = document.getElementById('result');
+            result.textContent = `Ви вибрали ${correctCount} правильних варіантів із ${correctAnswers.length} можливих і ${incorrectCount} неправильних варіантів із ${questionNumber - correctAnswers.length} можливих.`;
+        }
+    </script>
+

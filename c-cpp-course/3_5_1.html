@@ -1,0 +1,63 @@
+<p>Крім логічних операцій І (<code>&amp;&amp;</code>), АБО (<code>||</code>) та НІ (<code>!</code>) у мовах С/С++ також існують їх порозрядні або побітові версії, а саме:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width:700px">
+	<thead>
+		<tr>
+			<th>Знак</th>
+			<th>Операція</th>
+			<th>Приклад виразу</th>
+			<th>Результат</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align:center"><code>~</code></td>
+			<td>Побітова інверсія,&nbsp; НІ&nbsp; (NOT)</td>
+			<td><strong>~3</strong></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="text-align:center"><code>&amp;</code></td>
+			<td>Побітове І&nbsp; (AND)</td>
+			<td><strong>10&nbsp;</strong>&amp;<strong>&nbsp;7</strong></td>
+			<td><strong>2</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align:center"><code>|</code></td>
+			<td>Побітове АБО (OR)&nbsp; &nbsp;&nbsp;</td>
+			<td><strong>3 | 9</strong></td>
+			<td><strong>11</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align:center"><code>^</code></td>
+			<td>Побітове виключне АБО (XOR)&nbsp; &nbsp;&nbsp;</td>
+			<td><strong>3 ^ 9</strong></td>
+			<td><strong>10</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align:center"><code>&lt;&lt;</code></td>
+			<td>Побитовий зсув вліво&nbsp; &nbsp;&nbsp;</td>
+			<td><strong>3 &lt;&lt; 2</strong></td>
+			<td><strong>12</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align:center"><code>&gt;&gt;</code></td>
+			<td>Побитовий зсув вправо&nbsp;</td>
+			<td><strong>10 &gt;&gt; 3</strong></td>
+			<td><strong>1 </strong></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>У всіх даних операціях числа подаються у двійковій системі у вигляді послідовності біт. Потім логічні операції застосовуються незалежно до кожних відповідних біт числа. Наприклад, для простоти припустимо, що у типі int буде 16 біт (як у старих версіях мов C/C++) і докладно запишемо результат застосування операції&nbsp; Побітове І (<code>&amp;</code>):</p>
+
+<pre>
+<code class="language-no-highlight"> 0000 0000 0000 1010  ( = 10 у десятковій )
+&amp;
+ 0000 0000 0000 0111  ( =  7 у десятковій )
+ -------------------
+ 0000 0000 0000 0010  ( =  2 у десятковій )</code></pre>
+
+<p>Ми представили в двійковому вигляді число 10 - воно буде виглядати як 1010 і купа нулів попереду, число 7 буде представлено в двійковому вигляді як 111, в результаті залишаться одиниці тільки на тих позиціях, де вони були в обох числах.</p>
+
+<p>...(цей урок буде пізніше дописано).&nbsp;</p>
