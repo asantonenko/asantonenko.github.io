@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+<h2>Нульовий вказівник</h2>
+
+<p>Окрім вказівників, які вказують на корисні дані, існує поняття <em>нульового вказівника</em> (<em>null pointer</em>). Такий вказівник нікуди не вказує. Іншими словами, він сигналізує про відсутність корисних даних. Для цього зарезервовано спеціальну адресу з числовим значенням нуль. Гарантується, що за цією адресою не може бути корисних даних.</p>
+
+<p>Розіменування нульового вказівника є операцією з <strong>невизначеною поведінкою</strong>. Якщо програма аварійно завершується з помилкою (що найімовірніше), це ще найкращий сценарій. У загальному випадку це може призвести до непередбачуваних наслідків.</p>
+
+<p>У мові Сі нульовий вказівник позначається макросом <code>NULL</code>, значення якого дорівнює <code>(<strong>void</strong>*) 0</code>. У Сі це коректно, оскільки нетипізований вказівник можна неявно перетворити на будь-який тип:</p>
+
+<pre>
+<code class="language-cpp">int * ptr = NULL;</code></pre>
+
+<p>У мові C++ такий підхід неможливий &mdash; неявне перетворення <code>void*</code> на типізований вказівник заборонене. Тому автори C++ вирішили позначати нульовий вказівник цілим числом <code>0</code>. Макрос <code>NULL</code> у C++ також має значення <code>0</code>. Однак використання числа для позначення вказівника може призводити до плутанини, особливо при роботі з шаблонними функціями.</p>
+
+<p>У C++11 цю проблему вирішено введенням ключового слова <code>nullptr</code>, яке однозначно позначає нульовий вказівник:</p>
+
+<pre>
+<code>int * pi = nullptr;
+double * pd = nullptr;
+char * pc = nullptr;
+string * ps = nullptr;</code></pre>
+
+<p>Література:</p>
+
+<ol>
+	<li>NULL (C) &ndash; Вікіпедія <a href="https://uk.wikipedia.org/wiki/NULL_(C)" rel="noopener noreferrer nofollow">https://uk.wikipedia.org/wiki/NULL_(C)</a></li>
+	<li>Нульові вказівники в С++ / Уроки по С++ / aCode <a href="https://acode.com.ua/urok-85-nulovi-vkazivnyky" rel="noopener noreferrer nofollow">https://acode.com.ua/urok-85-nulovi-vkazivnyky</a></li>
+</ol>

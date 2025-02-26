@@ -1,0 +1,40 @@
+<h2>Константні вказівники та вказівники на константні дані</h2>
+
+<p>Використання модифікатора <strong><code>const</code></strong> з вказівниками має особливість. Нагадаємо, що цей модифікатор вказує, що значення змінної не може бути змінене після ініціалізації.</p>
+
+<p>Для вказівників існує два типи константності:</p>
+
+<ol>
+	<li>Сам <strong>вказівник</strong> може бути константним (не можна змінити адресу, на яку він вказує).</li>
+	<li>Вказівник може вказувати на <strong>константні дані</strong> (забороняє змінювати значення через цей вказівник).</li>
+</ol>
+
+<p>Приклад з двома модифікаторами <code>const</code>:</p>
+
+<pre>
+<code class="language-cpp">int x = 5, y = 7;
+const int * const ptr = &amp;x;</code></pre>
+
+<p><strong>Як це працює:</strong></p>
+
+<ul>
+	<li><code>const</code> <em>ліворуч</em> від зірочки: забороняє зміну даних (<code>(*ptr)++</code> або <code>*ptr = 2</code>);</li>
+	<li><code>const</code> <em>праворуч</em> від зірочки: забороняє зміну адреси вказівника (<code>ptr = &amp;y</code>).</li>
+</ul>
+
+<h3>Типи вказівників:</h3>
+
+<ul>
+	<li><code>int*</code> &mdash; звичайний вказівник (можна змінювати дані та адресу);</li>
+	<li><code>const int*</code> &mdash; вказівник на константу (дані не змінюються, адресу &mdash; можна);</li>
+	<li><code>int* const</code> &mdash; константний вказівник (адресу не змінити, дані &mdash; можна);</li>
+	<li><code>const int* const</code> &mdash; константний вказівник на константу (нічого не можна).</li>
+</ul>
+
+<p><strong>Важливо:</strong> Запис <code>int const*</code> еквівалентний <code>const int*</code>. Позиція <code>const</code> ліворуч від зірочки визначає його дію.</p>
+
+<h3>Література:</h3>
+
+<ol>
+	<li>David Anderson, &quot;Clockwise/Spiral Rule&quot; -&nbsp;&quot;Правило спіралі&quot; для розбору складних оголошень&nbsp;-&nbsp;<a href="http://c-faq.com/decl/spiral.anderson.html" rel="noopener noreferrer nofollow">http://c-faq.com/decl/spiral.anderson.html</a></li>
+</ol>

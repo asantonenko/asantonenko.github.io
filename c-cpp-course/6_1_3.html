@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+<h2>Типізовані та нетипізовані вказівники</h2>
+
+<p>До цього ми розглядали типізовані вказівники. Типізований вказівник &ndash; це вказівник на значення певного типу, тобто він може містити адресу елемента саме цього типу, а не іншого. Єдиним винятком у C++ є те, що вказівник на об&rsquo;єкт базового класу може містити адресу об&rsquo;єкта похідного класу (нащадка). Це необхідно для роботи динамічного поліморфізму &ndash; детальніше це буде розглянуто далі в курсі, а поглиблено &ndash; у курсі <a href="https://stepik.org/course/91135" rel="noopener noreferrer nofollow">Програмування (об&rsquo;єктно-орієнтовані мови та технології</a>.</p>
+
+<p>Отже, якщо ви оголосили вказівник на елемент типу <strong><code>int</code></strong>, у нього не можна помістити адресу елемента типу <code><strong>double</strong></code> і навпаки.</p>
+
+<p>Однак існує виняток &ndash; нетипізований вказівник <code><strong>void</strong>*</code>. Буквально це &laquo;вказівник на порожнечу&raquo;, але на практиці &ndash; це вказівник на елемент будь-якого типу. Таким вказівникам можна присвоїти значення будь-якого іншого вказівника.</p>
+
+<p>Наприклад, якщо ми маємо дві змінні та два вказівники:</p>
+
+<pre>
+<code class="language-cpp">int i = 3;
+double x = 1.44;
+int* pi = &amp;i;
+double* pd = &amp;x;</code></pre>
+
+<p>та нетипізований вказівник p, можна виконати такі присвоєння:</p>
+
+<pre>
+<code class="language-cpp">void* p; //вказівник на будь-які дані
+p = pi; //p вказує туди ж, що й pi
+p = pd; //p вказує туди ж, що й pd
+p = &amp;i;  //p зберігає адресу змінної i
+p = &amp;x;  //p зберігає адресу змінної x</code></pre>
+
+<p>і навіть такі:</p>
+
+<pre>
+<code class="language-cpp">p = &amp;pi;  //p зберігає адресу змінної pi
+p = &amp;pd;  //p зберігає адресу змінної pd
+p = &amp;p;   //p зберігає адресу самого себе</code></pre>
+
+<p>Зауважте, що <code>p = pi;</code> і <code>p = &amp;pi;</code> &ndash; це зовсім різні операції. У першому випадку в <code>p</code> потрапляє адреса, яку містить <code>pi</code> (якщо врахувати ініціалізацію <code>pi</code>, це адреса <code>i</code>). У другому &ndash; адреса самого вказівника <code>pi</code>. Якби ми хотіли зберегти адресу <code>pi</code> у типізований вказівник, його тип був би <code>int**</code> (вказівник на вказівник на int). Наприклад:</p>
+
+<pre>
+<code class="language-cpp">int** ppi = &amp;pi;
+//*ppi – це сам вказівник pi
+//**ppi – значення, на яке вказує pi (тобто змінна i)
+cout &lt;&lt; "Ціла змінна дорівнює " &lt;&lt; **ppi &lt;&lt; endl; //результат: Ціла змінна дорівнює 3</code></pre>
+
+<p>Навіщо ж потрібні нетипізовані вказівники? У C++ (а особливо в Сі) їх використовують для низькорівневих операцій, коли не важливо, що саме зберігається за адресою. Прикладом є функція <a href="http://cplusplus.com/reference/cstdio/fwrite/" rel="noopener noreferrer nofollow">fwrite</a>, яка записує ділянку пам&rsquo;яті у файл. Її перший параметр &ndash; вказівник типу <code><strong>const void</strong>*</code> (адреса даних, які не змінюються). Детальніше про використання <code>const</code> з вказівниками &ndash; на наступному кроці.</p>
+
+<p>Інші приклади &ndash; функції копіювання пам&rsquo;яті з мови Сі:</p>
+
+<pre>
+<code class="language-cpp">void * memcpy ( void * destination, const void * source, size_t num );
+void * memmove ( void * destination, const void * source, size_t num );
+</code></pre>
+
+<p>Тут <code>source</code> &ndash; адреса початку джерела даних, <code>destination</code> &ndash; адреса призначення, <code>num</code> &ndash; кількість байтів для копіювання. Функція <code>memcpy</code> не дозволяє перетину ділянок пам&rsquo;яті, тоді як <code>memmove</code> &ndash; дозволяє.</p>
+
+<p>У мові Сі <code>void*</code> також використовується для реалізації динамічного поліморфізму (деталі &ndash; у відповідному розділі, <em>який поки що не написано</em>). У C++ для цього існують зручніші інструменти, ніж нетипізовані вказівники.</p>

@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<h2>Вказівники на об&rsquo;єкти</h2>
+
+<p>Припустимо, ми реалізували тип Person, який може зберігати дані про людину. Нехай ми оголосили та ініціалізували кілька змінних типу Person:</p>
+
+<pre>
+<code class="language-cpp">Person ivanov("Іванов Петро Петрович");
+Person petrov("Петров Іван Петрович");
+Person sidorov("Сидоров Василь Тимофійович");
+Person sidorova("Сидорова Марина Петрівна");</code></pre>
+
+<p>Тут використано об&rsquo;єктно-орієнтований синтаксис мови C++ (конструктори об&rsquo;єктів створюють об&rsquo;єкти з заданими параметрами), але в мові Сі була б схожа конструкція, але лише зі структурами. У цьому прикладі для людей вказано лише ПІБ, але припустимо, що ми додали інші характеристики (наприклад, вік, зріст або вагу). Не будемо зупинятися на тому, як саме задаються ці параметри &mdash; для нас зараз це несуттєво.</p>
+
+<p>Ось є певна людина, яка навчається в школі, грає, наприклад, у теніс, і ми хочемо зберегти інформацію про те, хто є її вчителем, тренером з тенісу, батьком та матір&rsquo;ю. Можна, звісно, написати так:</p>
+
+<pre>
+<code>Person teacher = ivanov;
+Person coach   = petrov;
+Person father  = sidorov;
+Person mother  = sidorova;</code></pre>
+
+<p>Але таким чином ми створимо копії об&rsquo;єктів, що є небажаним. Наприклад, якщо школяр виграє турнір з тенісу, і ми хочемо відзначити це для тренера (збільшивши кількість перемог його підопічних), ми могли б записати щось на кшталт:</p>
+
+<pre>
+<code class="language-cpp">coach.add_trophy();</code></pre>
+
+<p>Однак цей трофей додасться лише тренеру, який зберігається у змінній <code>coach</code>, але не в окремій змінній <code>petrov</code>.</p>
+
+<p>Більше того: якщо ми захочемо змінити тренера, доведеться копіювати всю структуру типу <code>Person</code>. Наприклад, якщо тренером стане батько <code>sidorov</code>, то після оператора:</p>
+
+<pre>
+<code class="language-cpp">coach = sidorov;</code></pre>
+
+<p>ми отримаємо три екземпляри однієї й тієї самої людини &mdash; Сидорова Василя Тимофійовича &mdash; у змінних <code>sidorov</code>, <code>coach</code>, <code>father</code>. Об&rsquo;єкти будуть незалежними, і зміна характеристик одного з них не вплине на інших &mdash; що суперечить реальності.</p>
+
+<p>Отже, пропонується таке рішення: зробити <code>teacher</code>, <code>coach</code>, <code>father</code>, <code>mother</code> вказівниками на <code>Person</code>, тобто типу <code>Person*</code>.</p>
+
+<pre>
+<code class="language-cpp">Person* teacher = &amp;ivanov;
+Person* coach   = &amp;petrov;
+Person* father  = &amp;sidorov;
+Person* mother  = &amp;sidorova;</code></pre>
+
+<p>Тоді не буде зайвого копіювання &mdash; кожна людина буде представлена одним об&rsquo;єктом та деякою кількістю вказівників на нього.</p>
+
+<p>Припустимо, ми хочемо додати трофей тренеру. Тепер код <code>coach.add_trophy();</code> буде некоректним, оскільки <code>coach</code> &mdash; це не об&rsquo;єкт, а вказівник на нього. Щоб отримати доступ до методу, потрібно розіменувати вказівник:</p>
+
+<pre>
+<code class="language-cpp">(*coach).add_trophy();</code></pre>
+
+<p>Дужки тут обов&rsquo;язкові, оскільки пріоритет оператора <code>.</code> вищий за операцію розіменування. Цей запис є громіздким, тому в C/C++ існує оператор <code>-&gt;</code>, який поєднує розіменування та доступ до поля/методу. Тому коректний запис буде таким:</p>
+
+<pre>
+<code class="language-cpp">coach-&gt;add_trophy();</code></pre>
+
+<p>Цей код змінить статистику об&rsquo;єкта <code>petrov</code>, на який вказує <code>coach</code>.</p>
+
+<p>Аналогічно, для вказівника на рядок типу <code>string</code> виклик методу <code>length()</code> виглядатиме так:</p>
+
+<pre>
+<code class="language-cpp">string* pstr;
+
+// Присвоюємо вказівнику pstr адресу об’єкта типу string
+
+cout &lt;&lt; "Довжина рядка: " &lt;&lt; pstr-&gt;length() &lt;&lt; endl;
+</code></pre>
+
+<p>Якщо ж ми хочемо змінити тренера, достатньо записати:</p>
+
+<pre>
+<code class="language-cpp">coach = &amp;sidorov;</code></pre>
+
+<p>або</p>
+
+<pre>
+<code class="language-cpp">coach = father;</code></pre>
+
+<p>Тепер тренером є батько. Присвоєння вказівника відбувається миттєво, без дублювання даних. Більше того, якщо виконати:</p>
+
+<pre>
+<code class="language-cpp">coach-&gt;add_trophy();</code></pre>
+
+<p>оновиться статистика саме об&rsquo;єкта <code>sidorov</code>.</p>
+
+<p>Отже, у серйозних програмах на C/C++ не обійтися без вказівників, зокрема на структури чи об&rsquo;єкти. Однак у C++ існують розумні вказівники, які використовувати зручніше та надійніше, ніж звичайні &laquo;сирі&raquo; вказівники з мови Сі.</p>
