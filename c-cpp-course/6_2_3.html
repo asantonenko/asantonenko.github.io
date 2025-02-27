@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<h2>Динамічне виділення та звільнення пам&#39;яті в C++</h2>
+
+<p>У C++ для роботи з динамічною пам&#39;яттю використовуються оператори <strong><code>new</code></strong> та <strong><code>delete</code></strong>. Основні причини їх використання замість C-функцій:</p>
+
+<ol>
+	<li><strong>Типізоване виділення</strong> - <code>new</code> автоматично повертає вказівник потрібного типу;</li>
+	<li><strong>Управління життєвим циклом об&#39;єктів</strong> - <code>new</code> викликає конструктор, <code>delete</code> - деструктор.</li>
+</ol>
+
+<h3>Синтаксис виділення пам&#39;яті:</h3>
+
+<pre>
+<code>// Для одиночного об'єкта
+int* pInt = new int;         // Неініціалізований int
+string* pStr = new string;   // Виклик конструктора за замовчуванням
+
+// З ініціалізацією
+double* pDbl = new double(3.14); 
+vector* pVec = new vector{1, 2, 3};
+
+// Для масивів
+int* arr = new int[10];          // Масив з 10 неініціалізованих int
+string* strArr = new string[5];  // Масив з 5 порожніх string</code></pre>
+
+<h3>Синтаксис звільнення пам&#39;яті:</h3>
+
+<pre>
+<code class="language-cpp">delete pInt;    // Звільнення одиночного об'єкта
+delete[] arr;   // Звільнення масиву
+</code></pre>
+
+<p><strong>Важливо!</strong></p>
+
+<ul>
+	<li>Ніколи не змішуйте <code>new</code>/<code>delete</code> з <code>malloc()</code>/<code>free()</code></li>
+	<li>Для масивів завжди використовуйте <code>delete[]</code></li>
+	<li>Перевіряйте на <code>nullptr</code> перед використанням.</li>
+</ul>
+
+<h3>Переваги перед C:</h3>
+
+<table>
+	<tbody>
+		<tr>
+			<th>C (malloc/free)</th>
+			<th>C++ (new/delete)</th>
+		</tr>
+		<tr>
+			<td>Не викликає конструктори/деструктори</td>
+			<td>Автоматичний виклик конструкторів та деструкторів</td>
+		</tr>
+		<tr>
+			<td>Потрібно явне приведення типів</td>
+			<td>Автоматична типізація</td>
+		</tr>
+		<tr>
+			<td>Ручний розрахунок розміру пам&#39;яті</td>
+			<td>Оператор <code>new</code> сам розраховує розмір</td>
+		</tr>
+	</tbody>
+</table>
+
+<h3>Сучасні альтернативи (C++11 і новіше):</h3>
+
+<pre>
+<code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt; // Для unique_ptr і shared_ptr
+
+int main() {
+    // Унікальний вказівник
+    std::unique_ptr&lt;int&gt; smartPtr = std::make_unique&lt;int&gt;(42);
+
+    // Спільний (розділюваний) вказівник
+    std::shared_ptr&lt;std::string&gt; sharedStr = std::make_shared&lt;std::string&gt;("Hello");
+
+    // Використання вказівників
+    std::cout &lt;&lt; "smartPtr: " &lt;&lt; *smartPtr &lt;&lt; std::endl;
+    std::cout &lt;&lt; "sharedStr: " &lt;&lt; *sharedStr &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<p>Використання &quot;розумних вказівників&quot; дозволяє уникнути витоків пам&#39;яті та інших проблем ручного керування.</p>
