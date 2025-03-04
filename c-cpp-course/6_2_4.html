@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+<h3>Типи розумних вказівників</h3>
+
+<table class="smart-pointers">
+  <tr>
+    <th>Тип</th>
+    <th>Власність</th>
+    <th>Використання</th>
+  </tr>
+  <tr>
+    <td><code>unique_ptr</code></td>
+    <td>Ексклюзивна</td>
+    <td>Єдиний власник ресурсу</td>
+  </tr>
+  <tr>
+    <td><code>shared_ptr</code></td>
+    <td>Спільна</td>
+    <td>Кілька власників через лічильник посилань</td>
+  </tr>
+  <tr>
+    <td><code>weak_ptr</code></td>
+    <td>Немає</td>
+    <td>Спостереження без впливу на лічильник</td>
+  </tr>
+</table>
+
+<h3>Різниця між unique_ptr та shared_ptr</h3>
+
+<table class="pointer-comparison">
+  <tr>
+    <th>Критерій</th>
+    <th>unique_ptr</th>
+    <th>shared_ptr</th>
+  </tr>
+  <tr>
+    <td>Власність</td>
+    <td>Єдиний власник</td>
+    <td>Спільна власність (multiple owners)</td>
+  </tr>
+  <tr>
+    <td>Швидкість</td>
+    <td>Швидший (немає накладних витрат)</td>
+    <td>Повільніший (лічильник посилань)</td>
+  </tr>
+  <tr>
+    <td>Копіювання</td>
+    <td>Неможливе</td>
+    <td>Дозволене (збільшує лічильник)</td>
+  </tr>
+</table>
+
+<h4>unique_ptr: Ексклюзивна власність</h4>
+<pre><code class="language-cpp">// Створення unique_ptr
+auto file = make_unique&lt;FileHandler&gt;("data.txt");
+
+// Переміщення власності
+auto newOwner = move(file); 
+
+// Спроба копіювання (помилка компіляції)
+// auto copy = file; // Error: use of deleted function</code></pre>
+
+<p><strong>Коли використовувати:</strong></p>
+<ul>
+  <li>Коли ресурс має чітко визначеного єдиного власника</li>
+  <li>Для виключного доступу до ресурсу (наприклад, файлові дескриптори)</li>
+  <li>Як повернене значення з фабричних методів</li>
+</ul>
+
+<h4>shared_ptr: Спільна власність</h4>
+<pre><code class="language-cpp">// Створення shared_ptr
+auto sensor = make_shared&lt;TemperatureSensor&gt;();
+
+// Копіювання - лічильник збільшується до 2
+auto backup = sensor; 
+
+{
+  vector&lt;shared_ptr&lt;TemperatureSensor&gt;&gt; devices;
+  devices.push_back(sensor); // Лічильник = 3
+} // Лічильник = 2 при виході з області видимості
+
+// Група об'єктів із спільним ресурсом
+struct DeviceGroup {
+  shared_ptr&lt;Config&gt; config; // Спільна конфігурація
+};</code></pre>
+
+<p><strong>Навіщо потрібен shared_ptr:</strong></p>
+<ul>
+  <li>Коли ресурс використовується кількома незалежними компонентами</li>
+  <li>Для реалізації кешів або пулів ресурсів</li>
+  <li>У випадках із складною або динамічною топологією об'єктів</li>
+</ul>
+
+<div class="analogy">
+  <p><strong>Аналогія:</strong></p>
+  <ul>
+    <li>🔑 <code>unique_ptr</code> - як єдиний ключ від кімнати</li>
+    <li>🔑🗝️ <code>shared_ptr</code> - як кілька дублікатів ключів</li>
+  </ul>
+</div>
+
+<h4>Порівняльний приклад</h4>
+<pre><code class="language-cpp">// Unique_ptr: передача власності
+unique_ptr&lt;Task&gt; createTask() {
+  return make_unique&lt;Task&gt;();
+}
+auto task = createTask(); // Власність передана
+
+// Shared_ptr: спільне використання
+class Processor {
+  shared_ptr&lt;Logger&gt; logger;
+public:
+  Processor(shared_ptr&lt;Logger&gt; log) : logger(log) {}
+};
+
+auto logger = make_shared&lt;FileLogger&gt;();
+Processor p1(logger), p2(logger); // Обидва використовують один логгер</code></pre>
+
+<div class="warning">
+  <p><strong>Важливо:</strong></p>
+  <ul>
+    <li>Уникайте циклічних залежностей з <code>shared_ptr</code></li>
+    <li>Вибір між <code>unique_ptr</code> та <code>shared_ptr</code> - це дизайнерське рішення</li>
+    <li>Віддавайте перевагу <code>unique_ptr</code>, якщо можливо</li>
+  </ul>
+</div>
+
+<h4>weak_ptr: призначення та використання</h4>
+
+<p><code>weak_ptr</code> вирішує головну проблему <code>shared_ptr</code> - циклічні залежності. Розглянемо приклад:</p>
+
+<pre><code class="language-cpp">class Node {
+public:
+    shared_ptr&lt;Node&gt; next;
+    shared_ptr&lt;Node&gt; prev; // Проблема: циклічні посилання!
+};
+
+shared_ptr&lt;Node&gt; node1 = make_shared&lt;Node&gt;();
+shared_ptr&lt;Node&gt; node2 = make_shared&lt;Node&gt;();
+
+node1->next = node2;
+node2->prev = node1; // Лічильники ніколи не стануть нулем!</code></pre>
+
+<p><strong>Рішення:</strong> Замінимо один з <code>shared_ptr</code> на <code>weak_ptr</code>:</p>
+
+<pre><code class="language-cpp">class FixedNode {
+public:
+    shared_ptr&lt;FixedNode&gt; next;
+    weak_ptr&lt;FixedNode&gt; prev; // Розриваємо цикл!
+};</code></pre>
+
+<h4>Основні операції з weak_ptr</h4>
+
+<pre><code class="language-cpp">shared_ptr&lt;int&gt; shared = make_shared&lt;int&gt;(42);
+
+// Створення weak_ptr з shared_ptr
+weak_ptr&lt;int&gt; weak = shared; 
+
+// Перевірка на валідність
+if (!weak.expired()) {
+    // Отримання shared_ptr з weak_ptr
+    shared_ptr&lt;int&gt; locked = weak.lock(); 
+    *locked = 100; // Безпечний доступ
+}</code></pre>
+
+<h4>Практичне застосування: система кешування</h4>
+
+<pre><code class="language-cpp">class Cache {
+    unordered_map&lt;int, weak_ptr&lt;LargeObject&gt;&gt; cache;
+    
+    shared_ptr&lt;LargeObject&gt; get(int id) {
+        if (auto it = cache.find(id); it != cache.end()) {
+            if (auto obj = it->second.lock()) {
+                return obj; // Об'єкт ще у пам'яті
+            }
+        }
+        // Завантаження з диска
+        auto obj = make_shared&lt;LargeObject&gt;(load_from_disk(id));
+        cache[id] = obj;
+        return obj;
+    }
+};</code></pre>
+
+<div class="warning">
+<p><strong>Важливі зауваження:</strong></p>
+<ul>
+  <li>Завжди перевіряйте <code>expired()</code> перед використанням</li>
+  <li>Не намагайтеся розіменовувати <code>weak_ptr</code> напряму</li>
+  <li>Використовуйте <code>lock()</code> для тимчасового отримання власності</li>
+</ul>
+</div>
+
+<h4>Переваги weak_ptr</h4>
+<ul>
+  <li>✅ Запобігає витокам пам'яті через циклічні залежності</li>
+  <li>✅ Дозволяє створювати некеровані посилання</li>
+  <li>✅ Не збільшує лічильник посилань <code>shared_ptr</code></li>
+</ul>
