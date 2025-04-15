@@ -1,0 +1,207 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<p>Передача вектора векторів у функцію не відрізняється від передачі просто вектора, або іншого C++-контейнера.</p>
+
+<p><strong>Приклад 1.</strong> Ввести розмір матриці з клавіатури та заповнити матрицю випадковими числами. Порахувати суму елементів кожного рядка та кожного стовпця матриці.</p>
+
+<pre><code class="language-cpp">#include &lt;iomanip&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;
+
+using namespace std;
+
+int rand_int(int a, int b) //rand in range [a,b]
+{
+    return a + rand()%(b-a+1); 
+}
+
+void matrix_fill(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int a, int b)
+{
+    for (int i = 0; i &lt; matrix.size(); i++)
+    {
+        for (int j = 0; j &lt; matrix[i].size(); j++)
+        {
+            matrix[i][j] = rand_int(a,b);
+        }
+    }
+}
+
+void matrix_fill2(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int a, int b)
+{
+    for(auto&amp; row : matrix)
+    {
+        for(auto&amp; num : row)
+        {
+            num = rand_int(a,b);
+        }
+    }
+}
+
+void matrix_print(const vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int col_width = 4)
+{
+    for (const auto&amp; row : matrix)
+    {
+        for(auto v : row)
+        {
+            cout &lt;&lt;setw(col_width) &lt;&lt; v &lt;&lt;  " ";
+        }
+        cout &lt;&lt; endl;
+    }
+}
+
+
+vector&lt;int&gt; matrix_rowsum(const vector&lt;vector&lt;int&gt;&gt;&amp; matrix)
+//для прямокутних і ламаних матриць
+{
+    vector&lt;int&gt; rowsum(matrix.size());
+    for (int i = 0; i &lt; matrix.size(); i++)
+    {
+        int sum = 0;
+        for (int j = 0; j &lt; matrix[i].size(); j++)
+        {
+            sum += matrix[i][j];
+        }
+        rowsum[i] = sum;
+    }
+    return rowsum;
+}
+
+vector&lt;int&gt; matrix_colsum(const vector&lt;vector&lt;int&gt;&gt;&amp; matrix)
+//тільки для прямокутних матриць
+{
+    vector&lt;int&gt; colsum(matrix[0].size());
+    for(int j = 0; j &lt; matrix[0].size(); j++)
+    {
+        int sum = 0;
+        for(int i = 0; i &lt; matrix.size(); i++)
+        {
+            sum += matrix[i][j];
+        }
+        colsum[j] = sum;
+    }
+    return colsum;
+}
+
+void vector_print(const vector&lt;int&gt;&amp; vec, int col_width = 4)
+{
+    for(auto v : vec)
+    {
+        cout &lt;&lt;setw(col_width) &lt;&lt; v &lt;&lt;  " ";
+    }
+    cout &lt;&lt; endl;
+}
+
+int main()
+{
+    srand(time(nullptr));
+    
+    cout &lt;&lt;"Введіть розміри матриці:";
+    int N, M;
+    cin &gt;&gt;N &gt;&gt;M;
+    
+    vector&lt;vector&lt;int&gt;&gt; matrix(N,vector&lt;int&gt;(M));
+    
+    matrix_fill(matrix,-10,10);
+    matrix_print(matrix);
+    
+    vector&lt;int&gt; rowsum = matrix_rowsum(matrix);
+    vector&lt;int&gt; colsum = matrix_colsum(matrix);
+    
+    cout &lt;&lt;"Вектор сум рядків = " &lt;&lt;endl;
+    vector_print(rowsum);
+    cout &lt;&lt;"Вектор сум стовблчиків = " &lt;&lt;endl;
+    vector_print(colsum);
+
+    return 0;
+}</code></pre>
+
+<p>Функція <code>rand_int</code> повертає випадкове число в діапазоні від <code>a</code> до <code>b</code>, включно. </p>
+
+<p>Функции <code>matrix_fill</code> и <code>matrix_fill2</code> заполняют все элементы матрицы <code>matrix</code> случайными числами от в диапазоне от <code>a</code> до <code>b</code>, включительно. Единственная их разница в том, что первая использует индексы <code>i</code> и <code>j</code> для доступа к элементу массива, тогда как вторая использует range-based for - а именно, мы вначале пишем для каждой строки <code>row</code> матрицы <code>matrix</code> и, затем, для каждого элемента num строки <code>row</code> сосчитай <code>num</code> при помощи функции <code>rand_int</code>. Заметим, что данные функции не создают матрицы, матрица должна быть создана до вызова функции (и, действительно, она создаётся в <code>main</code>), затем данная матрица передаётся в функцию по ссылке и все её элементы заполняются случайными числами. Эти функции являются универсальными и могут работать как с прямоугольными (использовано в данной программе), так и ломанными матрицами (векторами векторов).</p>
+
+<p>Функция <code>matrix_print</code> распечатывает матрицу и тоже является универсальной - может работать как с прямоугольными, так и ломанными матрицами (векторами векторов).</p>
+
+<p>В функции <code>matrix_rowsum</code> мы объявляем массив (вектор) размера, равного количеству строк матрицы. Этот вектор в функции называется <code>rowsum</code> и будет содержать суммы элементов строк матрицы. Далее логика такая: для каждой строки матрицы (её номер храним в переменной <code>i</code>) считаем сумму её элементов <code>sum</code> и помещаем её в вектор <code>rowsum</code> на <code>i</code>-ю позицию. И эта функция является универсальной - может работать как с прямоугольными, так и ломанными матрицами (векторами векторов).</p>
+
+<p>В функции <code>matrix_colsum</code> мы объявляем массив colsum размера, равного количеству столбцов матрицы. Далее для каждого столбца матрицы (его номер храним в переменной <code>j</code>) считаем сумму его элементов <code>sum</code> и помещаем её в вектор <code>colsum</code> на <code>j</code>-ю позицию. Здесь уже мы предполагаем, что во всех строках одинаковое количество элементов (т.е. матрица прямоугольная) и поэтому количество столбцов вычисляем как количество элементов в строке с нулевым индексом (которая, очевидно должна быть для непустой матрицы). Таким образом, для данной функции нужно сделать предположение, что матрица прямоугольная и непустая (есть хотя бы одна строка и один столбец).</p>
+
+<p>В main создаётся матрица некоторого размера, который вводится с клавиатуры и вызываются функции <code>matrix_fill</code> и <code>matrix_print</code>. Задача студентов 2-й группы 1-го курса КИ дописать вызовы функций  <code>matrix_rowsum</code> и <code>matrix_colsum</code> и распечатать полученные вектора сумм.</p>
+
+<p><strong>Пример 2.</strong> Приведем теперь пример работы с треугольной матрицей: </p>
+
+<p>В данном примере необходимо посчитать треугольную матрицу размером <code>n</code> по формуле <span class="math-tex">\(a_{i,j} = {1 \over i+j}\)</span>.</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+vector &lt;vector&lt;double&gt;&gt; triag_matrix1(int size)
+{
+    vector &lt;vector&lt;double&gt;&gt; a (size);
+    for (int i = 1; i &lt;= size; i++)
+    {
+        a[i-1].resize(i);
+        for (int j = 1; j &lt;= i; j++)
+        {
+            a[i-1][j-1] = 1.0/(i+j);
+        }
+    }
+    return a;
+}
+
+void triag_matrix2(vector &lt;vector&lt;double&gt;&gt; &amp;a, int size)
+{
+    a.assign(size, {});
+    for (int i = 1; i &lt;= size; i++)
+    {
+        a[i-1].resize(i);
+        for (int j = 1; j &lt;= i; j++)
+        {
+            a[i-1][j-1] = 1.0/(i+j);
+        }
+    }
+}
+
+void print(const vector &lt;vector&lt;double&gt;&gt;&amp; a, int width = 7, int precision = 5)
+{
+    for (const auto &amp; row: a)
+    {
+        cout &lt;&lt;"|";
+        for (const auto &amp; el: row)
+        {
+            cout &lt;&lt;setw(width) &lt;&lt;fixed &lt;&lt;setprecision(precision)&lt;&lt;el &lt;&lt;" ";
+        }
+        cout &lt;&lt;"|" &lt;&lt;endl;
+    }
+}
+
+int main()
+{
+    cout &lt;&lt;"Введите размер матрицы: ";
+    int n;
+    cin &gt;&gt;n;
+    
+    vector &lt;vector&lt;double&gt;&gt; a;
+    
+    triag_matrix2(a,n);
+    
+    print(a);
+
+    return 0;
+}
+
+</code></pre>
+
+<p>Функция  <code>triag_matrix1</code> создаёт треугольную матрицу из <code>size</code> строк, в первой из них (строке с нулевым индексом) только один элемент, во второй строке - уже два элемента, и так далее, в последней строке уже <code>size</code> элементов. Элементы вычисляются по формуле <span class="math-tex">\(a_{i,j} = {1 \over i+j}\)</span> и результирующая матрица возвращается при помощи оператора <strong><code>return</code></strong>. </p>
+
+<p>Функция  <code>triag_matrix2</code> полностью аналогична функции  <code>triag_matrix1</code> , кроме того, что мы используем параметр <code>a</code>, передаваемый по ссылке, вместо возвращаемого значения. Так как матрица <code>a</code> передается в функцию <code>triag_matrix2</code>, и, следовательно, уже существует на начало выполнения функции, то мы используем метод <code>assign</code> вместо конструктора. Параметры метода assign аналогичны параметрам конструктора, разве что второй параметр нельзя пропустить.  Оператор <code>a.assign(size, {});</code> присваивает вектору векторов <code>a</code> вектор из <code>size</code> пустых векторов (то что раньше было в <code>a</code> автоматически разрушается).</p>
+
+<p>Функция <code>print</code> печатает любую ломанную матрицу (не только треугольную).</p>
+
+<p>Проверить работу можно по ссылке <a href="https://onlinegdb.com/OJPUNjIKK" rel="noopener noreferrer nofollow">https://onlinegdb.com/OJPUNjIKK</a></p>

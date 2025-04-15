@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<h2>Заповнення та роздрукування векторів векторів</h2>
+
+<p>Нехай нам потрібно створити квадратну матрицю розміру <code>n</code> на <code>n</code>, де розмір матриці <code>n</code> вводиться з клавіатури, а кожен елемент обчислюється за формулою <span class="math-tex">\(a_{i,j} = {1 \over i+j}\)</span>, для <span class="math-tex">\(i\)</span> і <span class="math-tex">\(j\)</span> від <span class="math-tex">\(1\)</span> до <span class="math-tex">\(n\)</span>. Необхідно роздрукувати цю матрицю.</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt; //для setw і setprecision
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main()
+{
+    cout &lt;&lt;"Введіть розмір матриці: ";
+    int n;
+    cin &gt;&gt;n;
+    
+    vector &lt;vector&lt;double&gt;&gt; a(n, vector&lt;double&gt;(n)); //дійсна матриця n на n
+    
+    for (int i = 1; i &lt;= n; i++)
+    {
+        for (int j = 1; j &lt;= n; j++)
+        {
+            a[i-1][j-1] = 1.0/(i+j); //Заповнюємо елементи матриці за формулою
+        }
+    }
+    
+    for (auto &amp; row: a) //для кожного рядка матриці
+    {
+        cout &lt;&lt;"| "; //Це обрамлення матриці, для краси друку
+        for (auto &amp; el: row) //для кожного елемента рядка
+        {
+            cout &lt;&lt;setw(7) &lt;&lt;fixed &lt;&lt;setprecision(5) &lt;&lt;el &lt;&lt;" ";
+        }
+        cout &lt;&lt;"|" &lt;&lt;endl; //Друкуємо обрамлення і перекладаємо висновок на наступний рядок
+    }      
+
+    return 0;
+}
+
+</code></pre>
+
+<p>У цьому коді ми спочатку вводимо розмір матриці <code>n</code>, потім виділяємо квадратну матрицю <code>n</code> на <code>n</code>, потім заповнюємо її. Зверніть увагу, що в математиці індекси в матриці починаються зазвичай з одиниці, також у даній формулі <span class="math-tex">\(a_{i,j} = {1 \over i+j}\) передбачається, що <span class="math-tex">\(i\)</span> і <span class="math-tex">\(j\)</span> починаються з <span class="math-tex">\(1\)</span>, інакше просто отримаємо поділ на нуль. Але в C++ індекси в масивах починаються з нуля, тому ми записуємо елемент матриці як <code>a[i-1][j-1]</code>. Тобто індекс у C++, наприклад, <code>i-1</code>, на одиницю менше математичного індексу <span class="math-tex">\(i\)</span> .</span></p>
+
+<p>Перевірити роботу цього прикладу можна тут: <a href="https://onlinegdb.com/g7Q9WIQRj" rel="noopener noreferrer nofollow">https://onlinegdb.com/g7Q9WIQRj</a></p>
+
+<p>Якщо ввести розмір матриці, що дорівнює 5, отримаємо наступний результат:</p>
+
+<pre><code class="language-no-highlight">Введіть розмір матриці: 5
+| 0.50000 0.33333 0.25000 0.20000 0.16667 |
+| 0.33333 0.25000 0.20000 0.16667 0.14286 |
+| 0.25000 0.20000 0.16667 0.14286 0.12500 |
+| 0.20000 0.16667 0.14286 0.12500 0.11111 |
+| 0.16667 0.14286 0.12500 0.11111 0.10000 |</code></pre>

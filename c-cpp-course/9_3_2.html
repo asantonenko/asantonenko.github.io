@@ -1,0 +1,173 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<p>Отже, ми зрозуміли, що передача в функцію двовимірних масивів на основі контейнерів C++, таких як вектор векторів або на основі масиву <code>array</code> нічим не відрізняється від передачі в функцію будь-яких інших контейнерів C++ (одномірних). Зовсім інша передача багатовимірних масивів у стилі Сі.</p>
+
+<p>Давайте пригадаємо, що з нормальної передачі у функцію одновимірний масив перетворюється на покажчик на базовий тип. Таким чином, ми говоримо, що масиви у стилі Сі передаються через покажчик на перший елемент. При подібній передачі матриць масив масивів перетворюється на покажчик на масиви, при цьому зникає перша розмірність, але інші розмірності залишаються. Спробуємо переписати наш приклад підрахунку суми двох матриць, заповнених випадковими числами через функції:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;ctime&gt;
+#include &lt;cstdlib&gt;
+
+using namespace std;
+
+const int ROWS = 5, COLS = 4; //константи тепер глобальні
+
+//Заповнення матриці випадковими числами з діапазону від min до max включно
+void matrix_fill(int A[][COLS], int rows, int min, int max)
+{
+    for (int i = 0; i &lt; rows; i++) //перебираємо рядки матриці A
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            A[i][j] = min + rand() % (max-min+1); 
+        }
+    }
+}
+
+//Знаходження суми C матриць A і B
+void matrix_sum(const int A[][COLS], const int B[][COLS], int C[][COLS], int rows)
+{
+    for (int i = 0; i &lt; rows; i++) //перебираємо рядки матриць
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            C[i][j] = A[i][j] + B[i][j]; 
+        }
+    }
+}
+
+//Друк матриці
+void matrix_print(const int A[][COLS], int rows)
+{
+    for (int i = 0; i &lt; rows; i++) //перебираємо рядки матриці A
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            cout &lt;&lt;setw(3) &lt;&lt; A[i][j] &lt;&lt; " "; 
+        }
+        cout &lt;&lt; endl;
+    }
+}
+
+int main()
+{
+    srand (time(0)); 
+    
+    int A[ROWS][COLS], B[ROWS][COLS];
+    
+    const int min = -10, max = 10; 
+    
+    matrix_fill(A,ROWS,min,max); //Заповнюємо матрицю A випадковими числами
+    
+    matrix_fill(B,ROWS,min,max); //Заповнюємо матрицю B випадковими числами
+    
+    int C[ROWS][COLS];
+    
+    matrix_sum(A,B,C,ROWS); //рахуємо суму матриць
+    
+    cout &lt;&lt; "Матриця A =" &lt;&lt; endl;
+    matrix_print(A,ROWS); //Друкуємо матрицю A
+    
+    cout &lt;&lt; "Матриця B =" &lt;&lt; endl;
+    matrix_print(B,ROWS); //Друкуємо матрицю B
+    
+    cout &lt;&lt; "Матриця C = A + B =" &lt;&lt; endl;
+    matrix_print(C,ROWS); //Друкуємо матрицю C
+
+    return 0;
+}
+
+
+</code></pre>
+
+<p>Зауважимо, що ми передаємо у функції масиви з довільного числа рядків (яке вказуємо в додатковому параметрі <code>rows</code>), але тільки з <code>COLS=4</code> стовпців. Тому константа <code>COLS</code> оголошена глобально (і для однаковості константа <code>ROWS</code> також глобальна).</p>
+
+<p>Другою альтернативою є передача масивів за посиланням. Але її ми розглянемо пізніше, коли вивчатимемо шаблонні функції.</p>
+
+<p>Всі ці дивні особливості можна "уникнути", якщо створити <code><strong>typedef</strong></code>, задає тип матриці. Тоді передача матриць начебто виглядає цілком природно:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;ctime&gt;
+#include &lt;cstdlib&gt;
+
+using namespace std;
+
+const int ROWS = 5, COLS = 4; 
+
+typedef int Matrix[ROWS][COLS]; //глобально оголошено псевдонім типу матриці
+
+//Заповнення матриці випадковими числами з діапазону від min до max включно
+void matrix_fill(Matrix A, int min, int max)
+{
+    for (int i = 0; i &lt; ROWS; i++) //перебираємо рядки матриці A
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            A[i][j] = min + rand() % (max-min+1); 
+        }
+    }
+}
+
+//Знаходження суми C матриць A та B
+void matrix_sum(const Matrix A, const Matrix B, Matrix C)
+{
+    for (int i = 0; i &lt; ROWS; i++) //перебираємо рядки матриць
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            C[i][j] = A[i][j] + B[i][j]; 
+        }
+    }
+}
+
+//Виведення на екран елементів матриці
+void matrix_print(const Matrix A)
+{
+    for (int i = 0; i &lt; ROWS; i++) //перебираємо рядки матриці A
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            cout &lt;&lt;setw(3) &lt;&lt; A[i][j] &lt;&lt; " "; 
+        }
+        cout &lt;&lt; endl;
+    }
+}
+
+int main()
+{
+    srand (time(0)); 
+    
+    Matrix A, B; //оголошення матриць через псевдонім типу
+
+    const int min = -10, max = 10; 
+    
+    matrix_fill(A,min,max); //Заповнюємо матрицю A випадковими числами
+    
+    matrix_fill(B,min,max); //Заповнюємо матрицю B випадковими числами
+    
+    Matrix C;
+    
+    matrix_sum(A,B,C); //рахуємо суму матриць
+    
+    cout &lt;&lt; "Матриця A =" &lt;&lt; endl;
+    matrix_print(A); //Друкуємо матрицю A
+    
+    cout &lt;&lt; "Матриця B =" &lt;&lt; endl;
+    matrix_print(B); //Друкуємо матрицю B
+    
+    cout &lt;&lt; "Матриця C = A + B =" &lt;&lt; endl;
+    matrix_print(C); //Друкуємо матрицю C
+
+    return 0;
+}
+
+
+</code></pre>
+
+<p>Але передача матриць функції змінилася лише візуально. Використання псевдоніма типу повністю еквівалентне використанню самого типу, а значить, кількість рядків у матриці під час передачі її у функцію просто ігнорується. Функція може приймати матрицю з будь-якою кількістю рядків, але тільки з <code>COL=4</code> стовпцями. Інша річ, сам формат заголовка і набір аргументів підказує, що передавати функції слід лише матриці типу <code>Matrix</code>, тобто. цілочисленні з <code>ROW=5</code> рядками та <code>COL=4</code> стовпцями.</p>
+
+<p>Перевірити роботу коду або модифікувати його можна тут: <a href="https://onlinegdb.com/RNO-hBYSi" rel="noopener noreferrer nofollow">https://onlinegdb.com/RNO-hBYSi</a></p>

@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+<h2>Двовимірний масив як масив масивів</h2>
+
+<p>У мовах C/C++ двомірний масив можна як масив масивів, тобто масив, елементами якого є одновимірні масиви - рядки матриці. </p>
+
+<p>Розглянемо масив</p>
+
+<pre><code>double revenue[4][12];</code></pre>
+
+<p>Він має тип <code><strong>double </strong>[4][12]</code> і являє собою масив з <code>4</code> масивів з  <code>12 </code> елементів. Наприклад, <code>revenue[0]</code> відповідає першому рядку (або рядку з індексом нуль, нагадаю, що елементи масивів нумеруються в C/C++ з нуля). Тип <code>revenue[0]</code>  - це <code><strong>double</strong>[12]</code>, тобто одновимірний масив з <code>12</code> дійсних елементів. Цей перший рядок складається з елементів <code>revenue[0][0]</code>, <code>revenue[0][1]</code>, ..., <code>revenue[0][11]</code>, які мають тип <strong><code>double</code></strong>. У нашому прикладі у першому рядку містяться доходи першого відділу.</p>
+
+<p>Цей факт можна перевірити за посиланням: <a href="https://wandbox.org/permlink/e4yBFbcTL6aByUUQ" rel="noopener noreferrer nofollow">https://wandbox.org/permlink/e4yBFbcTL6aByUUQ</a>.</p>
+
+<p>На жаль, ситуація тут несиметрична, і ми не можемо якось у програмі отримати доступ до стовпця матриці, як до цілісного об'єкта.</p>

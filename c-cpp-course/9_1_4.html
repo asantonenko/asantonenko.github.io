@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+<h2>Использование typedef для работы с массивами</h2>
+
+<p>Я напомню, что при помощи ключевого слова <strong><code>typedef</code></strong> в языках Си и С++ можно создавать псевдонимы (синонимы) различных типов. Давайте применим это ключевое слово, чтобы описать одно слово, которое будет обозначать вещественную матрицу размера 3 на 3.</p>
+
+<pre><code class="language-cpp">typedef double DoubleMatrix3x3[3][3];</code></pre>
+
+<p>Если бы не ключевое слово <strong><code>typedef</code></strong>, мы бы объявили переменную типа <code>DoubleMatrix3x3</code>, которая бы являлась вещественной матрицу размера 3 на 3, но теперь мы получили обозначение данного типа - вещественная матрица размера 3 на 3 - одним словом <code>DoubleMatrix3x3</code>.</p>
+
+<p>Например, после данного определения, мы можем определить три вещественные матрицы размером 3 на 3 более компактно:</p>
+
+<pre><code>DoubleMatrix3x3 matr1, matr2, matr3;</code></pre>
+
+<p>Все три переменные получат тип "вещественная матрица размера 3 на 3". Более того, операция <code><strong>sizeof </strong>(DoubleMatrix3x3)</code> позволит вычислить, сколько байт занимает значение переменной данного типа (наравне с <code><strong>sizeof </strong>(matr1)</code>, <code><strong>sizeof </strong>(matr2)</code> и <code><strong>sizeof </strong>(matr3)</code>).</p>
+
+<p>Перепишем наш пример с суммой двух матриц при помощи синонима типа <code>Matrix</code>, как матрицы из <code>ROW</code> строк и <code>COL</code> столбцов. Прокоментрированы измененные строки, остальные остались такими же.</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;ctime&gt;
+#include &lt;cstdlib&gt;
+
+using namespace std;
+
+int main()
+{
+    srand (time(0));
+    
+    const int ROWS = 5, COLS = 4;
+    
+    typedef int Matrix[ROWS][COLS]; //объявление псевдонима типа матрица
+    
+    Matrix A, B;                    //объявления матриц стало короче и проще
+    
+    const int min = -10, max = 10;
+    
+    for (int i = 0; i &lt; ROWS; i++)
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            A[i][j] = min + rand() % (max-min+1); 
+        }
+    }
+    
+    for (int i = 0; i &lt; ROWS; i++)
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            B[i][j] = min + rand() % (max-min+1);
+        }
+    }
+    
+    Matrix C;                    //объявления матрицы стало короче и проще
+    
+    for (int i = 0; i &lt; ROWS; i++)
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
+    
+    cout &lt;&lt; "Матрица A =" &lt;&lt; endl;
+    for (int i = 0; i &lt; ROWS; i++)
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            cout &lt;&lt;setw(3) &lt;&lt; A[i][j] &lt;&lt; " ";
+        }
+        cout &lt;&lt; endl;
+    }
+    
+    cout &lt;&lt; "Матрица B =" &lt;&lt; endl;
+    for (int i = 0; i &lt; ROWS; i++)
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            cout &lt;&lt;setw(3) &lt;&lt; B[i][j] &lt;&lt; " ";
+        }
+        cout &lt;&lt; endl;
+    }
+    
+    cout &lt;&lt; "Матрица C = A + B =" &lt;&lt; endl;
+    for (int i = 0; i &lt; ROWS; i++)
+    {
+        for (int j = 0; j &lt; COLS; j++)
+        {
+            cout &lt;&lt;setw(3) &lt;&lt; C[i][j] &lt;&lt; " ";
+        }
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}
+
+</code></pre>
+
+<p>В данном случае объявления матриц стало простым и прозрачным, просто нужно написать <code>Matrix A,B;</code>, чтобы объявить две матрицы <code>A</code> и <code>B</code>. </p>
+
+<p>Вы можете заметить, что данный код не идеален. Его проблема в многократном повторении похожих участков. Данная проблема решается в уроке <a href="https://stepik.org/lesson/773572/step/2?unit=776039" rel="noopener noreferrer nofollow">9.3 Передача многомерных массивов в функции</a>.</p>
