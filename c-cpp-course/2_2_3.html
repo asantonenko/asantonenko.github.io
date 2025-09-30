@@ -1,0 +1,91 @@
+<p>Наведемо приклади ідентифікаторів, які використовуються в C++ як імена його стандартних конструкцій. З багатьма з них Ви вже зустрічалися у нашому курсі. Для того, щоб використовувати в програмі стандартні ідентифікатори, зазвичай потрібно підключати стандартні заголовні файли, наприклад, записати &nbsp;<code>#include &lt;iostream&gt;</code> для використання імені <code>cout</code>.</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width:880px">
+	<caption>Стандартні конструкції в C/C++</caption>
+	<thead>
+		<tr>
+			<th>Ідентифікатор (ім&#39;я)</th>
+			<th>Мова -&nbsp;&lt;Заголовний файл&gt;</th>
+			<th>Категорія стандартної конструкції</th>
+			<th>Значення / Призначення</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>std</code></td>
+			<td>C++ - будь-який стандартний заголовний файл</td>
+			<td>простір імен</td>
+			<td>стандартний простір імен</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/cin" rel="noopener noreferrer nofollow">cin</a></code></td>
+			<td>C++ - <code>&lt;iostream&gt;</code></td>
+			<td>змінна (об&#39;єкт)</td>
+			<td>стандартний потік введення</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/cout" rel="noopener noreferrer nofollow">cout</a></code></td>
+			<td>C++ - <code>&lt;iostream&gt;</code></td>
+			<td>змінна (об&#39;єкт)</td>
+			<td>стандартний потік виведення</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/endl" rel="noopener noreferrer nofollow">endl</a></code></td>
+			<td>C++ - <code>&lt;iostream&gt;</code></td>
+			<td>маніпулятор (функція)</td>
+			<td>маніпулятор, що призводить до виведення символу нового рядка та скидання буфера потоку</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/scanf" rel="noopener noreferrer nofollow">scanf</a></code></td>
+			<td>C - <code>&lt;stdio.h&gt;</code><br />
+			C++ - <code>&lt;cstdio&gt;</code></td>
+			<td>функція</td>
+			<td>функція форматувального читання зі стандартного введення</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/printf" rel="noopener noreferrer nofollow">printf</a></code></td>
+			<td>C - <code>&lt;stdio.h&gt;</code><br />
+			C++ - <code>&lt;cstdio&gt;</code></td>
+			<td>функція</td>
+			<td>функція форматувального виведення в стандартний потік виведення</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/reference/string/string/" rel="noopener noreferrer nofollow">string</a></code></td>
+			<td>C++ - <code>&lt;string&gt;</code></td>
+			<td>тип (клас)</td>
+			<td>клас, що представляє рядок символів</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/reference/vector/vector/" rel="noopener noreferrer nofollow">vector</a></code></td>
+			<td>C++ - <code>&lt;vector&gt;</code></td>
+			<td>шаблонний тип (клас)</td>
+			<td>шаблонний клас - динамічний масив (вектор)</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/sqrt" rel="noopener noreferrer nofollow">sqrt</a></code></td>
+			<td>C - <code>&lt;math.h&gt;</code><br />
+			C++ - <code>&lt;cmath&gt;</code></td>
+			<td>функція</td>
+			<td>функція обчислення квадратного кореня</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/pow" rel="noopener noreferrer nofollow">pow</a></code></td>
+			<td>C - <code>&lt;math.h&gt;</code><br />
+			C++ - <code>&lt;cmath&gt;</code></td>
+			<td>функція</td>
+			<td>функція піднесення числа до степеня</td>
+		</tr>
+		<tr>
+			<td><code><a href="http://cplusplus.com/reference/memory/unique_ptr/" rel="noopener noreferrer nofollow">unique_ptr</a></code>, <code><a href="http://cplusplus.com/reference/memory/shared_ptr/" rel="noopener noreferrer nofollow">shared_ptr</a></code></td>
+			<td>C++ - <code>&lt;memory&gt;</code></td>
+			<td>шаблонний тип (клас)</td>
+			<td>&quot;розумні вказівники&quot; для автоматичного керування пам&#39;яттю</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Як видно, стандартні заголовні файли мови C&nbsp;продубльовано в&nbsp;мові C++ з дещо зміненою назвою: зникає розширення <code>.h</code>, але з&#39;являється літера <code>c</code> на початку (наприклад,&nbsp;<code>&lt;math.h&gt;</code>/ <code>&lt;cmath&gt;</code>). Деякі засоби присутні як у мові C, так і в C++, а деякі - лише в C++. При цьому, засоби мови C дуже часто дублюються в мові C++ аналогічними засобами, але реалізованими в іншому стилі (зазвичай, об&#39;єктно-орієнтованому), хоча й оригінальні конструкції мови C також доступні в C++. Класичним прикладом цього є введення та виведення: у мові C використовувалися функції <code>scanf</code> та <code>printf</code> для цих цілей, які, звичайно ж, доступні й у C++, але зазвичай у C++ використовуються потоки введення та виведення <code>cin</code> та <code>cout</code> (об&#39;єкти мови C++).</p>
+
+<p>Також не забувайте, що усі стандартні ідентифікатори у мові С++ розташовані у просторі імен <code>std</code>, тому повна назви включають <code>std::</code> - наприклад <code>std::cout</code>.</p>
+
+<p>Також можна дійти висновку, що в мові C++ і, тим паче, мові C використовуються короткі імена для частих конструкцій - на відміну, наприклад, від мов C# та Java. Часто використовуються навіть скорочення виду <code>endl</code> - скорочення від &quot;end of line&quot; (кінець рядка) або <code>pow</code> - скорочення від &quot;power&quot; (степінь).&nbsp;Втім, у стандартній бібліотеці C++, особливо в її новіших частинах, використовуються також і&nbsp;складніші та довші ідентифікатори, що складаються з кількох слів, розділених підкресленням, наприклад,&nbsp;&nbsp;<code><a href="http://cplusplus.com/reference/algorithm/set_symmetric_difference/" rel="noopener noreferrer nofollow">set_symmetric_difference</a></code>,&nbsp;<code><a href="http://cplusplus.com/reference/condition_variable/notify_all_at_thread_exit/" rel="noopener noreferrer nofollow">notify_all_at_thread_exit</a></code>,&nbsp;<code><a href="http://cplusplus.com/reference/type_traits/is_trivially_default_constructible/" rel="noopener noreferrer nofollow">is_trivially_default_constructible</a></code>&nbsp;(я намагався обрати найдовші&nbsp;ідентифікатори зі стандартної бібліотеки).&nbsp;Усі посилання на цій сторінці ведуть на сайт <a href="http://cplusplus.com/" rel="noopener noreferrer nofollow">cplusplus.com</a> із документацією щодо цих конструкцій (англійською мовою).</p>

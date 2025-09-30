@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+<p>У мовах C і C++ значення деяких слів жорстко фіксовано, вони застосовуються для опису фундаментальних типів (таких, як <strong><code>int</code></strong> і <code><strong>double</strong></code>), опис операторів мови (наприклад, <strong><code>if</code></strong> або <code><strong>return</strong></code>) та інших потреб мови. Такі слова називаються <em>ключовими словами</em> мови програмування. Не можна використовувати ключові слова як імена змінних, функції та інші ідентифікатори.</p>
+
+<p>Набір ключових слів різний залежно від мови та її версії. У мові C менше ключових слів, ніж у мові C++, причому у новіших версіях мов з&#39;являються нові і нові ключові слова. Це обмежує сумісність мов. Наприклад, у мові C цілком можна описати змінну з ім&#39;ям <code>class</code>, але в мові C++ слово <strong><code>class</code></strong> є ключовим. У тексті цього курсу ключові слова набрані жирним шрифтом, у тексті програм у популярних середовищах ключові слова виділяються також жирним шрифтом або кольором. Придивившись дуже уважно до вже розглянутого прикладу програми &quot;Привіт, світе!&quot;, Ви можете побачити, що ключові слова <strong><code>int</code></strong> і <strong><code>return</code></strong> виділені іншим кольором, ніж <code>main</code> та <code>printf</code>&nbsp;(нажаль кольори дуже схожі, але, все ж таки, різні).</p>
+
+<pre>
+<code class="language-cpp">/* Програма Привіт, світе! */
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    printf("Привіт, світе!\n");
+    return 0;
+}</code></pre>
+
+<p>У початковому стандарті мови C - C89 присутні наступні ключові слова (взято з джерела&nbsp;<a href="https://uk.wikipedia.org/wiki/C_(%D0%BC%D0%BE%D0%B2%D0%B0_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F)" rel="noopener noreferrer nofollow">wikipedia C (мова програмування)</a>):</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width:800px">
+	<thead>
+		<tr>
+			<th>Ключові слова</th>
+			<th>Призначення</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><strong>sizeof</strong></td>
+			<td>Отримання розміру об&#39;єкта чи типа на етапі компіляції</td>
+		</tr>
+		<tr>
+			<td><strong>typedef</strong></td>
+			<td>Завдання альтернативного імені типу</td>
+		</tr>
+		<tr>
+			<td><strong>auto</strong>, <strong>register</strong></td>
+			<td>Підказки компілятору щодо місця зберігання змінних</td>
+		</tr>
+		<tr>
+			<td><strong>extern</strong></td>
+			<td>Вказівка компілятору шукати об&#39;єкт поза поточним файлом</td>
+		</tr>
+		<tr>
+			<td><strong>static</strong></td>
+			<td>Оголошення статичного об&#39;єкта</td>
+		</tr>
+		<tr>
+			<td><strong>void</strong></td>
+			<td>Маркер відсутності значення; у покажчиках означає довільні дані</td>
+		</tr>
+		<tr>
+			<td><strong>char</strong>, <strong>short</strong>, <strong>int</strong>, <strong>long</strong></td>
+			<td>Цілочисленні типи та модифікатори їхнього розміру</td>
+		</tr>
+		<tr>
+			<td><strong>signed</strong>, <strong>unsigned&nbsp;&nbsp; &nbsp;</strong></td>
+			<td>Модифікатори цілих типів, що визначають їх як знакові чи беззнакові</td>
+		</tr>
+		<tr>
+			<td><strong>float, double</strong></td>
+			<td>Дійсні типи даних</td>
+		</tr>
+		<tr>
+			<td><strong>const</strong></td>
+			<td>Модифікатор, що унеможливлює зміну деякого значення</td>
+		</tr>
+		<tr>
+			<td><strong>volatile</strong></td>
+			<td>Вказівка ​​компілятору на можливість зміни значення змінної ззовні</td>
+		</tr>
+		<tr>
+			<td><strong>struct</strong></td>
+			<td>Тип даних &mdash; структура з набором полів</td>
+		</tr>
+		<tr>
+			<td><strong>enum</strong></td>
+			<td>Тип даних, що зберігає одне з набору цілих значень</td>
+		</tr>
+		<tr>
+			<td><strong>union</strong></td>
+			<td>Тип даних, у якому можна зберігати дані одного з декількох обраних типів</td>
+		</tr>
+		<tr>
+			<td><strong>do</strong>, <strong>for</strong>, <strong>while</strong></td>
+			<td>Оператори циклу</td>
+		</tr>
+		<tr>
+			<td><strong>if</strong>, <strong>else</strong></td>
+			<td>Умовний оператор</td>
+		</tr>
+		<tr>
+			<td><strong>switch</strong>, <strong>case</strong>, <strong>default</strong></td>
+			<td>Оператор вибору за цілим параметром</td>
+		</tr>
+		<tr>
+			<td><strong>break</strong>, <strong>continue</strong></td>
+			<td>Оператори переривання циклу</td>
+		</tr>
+		<tr>
+			<td><strong>goto</strong></td>
+			<td>Оператор безумовного переходу</td>
+		</tr>
+		<tr>
+			<td><strong>return</strong></td>
+			<td>Повернення з функції</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Ідентифікатори функції</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f7fbff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px #0001;
+            padding: 32px 24px 24px 24px;
+        }
+        .question p {
+            font-size: 1.08rem;
+            margin-bottom: 1em;
+        }
+        label {
+            display: block;
+            margin: 16px 0 5px 0;
+            font-weight: bold;
+            color: #345;
+        }
+        input[type="text"] {
+            width: 97%;
+            max-width: 100%;
+            font-size: 1rem;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #bdd8f3;
+            outline: none;
+            margin-bottom: 5px;
+            box-sizing: border-box;
+            background: #f7fbff;
+            transition: border .2s;
+        }
+        input[type="text"]:focus {
+            border-color: #3480e3;
+            background: #eaf2fa;
+        }
+        button {
+            background: #3480e3;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 7px;
+            padding: 12px 28px;
+            margin: 20px 0 0 0;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        button:hover {
+            background: #1962c6;
+        }
+        .result {
+            margin-top: 22px;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 1.08rem;
+            background: #eaf2fa;
+            color: #18407b;
+        }
+        .feedback {
+            font-size: .98rem;
+            margin-bottom: 7px;
+            color: #c84133;
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 12px 4vw 18px 4vw;
+            }
+            button {
+                width: 100%;
+                font-size: 1rem;
+            }
+            input[type="text"] {
+                font-size: .97rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="question" id="question1">
+        <p>
+            Припустимо, що ми хочемо написати функцію, яка роздрукує таблицю значень функції. Англійською це буде <b>Print table of function values</b>. <br>
+            Ми вирішили скласти ідентифікатор – ім'я цієї функції – саме з цих п'яти англійських слів у цьому порядку. Але записати їх через пробіл в ідентифікаторі не можна. <br><br>
+            <b>Запишіть ідентифікатор, який містить слова "Print table of function values" у наступних стилях:</b>
+        </p>
+
+        <label for="q1">Стиль <b>under_score</b> (через_підкреслення), малими літерами:</label>
+        <input type="text" id="q1" autocomplete="off" placeholder="Напр., my_function">
+
+        <label for="q2">Стиль <b>ALL_CAPS_UNDER_SCORE</b> (ЧЕРЕЗ_ПІДКРЕСЛЕННЯ_ВЕЛИКИМИ_ЛІТЕРАМИ):</label>
+        <input type="text" id="q2" autocomplete="off" placeholder="Напр., MY_FUNCTION">
+
+        <small><sup>Зазначимо, що ALL_CAPS_UNDER_SCORE не прийнято використовувати для імен функцій у мовах C/C++, а лише для імен констант.</sup></small>
+
+        <label for="q3">Стиль <b>lowerCamelCase</b> (верблюжийРегістр), з малої літери:</label>
+        <input type="text" id="q3" autocomplete="off" placeholder="Напр., myFunction">
+
+        <label for="q4">Стиль <b>PascalCase</b> (ВерблюжийРегістрЗВеликоїЛітери):</label>
+        <input type="text" id="q4" autocomplete="off" placeholder="Напр., MyFunction">
+
+    </div>
+
+    <button onclick="checkAnswers()">Перевірити відповіді</button>
+
+    <div class="result" id="result"></div>
+    </div>
+
+<script>
+function normalize(answer) {
+    // Прибираємо зайві пробіли, незначущі символи
+    return answer.trim().replace(/\s+/g, '').replace(/_/g, '_').toLowerCase();
+}
+function checkAnswers() {
+    const correctAnswers = [
+        ["print_table_of_function_values"],
+        ["print_table_of_function_values"], // для великого — нижче додамо обробку
+        ["printtableoffunctionvalues", "printTableOfFunctionValues"],
+        ["printtableoffunctionvalues", "printTableOfFunctionValues", "PrintTableOfFunctionValues"]
+    ];
+    const expected = [
+        "print_table_of_function_values",
+        "PRINT_TABLE_OF_FUNCTION_VALUES",
+        "printTableOfFunctionValues",
+        "PrintTableOfFunctionValues"
+    ];
+    const userInputs = [
+        document.getElementById('q1').value.trim(),
+        document.getElementById('q2').value.trim(),
+        document.getElementById('q3').value.trim(),
+        document.getElementById('q4').value.trim()
+    ];
+
+    let correctCount = 0;
+    let feedback = [];
+
+    // Перевірка 1: under_score
+    if (userInputs[0].toLowerCase() === expected[0]) {
+        correctCount++;
+        feedback[0] = '';
+    } else {
+        feedback[0] = '❌ Підкреслення, малі літери: правильний варіант: <b>' + expected[0] + '</b>';
+    }
+
+    // Перевірка 2: ALL_CAPS_UNDER_SCORE
+    if (userInputs[1].toUpperCase() === expected[1]) {
+        correctCount++;
+        feedback[1] = '';
+    } else {
+        feedback[1] = '❌ Підкреслення, великі літери: правильний варіант: <b>' + expected[1] + '</b>';
+    }
+
+    // Перевірка 3: lowerCamelCase
+    if (userInputs[2].replace(/\s/g,'') === expected[2]) {
+        correctCount++;
+        feedback[2] = '';
+    } else {
+        feedback[2] = '❌ lowerCamelCase: правильний варіант: <b>' + expected[2] + '</b>';
+    }
+
+    // Перевірка 4: PascalCase
+    if (userInputs[3].replace(/\s/g,'') === expected[3]) {
+        correctCount++;
+        feedback[3] = '';
+    } else {
+        feedback[3] = '❌ PascalCase: правильний варіант: <b>' + expected[3] + '</b>';
+    }
+
+    const total = 4;
+    let resultMsg = `<b>Правильних відповідей: ${correctCount} із ${total}.</b>`;
+    if (correctCount < total) {
+        resultMsg += '<hr style="margin:10px 0;">';
+        resultMsg += feedback.filter(f => f).map(f => '<div class="feedback">' + f + '</div>').join('');
+    } else {
+        resultMsg += '<br><span style="color: #28a745; font-weight: 500;">Вітаємо! Усі відповіді правильні!</span>';
+    }
+    document.getElementById('result').innerHTML = resultMsg;
+}
+</script>
+</body>
+</html>

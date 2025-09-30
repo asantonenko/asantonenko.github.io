@@ -1,0 +1,28 @@
+<div class="question" id="question1">
+
+<p>Припустимо, що ми хочемо написати функцію, яка роздрукує таблицю значень функції. Англійською це буде "Print table of function values". І ми вирішили скласти ідентифікатор – ім'я цієї функції – саме з цих п'яти англійських слів у цьому порядку. Але записати їх через пробіл в ідентифікаторі не можна. Запишіть ідентифікатор, який містить слова "Print table of function values" у наступних стилях:</p>
+
+Стиль under_score (через_підкреслення) малими літерами: <input type="text" name="q1"> <br/> 
+Стиль ALL_CAPS_UNDER_SCORE (ЧЕРЕЗ_ПІДКРЕСЛЕННЯ_ВЕЛИКИМИ_ЛІТЕРАМИ) великими літерами: <input type="text" name="q2"> <br/>
+<sup>Зазначимо, щоправда, що стиль ALL_CAPS_UNDER_SCORE не прийнято використовувати для імен функцій у мовах C/C++, а лише для імен констант </sup>
+<br/> 
+Стиль lowerCamelCase (верблюжийРегістр), що починається з малої літери: <input type="text" name="q3"> <br/>
+Стиль PascalCase (ВерблюжийРегістрЗВеликоїЛітери), що починається з великої літери: <input type="text" name="q4"> <br/>
+
+    </div>
+
+    <button onclick="checkAnswers()">Перевірити відповіді</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function checkAnswers() {
+            const correctAnswers = ['print_table_of_function_values', 'PRINT_TABLE_OF_FUNCTION_VALUES', 'printTableOfFunctionValues', 'PrintTableOfFunctionValues'];
+            const questionNumber = ...;
+            let correctCount = 0;
+
+            const result = document.getElementById('result');
+            result.textContent = `Ви вибрали ${correctCount} правильних варіантів із ${questionNumber} можливих;
+        }
+    </script>
+
