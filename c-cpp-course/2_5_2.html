@@ -1,0 +1,132 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+ <script type="text/javascript" async
+   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+ </script>
+<p><em>Розділ підвищеного рівня, необов'язковий для початкового проходження курсу.</em></p>
+
+<p>Розглянемо цілі типи докладніше. Для підготовки цього документа я базуватимусь на перероблених та уточнених формулюваннях, запропонованих комітетом зі стандартизації у стандарті C++20 (див. [<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1236r1.html" rel="noopener noreferrer nofollow">1</a>] у списку літератури). По суті, текст нижче представляє трохи скорочений переклад пропозиції комітету з деякими моїми коментарями, а також доповненням щодо моделей пам'яті, взятим із <a href="https://ru.cppreference.com/w/cpp/language/types" rel="noopener noreferrer nofollow">[3]</a>.</p>
+
+<p>Отже, в оновленому стандарті стверджується, що існує п'ять <em>стандартних знакових цілих типів</em> (<em>standard signed integer types</em>): <code><strong>signed char</strong></code>, <strong><code>short int</code></strong>, <strong><code>int</code></strong>, <strong><code>long int</code></strong> та <strong><code>long long int</code></strong>. Також можуть бути присутніми залежні від реалізації <em>розширені знакові цілі типи</em> (<em>extended signed integer types</em>). Стандартні та розширені знакові цілі типи разом називаються <em>знаковими цілими типами</em> (<em>signed integer types</em>). Діапазоном представлених значень для знакових цілих типів є діапазон від <span class="math-tex">\(-2^{N-1}\)</span> до <span class="math-tex">\(2^{N-1}-1\)</span> (включно), де число <span class="math-tex">\(N\)</span> називається <em>розрядністю</em> (<em>range exponent</em>) типу. Зауважимо, що звичайний <strong><code>int</code></strong> має розрядність, найбільш природню для використовуваної архітектури в середовищі виконання програм, тоді як інші знакові типи представлені для спеціальних потреб (тобто, якщо потрібен менший чи більший діапазон значень — <em>примітка автора курсу</em>).</p>
+
+<p>Для кожного стандартного знакового цілого типу існує відповідний (але відмінний від нього) <em>стандартний беззнаковий цілий тип</em> (<em>standard unsigned integer type</em>): <code><strong>unsigned char</strong></code>, <code><strong><code>unsigned short int</code></strong></code>, <strong><code>unsigned int</code></strong>, <strong><code>unsigned long int</code></strong> та <strong><code>unsigned long long int</code></strong>. Також, для кожного розширеного знакового цілого типу існує відповідний <em>розширений беззнаковий цілий тип</em> (<em>extended unsigned integer type</em>). Стандартні та розширені беззнакові цілі типи разом називаються <em>беззнаковими цілими типами</em> (<em>unsigned integer types</em>). Беззнаковий цілий тип має ту саму розрядність, що й відповідний знаковий цілий тип. Діапазоном представлених значень для беззнакових цілих типів є діапазон від <span class="math-tex">\(0\)</span> до <span class="math-tex">\(2^{N}-1\)</span> (включно), арифметика для беззнакового цілого типу виконується за модулем <span class="math-tex">\(2^{N}\)</span>. Відзначимо, що в беззнаковій арифметиці не відбувається переповнення (так у документі й написано: "Unsigned arithmetic does not overflow."). Але мені здається, краще сказати, що переповнення відбувається, але відбувається природнім і контрольованим способом — тобто всі обчислення виконуються за модулем <span class="math-tex">\(2^{N}\)</span>, іншими словами, якщо ви отримуєте в результаті відповідних математичних обчислень певний цілий результат <span class="math-tex">\(k\)</span>, то при обчисленнях у беззнаковому цілому типі ви отримаєте замість математичного результату <span class="math-tex">\(k\)</span> математичну остачу від ділення <span class="math-tex">\(k\)</span> на <span class="math-tex">\(2^{N}\)</span> — тобто число в діапазоні від <span class="math-tex">\(0\)</span> до <span class="math-tex">\(2^{N}-1\)</span> (включно) — <em>примітка автора курсу</em>. Переповнення в знаковій арифметиці призводить до <em>невизначеної поведінки</em> (<em>undefined behavior</em>).</p>
+
+<p>Беззнаковий цілий тип має таке саме внутрішнє представлення, як і знаковий цілий тип (або, якщо точніше, "the same object representation, value representation, and alignment requirements"). Для кожного значення <span class="math-tex">\(x\)</span> знакового цілого типу, значення відповідного беззнакового цілого типу, порівняне за модулем <span class="math-tex">\(2^{N}\)</span> з числом <span class="math-tex">\(x\)</span>, має точно таке саме побітове представлення ("the same value of corresponding bits in its value representation"). Відзначимо, що таке представлення називається <a href="https://uk.wikipedia.org/wiki/%D0%94%D0%BE%D0%BF%D0%BE%D0%B2%D0%BD%D1%8F%D0%BB%D1%8C%D0%BD%D0%B8%D0%B9_%D0%BA%D0%BE%D0%B4_(%D0%BA%D0%BE%D0%BC%D0%BF%27%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D0%B0_%D0%B0%D1%80%D1%96%D1%84%D0%BC%D0%B5%D1%82%D0%B8%D0%BA%D0%B0)"><em>доповняльним кодом</em></a> ("two's complement representation").</p>
+
+<p><strong>Приклад</strong>: Значення <span class="math-tex">\(-1\)</span> знакового типу має те саме представлення, що й найбільше значення відповідного беззнакового типу (тобто число <span class="math-tex">\(2^{N}-1\)</span>, яке порівняне з числом <span class="math-tex">\(-1\)</span> за модулем <span class="math-tex">\(2^{N}\)</span> — <em>примітка автора курсу</em>).</p>
+
+<p>Розрядність кожного стандартного знакового типу залежить від реалізації, але має бути не меншою, ніж вказана в таблиці нижче:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 700px;">
+	<caption>Мінімальна розрядність стандартних знакових типів</caption>
+	<thead>
+		<tr>
+			<th>Повна назва знакового стандартного типу даних</th>
+			<th>Коротка назва стандартного типу</th>
+			<th>Мінімальна розрядність, біт</th>
+			<th>Мінімально допустимий діапазон</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align: center;"><code><strong>signed char</strong></code></td>
+			<td style="text-align: center;"><code><strong>signed char</strong></code></td>
+			<td style="text-align: center;">8</td>
+			<td style="text-align: center;"><span class="math-tex">\(-128\ ..\ 127\)</span></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong><code>signed short int</code></strong></td>
+			<td style="text-align: center;"><strong><code>short</code></strong></td>
+			<td style="text-align: center;">16</td>
+			<td style="text-align: center;"><span class="math-tex">\(-2^{15}\ ..\ 2^{15}-1\)</span></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong><code>signed int</code></strong></td>
+			<td style="text-align: center;"><strong><code>int</code></strong></td>
+			<td style="text-align: center;">16</td>
+			<td style="text-align: center;"><span class="math-tex">\(-2^{15}\ ..\ 2^{15}-1\)</span></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong><code>signed long int</code></strong></td>
+			<td style="text-align: center;"><strong><code>long </code></strong></td>
+			<td style="text-align: center;">32</td>
+			<td style="text-align: center;"><span class="math-tex">\(-2^{31}\ ..\ 2^{31}-1\)</span></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;"><strong><code>signed long long int</code></strong></td>
+			<td style="text-align: center;"><strong><code>long long</code></strong></td>
+			<td style="text-align: center;">64</td>
+			<td style="text-align: center;"><span class="math-tex">\(-2^{63}\ ..\ 2^{63}-1\)</span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Значення цілого типу з розрядністю <span class="math-tex">\(N\)</span> займає <span class="math-tex">\(N\)</span> біт у пам'яті.</p>
+
+<p>На <a href="https://ru.cppreference.com/w/cpp/language/types" rel="noopener noreferrer nofollow">cppreference</a> вводиться також поняття <em>моделі даних</em>, під якою мається на увазі сукупний вибір, зроблений кожною реалізацією щодо розмірів основних типів, і наводяться чотири широко поширені моделі даних:</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 1000px;">
+	<caption>Популярні моделі даних мови C++</caption>
+	<thead>
+		<tr>
+			<th>Розрядність системи</th>
+			<th>Назва моделі</th>
+			<th>Де застосовується</th>
+			<th>int, біт</th>
+			<th>long, біт</th>
+			<th>вказівник, біт</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="2">32-бітні системи</td>
+			<td><strong>LP32</strong> або <strong>2/4/4</strong></td>
+			<td>Win16 API</td>
+			<td style="text-align: center;">16</td>
+			<td style="text-align: center;">32</td>
+			<td style="text-align: center;">32</td>
+		</tr>
+		<tr>
+			<td><strong>ILP32</strong> або <strong>4/4/4</strong></td>
+			<td>Win32 API;<br>
+			Unix та Unix-подібні системи (Linux, macOS)</td>
+			<td style="text-align: center;">32</td>
+			<td style="text-align: center;">32</td>
+			<td style="text-align: center;">32</td>
+		</tr>
+		<tr>
+			<td rowspan="2">64-бітні системи</td>
+			<td><strong>LLP64</strong> або <strong>4/4/8</strong></td>
+			<td>Win64 API</td>
+			<td style="text-align: center;">32</td>
+			<td style="text-align: center;">32</td>
+			<td style="text-align: center;">64</td>
+		</tr>
+		<tr>
+			<td><strong>LP64</strong> або <strong>4/8/8</strong></td>
+			<td>Unix та Unix-подібні системи (Linux, macOS)</td>
+			<td style="text-align: center;">32</td>
+			<td style="text-align: center;">64</td>
+			<td style="text-align: center;">64</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>У вказаних вище моделях тип <code>char</code> займає 8 біт, тип <code>short</code> — 16 біт, а тип <code>long long</code> — 64 біти (у 16-бітних системах тип <code>long long</code> взагалі відсутній — цей тип було введено у стандарті C++11).</p>
+
+<p>Тип <code><strong>char</strong></code> відрізняється тим, що вибір, чи позначає він знаковий тип <code><strong>signed char</strong></code> чи беззнаковий <code><strong>unsigned char</strong></code>, визначається реалізацією компілятора (таким чином, не зафіксовано у стандарті мови — <em>примітка автора курсу</em>). Значення типу <code><strong>char</strong></code> представляють усі коди для базового набору символів, визначеного у реалізації ("can represent distinct codes for all members of the implementation's basic character set"). Усі три типи <code><strong>char</strong></code>, <code><strong>signed char</strong></code>, <code><strong>unsigned char</strong></code> разом називаютьсяю <em>вузькими символьними типами</em> (<em>narrow character types</em>).</p>
+
+<p>Тип <code><strong>wchar_t</strong></code> є окремим типом, який базується на знаковому чи беззнаковому цілому типі. Значення типу <code><strong>wchar_t</strong></code> представляють різні коди для розширеного набору символів, визначеного для різних локалій (наборів різних кодувань).</p>
+
+<p>Тип <strong><code>bool</code></strong> — це окремий тип, який має таке саме представлення, як і деякий, визначений реалізацією компілятора, беззнаковий цілий тип. Значення типу <code><strong>bool</strong></code> — це <code><strong>true</strong></code> і <code><strong>false</strong></code>. Використання невизначених значень типу <code><strong>bool</strong></code>, наприклад, взяття значення неініціалізованої локальної змінної типу <code><strong>bool</strong></code> ("examining the value of an uninitialized automatic object"), може призвести до того, що вона не буде рівна ні <strong><code>true</code></strong>, ні <strong><code>false</code></strong> ("might cause it to behave as if it is neither true nor false"). (Докладніше дивіться про це у майбутньому розділі, присвяченому невизначеній поведінці — <em>примітка автора курсу</em>).</p>
+
+<p>Значення <code><strong>sizeof</strong>(<strong>bool</strong>)</code> визначається реалізацією і, в теорії, може відрізнятися від 1 (хоча для більшості реалізацій значення типу <strong><code>bool</code> </strong>займають саме один байт у пам'яті — <em>примітка автора курсу</em>).</p>
+
+<p>Література:</p>
+
+<ol>
+	<li>P1236R1: Alternative Wording for P0907R4 Signed Integers are Two's Complement <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1236r1.html" rel="noopener noreferrer nofollow">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1236r1.html</a></li>
+	<li>Доповняльний код — Вхіпедія <a href="https://uk.wikipedia.org/wiki/%D0%94%D0%BE%D0%BF%D0%BE%D0%B2%D0%BD%D1%8F%D0%BB%D1%8C%D0%BD%D0%B8%D0%B9_%D0%BA%D0%BE%D0%B4_(%D0%BA%D0%BE%D0%BC%D0%BF%27%D1%8E%D1%82%D0%B5%D1%80%D0%0%BD%D0%B0_%D0%B0%D1%80%D1%96%D1%84%D0%BC%D0%B5%D1%82%D0%B8%D0%BA%D0%B0)" rel="noopener noreferrer nofollow">https://uk.wikipedia.org/wiki/Доповняльний_код_(комп'ютерна_арифметика)</a></li>
+	<li>Фундаментальні типи — cppreference.com <a href="https://ru.cppreference.com/w/cpp/language/types" rel="noopener noreferrer nofollow">https://ru.cppreference.com/w/cpp/language/types</a></li>
+</ol>

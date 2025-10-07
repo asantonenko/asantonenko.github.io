@@ -1,0 +1,147 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<p><em>Розділ підвищеного рівня, необов’язковий для початкового проходження курсу.</em></p>
+
+<p>Розглянемо тепер докладно цілочисельні літерали, тобто цілочисельні константи.</p>
+
+<p>Цілочисельні літерали мають один із наступних <strong>синтаксисів</strong>:</p>
+
+<p><code><em>десяткова_константа</em>[<em>суфікс</em>]</code></p>
+
+<p><code><em>вісімкова_константа</em>[<em>суфікс</em>]</code></p>
+
+<p><code><em>шістнадцяткова_константа</em>[<em>суфікс</em>]</code></p>
+
+<p><code><em>двійкова_константа</em>[<em>суфікс</em>]</code>  (починаючи з C++14)</p>
+
+<p><em>Суфікс </em>написаний у квадратних дужках не тому, що його потрібно так писати, у даному випадку квадратні дужки позначають необов’язкову частину (і справді, найчастіше <em>суфікс </em>не пишеться). Слова <em>десяткова_константа, вісімкова_константа, шістнадцяткова_константа, двійкова_константа</em> і <em>суфікс</em> написані українською та курсивом — це означає, що їх потрібно замінити на відповідний елемент.</p>
+
+<p>А саме:</p>
+
+<ol>
+	<li><em>десяткова_константа</em> — це непуста послідовність цифр <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, <code>7</code>, <code>8</code>, <code>9</code>, що не починається з цифри <code>0</code>;</li>
+	<li><em>вісімкова_константа</em> — це цифра <code>0</code>, за якою слідує певна кількість вісімкових цифр (<code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, <code>7</code>), які представляють деяке число, записане у вісімковій системі числення;</li>
+	<li><em>шістнадцяткова_константа</em> — це запис <code>0x</code> або <code>0X</code>, за якою слідує певна кількість шістнадцяткових цифр (<code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, <code>7</code>, <code>8</code>, <code>9</code>, <code>a</code>, <code>A</code>, <code>b</code>, <code>B</code>, <code>c</code>, <code>C</code>, <code>d</code>, <code>D</code>, <code>e</code>, <code>E</code>, <code>f</code>, <code>F</code>), при цьому <code>a</code> або <code>A</code> позначає цифру десять, <code>b</code> або <code>B</code> — цифру одинадцять і т.д., <code>f</code> або <code>F</code> — цифру п’ятнадцять;</li>
+	<li><em>двійкова_константа</em> — починаючи з версії мови C++14 можна використовувати запис <code>0b</code> або <code>0B</code>, за якою йде певна кількість двійкових цифр (<code>0</code>, <code>1</code>).</li>
+</ol>
+
+<p><strong>Приклади</strong>: <code>123</code> — десяткова константа, число "сто двадцять три", тоді як <code>-5</code> — це, на мій подив, число "п’ять" і застосована до нього операція "унарний мінус", а не десяткова константа "мінус п’ять" (спочатку було написано навпаки, але мені довелося змінити свою думку після прочитання стандарту й статті <a href="https://en.cppreference.com/w/cpp/language/integer_literal" rel="noopener noreferrer nofollow">[1]</a>), <code>010</code> — як не дивно, це не число десять, а число вісім, оскільки записано у вісімковій системі, <code>0xFF</code> — константа у шістнадцятковій системі, у десятковій системі це число записується як <code>255</code>. Ось так, здається все просто, але ні — творці мов C/C++ приготували нам сюрпризи.</p>
+
+<p>Суфікс дозволяє змінити тип літерала. Як ви знаєте із попереднього кроку, існують різні цілочисельні типи. Вказуючи суфікс, ви можете вплинути на тип літерала. Компілятор обирає як тип цілочисельного літерала перший тип із певного списку типів, у який дане числове значення може поміститися. Перелік типів залежить від суфікса й системи числення, у якій заданий літерал, і наведений у наступній таблиці (див. <a href="https://en.cppreference.com/w/cpp/language/integer_literal" rel="noopener noreferrer nofollow">[1]</a>):</p>
+
+<table>
+	<tbody>
+		<tr>
+			<th>Суфікс</th>
+			<th>Десяткові числа</th>
+			<th>Двійкові, вісімкові та шістнадцяткові числа</th>
+		</tr>
+		<tr>
+			<td>(без суфікса)</td>
+			<td>
+			<ul>
+				<li><strong><code>int</code></strong></li>
+				<li><strong><code>long int</code></strong></li>
+				<li><strong><code>long long int</code></strong> (починаючи з C++11)</li>
+			</ul>
+			</td>
+			<td>
+			<ul>
+				<li><strong><code>int</code></strong></li>
+				<li><strong><code>unsigned int</code></strong></li>
+				<li><strong><code>long int</code></strong></li>
+				<li><strong><code>unsigned long int</code></strong></li>
+				<li><strong><code>long long int</code></strong> (починаючи з C++11)</li>
+				<li><strong><code>unsigned long long int</code></strong> (починаючи з C++11)</li>
+			</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>u</code> або <code>U</code></td>
+			<td>
+			<ul>
+				<li><strong><code>unsigned int</code></strong></li>
+				<li><strong><code>unsigned long int</code></strong></li>
+				<li><strong><code>unsigned long long int</code></strong> (починаючи з C++11)</li>
+			</ul>
+			</td>
+			<td>
+			<ul>
+				<li><strong><code>unsigned int</code></strong></li>
+				<li><strong><code>unsigned long int</code></strong></li>
+				<li><strong><code>unsigned long long int</code></strong> (починаючи з C++11)</li>
+			</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>l</code> або <code>L</code></td>
+			<td>
+			<ul>
+				<li><strong><code>long int</code></strong></li>
+				<li><code><strong>unsigned long int</strong></code> (до C++11)</li>
+				<li><strong><code>long long int</code></strong> (починаючи з C++11)</li>
+			</ul>
+			</td>
+			<td>
+			<ul>
+				<li><strong><code>long int</code></strong></li>
+				<li><strong><code>unsigned long int</code></strong></li>
+				<li><strong><code>long long int</code></strong> (починаючи з C++11)</li>
+				<li><strong><code>unsigned long long int</code></strong> (починаючи з C++11)</li>
+			</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>l</code>/<code>L</code><br>
+			разом із <code>u</code>/<code>U</code></td>
+			<td>
+			<ul>
+				<li><code><strong>unsigned long int</strong></code></li>
+				<li><code><strong>unsigned long long int</strong></code> (починаючи з C++11)</li>
+			</ul>
+			</td>
+			<td>
+			<ul>
+				<li>unsigned long int</li>
+				<li>unsigned long long int (починаючи з C++11)</li>
+			</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>ll</code> або <code>LL</code></td>
+			<td>
+			<ul>
+				<li><code><strong>long long int</strong></code> (починаючи з C++11)</li>
+			</ul>
+			</td>
+			<td>
+			<ul>
+				<li><code><strong>long long int</strong></code> (починаючи з C++11)</li>
+				<li><code><strong>unsigned long long int</strong></code> (починаючи з C++11)</li>
+			</ul>
+			</td>
+		</tr>
+		<tr>
+			<td> <code>ll</code>/<code>LL</code><br>
+			разом із <code>u</code>/<code>U</code></td>
+			<td>
+			<ul>
+				<li><code><strong>unsigned long long int</strong></code> (починаючи з C++11)</li>
+			</ul>
+			</td>
+			<td>
+			<ul>
+				<li><code><strong>unsigned long long int</strong></code> (починаючи з C++11)</li>
+			</ul>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p><strong>Література</strong>:</p>
+
+<ol>
+	<li>Integer literal — cppreference.com <a href="https://en.cppreference.com/w/cpp/language/integer_literal" rel="noopener noreferrer nofollow">https://en.cppreference.com/w/cpp/language/integer_literal</a></li>
+</ol>
