@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+
+  <style>
+    body { font-family: sans-serif; padding: 1em; background: #f8f9fa; }
+    textarea { width: 100%; min-height: 170px; font-family: monospace; font-size: 1em; }
+    .output { margin-top: 1em; padding: 0.75em; background: #fff; border: 1px solid #ddd; }
+    button { margin-top: 1em; padding: 0.5em 1.5em; font-size: 1em; }
+    .success { color: green; }
+    .fail { color: #b30000; }
+    @media (max-width: 600px) {
+      textarea { font-size: 0.95em; }
+      .output { font-size: 0.95em; }
+    }
+  </style>
+
+  <h2>Завдання</h2>
+
+<p>Нехай оголошено вектор primes, що містить прості числа від 2 до 19: 2, 3, 5, 7, 11, 13, 17, 19. Відредагуйте програму нижче так, щоб вона вивела значення першого і останнього елемента вектора через пробіл (вставивши замість три крапки звернення до першого вектора). Тільки, будь ласка, напишіть не просто числа 2 і 19, а вийміть ці значення з вектора primes.</p>
+
+<p><strong>Вхідні дані</strong>:</p>
+
+<p>Відсутнє.</p>
+
+<p><strong>Вихідні дані:</strong></p>
+
+<p>В одному рядку через пробіл запишіть перший та останній елемент вектора primes.</p>
+
+<p><em>Підказка</em>:</p>
+
+<p>Щоб дізнатися розмір вектора (а не прописувати магічне число - номер останнього елемента) використовуйте метод <code>size()</code> таким чином: <code>primes.size()</code>.</p>
+
+  <h2>Онлайн-перевірка C++ шаблону</h2>
+  <p>Відредагуйте код так, щоб програма вивела <strong>2 19</strong> (через пробіл), використовуючи елементи вектора <code>primes</code>.</p>
+  <textarea id="code" spellcheck="false">
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int main()
+{
+    vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19};
+    
+    cout <<... <<" " <<... <<endl;
+    
+    return 0;
+}
+  </textarea>
+  <br>
+  <button onclick="checkCode()">Перевірити</button>
+  <div class="output" id="result"></div>
+
+  <script>
+    // Проста перевірка для навчальної задачі:
+    function checkCode() {
+      const code = document.getElementById('code').value;
+
+      // Перевіряємо, чи використовується правильний доступ до елементів вектора
+      const hasFirst = /(primes\s*\[\s*0\s*\]|primes\.at\s*\(\s*0\s*\)|primes\.front\s*\(\s*\))/g.test(code);
+      const hasLast = /(primes\s*\[\s*primes\.size\s*\(\)\s*-\s*1\s*\]|primes\.at\s*\(\s*primes\.size\s*\(\)\s*-\s*1\s*\)|primes\.back\s*\(\s*\))/g.test(code);
+
+      // Перевіряємо, чи явно не використані магічні числа 2 і 19
+      const noMagic2 = !/cout\s*<<\s*2/gi.test(code);
+      const noMagic19 = !/cout\s*.*19/gi.test(code);
+
+      // Перевіряємо, чи рядок виводу співпадає з зразком "2 19"
+      // Дозволяємо будь-яку кількість пробілів перед і після
+      let output = "";
+      if ((hasFirst && hasLast && noMagic2 && noMagic19)) {
+        output = "<span class='success'>✅ Успіх! Ви правильно звернулися до першого і останнього елементу вектора.<br>Очікуваний вивід: <b>2 19</b></span>";
+      } else {
+        output = "<span class='fail'>❌ Перевірте, що ви використовуєте елементи з вектора <code>primes</code>, а не просто числа 2 та 19.<br>Підказка: перший елемент <code>primes[0]</code> або <code>primes.front()</code>, останній — <code>primes[primes.size()-1]</code> або <code>primes.back()</code>.</span>";
+      }
+      document.getElementById('result').innerHTML = output;
+    }
+  </script>
+</body>
+</html>
