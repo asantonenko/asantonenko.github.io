@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+ <script type="text/javascript" async
+   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+ </script>
+
+<p>Опишем базовый функционал контейнера <code>map</code>, взяв за основу статью <a href="https://ru.wikipedia.org/wiki/Map_(C%2B%2B)" rel="noopener noreferrer nofollow">https://ru.wikipedia.org/wiki/Map_(C++)</a>.</p>
+
+<p>Стандартные методы класса <code>map</code> дают возможность пользователю осуществлять операции поиска, вставки и обхода контейнера унифицированным образом. </p>
+
+<table>
+	<tbody>
+		<tr>
+			<th>Название метода или операции</th>
+			<th>Функции</th>
+			<th>Пример использования метода или операции</th>
+		</tr>
+		<tr>
+			<td><code>size()</code></td>
+			<td>Возвращает количество элементов в контейнере.</td>
+			<td><code>cout &lt;&lt;"Количество слов в словаре"<br>
+			 &lt;&lt;dict.size() &lt;&lt;endl;</code></td>
+		</tr>
+		<tr>
+			<td><code>empty()</code></td>
+			<td>Возвращает <strong><code>true</code></strong> если контейнер пуст, иначе <code><span style="color: #000000;"><strong>false</strong></span></code>.</td>
+			<td>
+			<p><code>if (dict.empty()) {<br>
+			  cout &lt;&lt;"Словарь пуст!"<br>
+			       &lt;&lt;endl;<br>
+			}</code></p>
+			</td>
+		</tr>
+		<tr>
+			<td><code>find(k)</code></td>
+			<td>Возвращает итератор, указывающий на значение, соответствующее значению ключа <code>k</code>.<br>
+			Если такого ключа в контейнере нет, то возвращается итератор <code>end()</code>.<br>
+			Если ключ найден, то возвращается итератор на пару ключ - значение.<br>
+			Пусть мы присвоим итератор переменной <code>it</code>, тогда<br>
+			<code>it-&gt;first</code> будет обозначать ключ (равный <code>k</code>),<br>
+			 а <code>it-&gt;second</code> - значение.</td>
+			<td>
+			<p><code>string word;<br>
+			cin &gt;&gt; word;<br>
+			auto it = dict.find(word);<br>
+			if (it == dict.end()) {<br>
+			   cout &lt;&lt;word<br>
+			        &lt;&lt;" не найдено!"<br>
+			        &lt;&lt;endl;<br>
+			} else {<br>
+			   cout &lt;&lt;word <br>
+			        &lt;&lt;" переводится "<br>
+			        &lt;&lt;it-&gt;second<br>
+			        &lt;&lt;endl;<br>
+			}</code></p>
+			</td>
+		</tr>
+		<tr>
+			<td><code>operator[k]</code></td>
+			<td>Возвращает ссылку на значение, соответствующее ключу <code>k</code>.<br>
+			Если такого ключа не существует, то он создаётся.</td>
+			<td><code>dict["she"] = "она";</code></td>
+		</tr>
+		<tr>
+			<td><code>insert(pair(k,v))</code></td>
+			<td>Вставляет в контейнер пару <code>{k,v}</code>, возвращая адрес его позиции. <br>
+			Если ключ <code>k</code> уже присутствовал в контейнере <code>map</code>, то метод игнорируется.</td>
+			<td><code>dict.insert({"hi", "привет"});</code></td>
+		</tr>
+		<tr>
+			<td><code>erase(k)</code></td>
+			<td>Удаляет из контейнера элемент с ключом <code>k</code>.</td>
+			<td><code>dict.erase("zoo");</code></td>
+		</tr>
+		<tr>
+			<td><code>erase(p)</code></td>
+			<td>Удаляет из контейнера элемент, на который указывает итератор <code>p</code>.</td>
+			<td><code>dict.erase(dict.begin());</code></td>
+		</tr>
+		<tr>
+			<td><code>begin()</code></td>
+			<td>Возвращает итератор на начало контейнера.</td>
+			<td><code>auto it = dict.begin();</code></td>
+		</tr>
+		<tr>
+			<td><code>end()</code></td>
+			<td>Возвращает итератор на конец контейнера.</td>
+			<td>см. пример на <code>find(k)</code></td>
+		</tr>
+	</tbody>
+</table>

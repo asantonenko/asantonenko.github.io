@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+ <script type="text/javascript" async
+   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+ </script>
+
+<p>Контейнер типа <code>map</code> и аналогичные по функциональности ему контейнеры других языков программирования также называют <em>словарём</em>. Действительно, при помощи него можно реализовать словарь, хранящий переводы слов с одного языка на другой. Опишем следующий контейнер:</p>
+
+<pre><code class="language-cpp">map&lt;string, string&gt; dict;</code></pre>
+
+<p>в котором в качестве ключа будем использовать английские слова, а в качестве значения - русский перевод. Добавлять новые слова в словарь можно несколькими способами. Во первых, можно написать:</p>
+
+<pre><code class="language-cpp">dict.insert(pair&lt;string, string&gt; ("orange", "апельсин"));</code></pre>
+
+<p>Данная запись весьма сложна, поэтому в еще в первом стандарте C++98 была описана функция make_pair, которая может создать пару: </p>
+
+<pre><code class="language-cpp">dict.insert(make_pair ("orange", "апельсин"));</code></pre>
+
+<p>В новых версиях C++ можно написать ещё проще, записав <em>универсальный инициализатор</em> создаваемой пары  </p>
+
+<pre><code class="language-cpp">dict.insert({"orange", "апельсин"});</code></pre>
+
+<p>Попытка добавить еще один элемент с таким же ключом при помощи метода  <code>insert</code> будет проигнорирована, то есть после выполнения оператора </p>
+
+<pre><code class="language-cpp">dict.insert({"orange", "оранжевый"});</code></pre>
+
+<p>в словаре <code>dict</code> будет только исходная пара <code>{"orange", "апельсин"}</code>.  </p>
+
+<p>Также можно использовать синтаксис, аналогичный синтаксису массива, который мы уже использовали на прошлом шаге.  Если мы напишем</p>
+
+<pre><code class="language-cpp">dict["table"] = "стол";</code></pre>
+
+<p>то в словарь будет добавлена пара <code>{"table", "стол"}</code>.  Ну, если совсем формально, то  вначале встретив запись dict["table"], содержащую новый ключ <code>"table"</code> будет создана пара <code>{"table", ""}</code> с пустым значением, но затем сразу же это пустое значение будет заменено на значение <code>"стол"</code>, так что можно считать, что сразу добавлялась пара <code>{"table", "стол"}</code>. Если же мы попробуем раз присвоить <code>dict["table"]</code> при помощи</p>
+
+<pre><code class="language-cpp">dict["table"] = "таблица";</code></pre>
+
+<p>то значение будет <code>"стол"</code> заменено на <code>"таблица"</code> и в словаре из двух пар с ключом <code>"table"</code> останется только пара <code>{"table", "таблица"}</code>.</p>
+
+<p>А что же, если мы хотим хранить несколько переводов некоторого слова? У нас есть два способа:</p>
+
+<ol>
+	<li>Использовать контейнер <code>multimap &lt;string, string&gt; dict_multi;</code>, который, в отличии от контейнера <code>map</code> может хранить несколько пар с равными ключами. Для добавления первого или ещё одного перевода <code>translation</code> слова <code>word</code> нужно написать <code>dict_multi.insert({word,translation});</code>.</li>
+	<li>Использовать контейнер <code>map &lt;string, set&lt;string&gt;&gt; dict_map_set;</code> или <code>map &lt;string, vector&lt;string&gt;&gt; dict_map_vector</code>, который будет ставить в соответствии одному слову множество значений или вектор значений. Для добавления перевода <code>translation</code> слова <code>word</code> нужно написать <code>dict_map_set[word].insert(translation);</code> или <code>dict_map_vector[word].push_back(translation);</code>. При этом в векторе переводы не будут упорядочены по алфавиту и могут дублироваться, а в множестве - будут упорядочены лексикографически (по алфавиту) и не будут дублироваться.</li>
+</ol>
