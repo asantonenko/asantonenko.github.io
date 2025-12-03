@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<h1>Контейнер <span style="color:#000000;">array </span>- статичний масив.</h1>
+
+<p><strong>Синтаксис:</strong></p>
+
+<p><code><span style="color:#000000;">#include &lt;array&gt;</span></code></p>
+
+<p><code><span style="color:#000000;">array&lt;<em>тип_елемента</em>,<em>розмір</em>&gt; <em>ім'я_масиву</em>;</span></code></p>
+
+<p>У мові C++11 з'явився ще один тип контейнера — статичний масив у C++-стилі  <a href="https://cppreference.com/w/cpp/container/array" rel="noopener noreferrer nofollow"><code>array</code></a>.  </p>
+
+<p>Він відрізняється від контейнера <code>vector</code> у кількох важливих характеристиках:</p>
+
+<ol>
+	<li>розмір контейнера <code>array</code> не може змінитися під час роботи програми, більш того, розмір цього контейнера вказується в параметрах шаблону контейнера, і таким чином є частиною типу. Це означає, що всі вектори цілих чисел мають тип <code>vector&lt;<strong>int</strong>&gt;</code>, незалежно від їх розміру (дійсно, адже розмір вектора може змінитися, а ось тип змінної - ні ). Тоді як масиви <code>array</code> цілих чисел мають різні типи залежно від розміру - наприклад, масив із 10 чисел має тип <code>array&lt;<strong>int</strong>,10&gt;</code>, а з 20 чисел має тип <code>array&lt;<strong>int</strong>,20&gt;</code> і це різні типи. Як наслідок, контейнер <code>array</code> не має методів <code>resize</code>, <code>push_back</code>, <code>insert</code>, <code>erase</code> та їм подібним.</li>
+	<li>Для контейнера <code>array</code> пам'ять виділяється суто під елементи масиву, операцією <strong><code>sizeof</code></strong> можна визначити, скільки пам'яті виділено - і це має бути рівно <code><strong>sizeof</strong>(<em>тип_елемента</em>)</code> помножити на кількість елементів.</li>
+</ol>
+
+<p>Масив <code>array</code> покликаний замінити масив у C-стилі в нових програмах, там де не потрібна додаткова функціональність контейнера <code>vector</code>.</p>
+
+<p>За внутрішнім представленням масив <code>array</code> аналогічний звичайному статичному масиву в стилі C — тобто виділяється деякий цілісний шматок пам'яті (підряд лежачі комірки пам'яті), за розміром рівний <code><strong>sizeof</strong>(<span style="color:#000000;"><em>тип_елемента</em></span>)*<span style="color:#000000;"><em>розмір</em></span></code>. Мабуть з цієї причини у більш старому стандарті C++98 його і не було — адже по суті він аналогічний до звичайного масиву в стилі C. Проте цей вид контейнера надає всі переваги контейнерів у стилі C++:</p>
+
+<ol>
+	<li>У нього є багато базових методів, характерних для контейнерних класів, такі як <code>size</code> (повертає розмір масиву), <code>begin</code> (повертає ітератор на початок масиву), <code>end</code> (повертає ітератор за кінцем масиву), <code>front</code> (повертає перший елемент), <code>back</code> (повертає останній елемент), <code>at</code> (повертає елемент за індексом з перевіркою індексу на вихід за межі діапазону). З іншого боку, такі методи як <code>resize</code>, <code>clear</code>, <code>insert</code> та <code>erase</code> відсутні, так як не можна змінити розмір масиву типу <code>array</code>, і, як наслідок, вставити або видалити елемент теж не можна.</li>
+	<li>Можна використовувати звичайне присвоєння при збігу типів елементів та розмірів двох масивів типу <code>array</code>.</li>
+	<li>Під час передачі у функції контейнер <code>array</code> веде себе як і інші контейнерні класи, тобто за замовчанням передача йде за значенням, можна передавати за посиланням або константним посиланням, можна повертати значення типу контейнер <code>array</code>. <!-- Более подробно см. <a href="https://stepik.org/lesson/773562/step/1?unit=776029" rel="noopener noreferrer nofollow">Передача массивов и контейнеров в функции (про передачу массивов в стиле Си)</a> и <a href="https://stepik.org/lesson/773562/step/2?unit=776029" rel="noopener noreferrer nofollow">Передача массивов и контейнеров в функции (про передачу контейнеров C++)</a>. --></li>
+</ol>
+
+<p><strong>Приклади</strong>. </p>
+
+<pre><code class="language-cpp">array &lt;int, 20&gt; arr1; //масив із 20 цілих чисел
+array &lt;string, 10&gt; arr2; //массив из 10 строк
+array &lt;int, 4&gt; arr3 = {1, 2, 3, 4}; //ініціалізація масиву
+array &lt;int, 4&gt; arr4 = {3}; //часткова ініціалізація</code></pre>
+
+<p>Розмір масиву можна рахувати як функцією <code>size</code> (починаючи з C++17), так і методом <code>size</code>, також можна (хоча і нераціонально) використовувати і операцію <code><strong>sizeof</strong></code>:</p>
+
+<pre><code class="language-cpp">cout &lt;&lt;"Розмір масиву arr1:" &lt;&lt;endl; 
+cout &lt;&lt;size(arr1) &lt;&lt;endl; //20
+cout &lt;&lt;arr1.size() &lt;&lt;endl; //20
+cout &lt;&lt;sizeof(arr1)/sizeof(arr1[0]) &lt;&lt;endl; //20</code></pre>
+
+<p>Оскільки типи масивів <code>arr3</code> та <code>arr4</code>  однакові, то можна присвоїти масиву <code>arr4</code> значення масиву <code>arr3</code>.</p>
+
+<pre><code class="language-cpp">arr4 = arr3;</code></pre>
+
+<p>Повний код прикладу можна побачити тут: <a href="https://onlinegdb.com/ubPTjW_g-" rel="noopener noreferrer nofollow">https://onlinegdb.com/ubPTjW_g-</a>.</p>
+
+<p>Отже, можна зробити висновок: </p>
+
+<blockquote>
+<p>Контейнер <code>array</code> поєднує продуктивність і доступність масиву в стилі C з перевагами стандартного контейнера, такими як знання його власного розміру, підтримка присвоєння, ітератори довільного доступу і т.д.</p>
+</blockquote>
+
+<p>(джерело: <a href="https://cppreference.com/w/cpp/container/array" rel="noopener noreferrer nofollow">https://cppreference.com/w/cpp/container/array</a>).</p>
