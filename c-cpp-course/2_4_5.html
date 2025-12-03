@@ -1,0 +1,45 @@
+<p>Якими будуть значення змінних після виконання наступного фрагменту програми:</p>
+
+<pre><code class="language-cpp">int main()
+{ 
+   int x, y=0;
+</code></pre>
+
+<p><em>Примітка</em>: Тут мають на увазі, якими <em>за стандартом</em> будуть значення змінних, а не в якійсь конкретній реалізації або якихось конкретних умовах.</p>
+
+<div class="question" id="question1">
+
+<p>Виберіть правильну відповідь:</p>
+
+    <div class="question" id="question1">
+        <label><input type="radio" name="q1" value="0"> значення обох змінних не визначено (вони містять сміття)</label><br>
+        <label><input type="radio" name="q1" value="1"> значение переменной x не определено (она содержит мусор), значение y равно 0</label><br>
+        <label><input type="radio" name="q1" value="0"> обидві змінні рівні 0</label><br>
+        <label><input type="radio" name="q1" value="0"> значення x дорівнює 1, значення y дорівнює 0</label><br>
+    </div>
+
+
+    <button onclick="checkAnswers()">Перевірити відповідь</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function checkAnswers() {
+            const questions = [
+                {name: "q1", correct: "1"}
+            ];
+            
+            let score = 0;
+
+            questions.forEach(question => {
+                const selected = document.querySelector(`input[name="${question.name}"]:checked`);
+                if (selected && selected.value === question.correct) {
+                    score++;
+                }
+            });
+
+            const result = document.getElementById('result');
+            result.textContent = `Ви набрали ${score} з ${questions.length} правильних відповідей.`;
+        }
+    </script>
+

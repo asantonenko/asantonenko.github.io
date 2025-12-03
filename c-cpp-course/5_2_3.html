@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<style>
+    <!--body { font-family: Arial, sans-serif; padding: 1em; max-width: 500px; margin: auto; }
+    pre { background: #f4f4f4; padding: 1em; border-radius: 5px; } -->
+    input[type="number"] { width: 60px; padding: 0.3em; font-size: 1em; }
+    button { padding: 0.5em 1em; font-size: 1em; }
+    .result { margin-top: 1em; padding: 1em; border-radius: 5px; }
+    .correct { background: #e6ffe6; border: 1px solid #46b946; }
+    .incorrect { background: #fff0f0; border: 1px solid #eb4040; }
+</style>
+
+<p>Яку кількість чисел роздрукує цей фрагмент програми:</p>
+
+<pre>
+<code>vector&lt;int&gt; vec = {1,2,3,4,5};
+vec[0] = 3;
+vec[1] = 5;
+
+for (auto el: vec)
+{
+    if (el == 3 || el == 5)
+    {
+        cout &lt;&lt; el &lt;&lt; endl;
+    }
+}</code></pre>
+
+<label for="answer">Ваша відповідь:</label>
+  <input type="number" id="answer" min="0">
+  <button onclick="checkAnswer()">Перевірити</button>
+
+  <div id="explanation" class="result" style="display:none;"></div>
+
+  <script>
+    function checkAnswer() {
+      const userAnswer = document.getElementById('answer').value.trim();
+      const explanationDiv = document.getElementById('explanation');
+      let message = '';
+      let correct = false;
+
+      // Розв'яжемо задачу по кроках:
+      // Початковий вектор: {1, 2, 3, 4, 5}
+      // Після vec[0]=3: {3, 2, 3, 4, 5}
+      // Після vec[1]=5: {3, 5, 3, 4, 5}
+      // Виводяться всі елементи, які == 3 || 5: це 3, 5, 3, 5 (тобто 4 числа)
+
+      if (userAnswer === '4') {
+        correct = true;
+        message = `<strong>Вірно!</strong><br>
+        <ul>
+          <li>Початковий вектор: <code>{1, 2, 3, 4, 5}</code></li>
+          <li>Після <code>vec[0] = 3</code>: <code>{3, 2, 3, 4, 5}</code></li>
+          <li>Після <code>vec[1] = 5</code>: <code>{3, 5, 3, 4, 5}</code></li>
+          <li>В циклі друкуються елементи, що дорівнюють 3 або 5: <b>3, 5, 3, 5</b> (усього <b>4 числа</b>).</li>
+        </ul>`;
+      } else {
+        message = `<strong>Невірно.</strong><br>
+        <ul>
+          <li>Початковий вектор: <code>{1, 2, 3, 4, 5}</code></li>
+          <li>Після <code>vec[0] = 3</code>: <code>{3, 2, 3, 4, 5}</code></li>
+          <li>Після <code>vec[1] = 5</code>: <code>{3, 5, 3, 4, 5}</code></li>
+          <li>В циклі друкуються елементи, що дорівнюють 3 або 5: <b>3, 5, 3, 5</b> (усього <b>4 числа</b>).</li>
+        </ul>
+        <b>Правильна відповідь: 4.</b>`;
+      }
+
+      explanationDiv.innerHTML = message;
+      explanationDiv.className = 'result ' + (correct ? 'correct' : 'incorrect');
+      explanationDiv.style.display = 'block';
+    }
+  </script>
