@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+<h2>Операції над C++ рядками</h2>
+
+<p>Звісно, створені вами змінні типу рядок (<code>string</code>) можна згодом змінювати (якщо ви не створили рядкову константу типу <code><strong>const</strong> string</code>). Оператор <code>=</code> означає присвоєння рядків, оператор <code>+</code> — конкатенацію (об’єднання) рядків. Як і для Сі-рядків, для отримання <code>i</code>-го символу рядка <code>str</code> можна записати <code>str[i]</code>. Наприклад, після такого фрагменту:</p>
+
+<pre><code>string str;
+
+string str2 = "hello";
+
+string str3 = str2;
+
+string str4(100,'a');
+
+str = "world!";
+
+str3 = str2 + ' ' + str;
+
+str4[0] = 'b';</code></pre>
+
+<p>рядок <code>str</code> буде дорівнювати <code>"world!"</code>, рядок <code>str2</code> залишиться рівним <code>"hello"</code>, рядок <code>str3</code> набуде значення <code>"hello world!"</code>, а рядок <code>str4</code> складатиметься з букви <code>'b'</code> і далі 99 букв <code>'a'</code>.</p>
+
+<p>Слід пам’ятати, що оператор <code>=</code> з правого боку може містити не лише значення типу <code>string</code>, а й Сі-рядок типу <code>char*</code>, а одним з операндів оператора <code>+</code> може бути тип <code>char</code> або <code>char*</code>. Але хоча б один з операндів <code>+</code> повинен мати тип <code>string</code>, тобто якщо <code>str1</code> та <code>str2</code> мають тип <code>string</code>, то</p>
+
+<p>а) допустимі конструкції:</p>
+
+<pre><code>string plus1 = str1 + str2;
+
+string plus2 = str1 + "!!!";
+
+string plus3 = str1 + '!';
+
+string plus4 = "!!!" + str2;
+
+string plus5 = '!' + str2;</code></pre>
+
+<p>б) недопустимі конструкції:</p>
+
+<pre><code>string wrong1 = "!!!" + "!!!"; //помилка компіляції
+
+string wrong2 = '!' + "!!!";
+
+string wrong3 = "!!!" + '!';
+
+string wrong4 = '!' + '!';</code></pre>
+
+<p>При цьому друга та третя конструкції скомпілюються успішно, але працюватимуть не як конкатенація, як ми, можливо, очікували, а беззмістовно. <a href="https://onlinegdb.com/J7F8o4CoW" rel="noopener noreferrer nofollow">Тут</a> видно, що виводяться дуже дивні значення (якщо згадаєте про адресну арифметику, то зрозумієте чому).</p>
+
+<p>Щоб виправити помилки (компіляції або смислові), зазначені вище, можна перетворити символ типу <code><strong>char</strong></code> або рядок типу <code><strong>char</strong>*</code> на об’єкт класу <code>string</code>, наприклад так:</p>
+
+<pre><code>string fixed1 = string("!!!") + "!!!"; //помилки виправлені
+
+string fixed2 = string(1,'!') + "!!!";
+
+string fixed3 = string("!!!") + '!';
+
+string fixed4 = string(1,'!') + '!';</code></pre>
+
+<p>Тут використано конструктор, який створює рядок типу <code>string</code> із значення <code><strong>char</strong>*</code>, і конструктор із двома параметрами, який створює рядок типу <code>string</code> з одного символу типу <code><strong>char</strong></code>.</p>
+
+<p>Як і для числових даних, запис <code>str1 += str2;</code> еквівалентний за змістом запису <code>str1 = str1 + str2;</code>, тобто додає рядок <code>str2</code> у кінець рядка <code>str1</code>. Але зверніть увагу, що цілком можливо, що оператор <code>str1 += str2;</code> спрацює швидше, оскільки йому не потрібно створювати новий рядок-конкатенацію двох рядків і потім записувати її на місце рядка <code>str1</code>.</p>
