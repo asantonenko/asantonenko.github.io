@@ -105,12 +105,15 @@
 </style>
 </head>
 <body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
   <div class="container" role="main">
     <h1>Тест: Які значення отримають змінні після фрагмента?</h1>
 
     <p>Нехай виконано наступний фрагмент програми (C++):</p>
 
-    <pre><code>int x = 5;
+    <pre><code class="language-cpp">int x = 5;
 int y = 3;
 double z;
 
