@@ -1,43 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Модуль 2 - Основні елементи мов C/C++</title>
+
+    <link rel="stylesheet" href="styles.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
             text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
             padding: 20px;
         }
-        nav {
-            margin: 20px;
+
+        h1 {
+            color: #222;
+            margin-bottom: 30px;
         }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         a {
             display: block;
-            padding: 10px;
-            margin: 5px;
+            padding: 14px 18px;
             text-decoration: none;
             color: white;
             background-color: #007BFF;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            margin-top: 25px;
+            background-color: #6c757d;
+        }
+
+        .back-link:hover {
+            background-color: #545b62;
         }
     </style>
 </head>
 <body>
 
-<h1>Модуль 2 - Основні елементи мов C/C++</h1>
+    <div class="container">
+        <h1>Модуль 2 - Основні елементи мов C/C++</h1>
 
-<nav>
-    <a href="2_1.html">2.1 Алфавіт та лексеми мов C/C++</a>
-    <a href="2_2.html">2.2 Ідентифікатори</a>
-    <a href="2_3.html">2.3 Ключові слова</a>
-    <a href="2_4.html">2.4 Літерали, змінні та типи</a>
-    <a href="2_5.html">2.5 Вбудовані типи мов C/C++ та їх літерали</a>
-    <a href="2_6.html">2.6 Присвоєння змінних та перетворення типів</a>
-    <a href="2_7.html">2.7 Введення та виведення змінних</a>
-</nav>
+        <nav>
+            <a href="2_1.html">2.1 Алфавіт та лексеми мов C/C++</a>
+            <a href="2_2.html">2.2 Ідентифікатори</a>
+            <a href="2_3.html">2.3 Ключові слова</a>
+            <a href="2_4.html">2.4 Літерали, змінні та типи</a>
+            <a href="2_5.html">2.5 Вбудовані типи мов C/C++ та їх літерали</a>
+            <a href="2_6.html">2.6 Присвоєння змінних та перетворення типів</a>
+            <a href="2_7.html">2.7 Введення та виведення змінних</a>
+        </nav>
+
+        <a class="back-link" href="index.html">← Повернутися на головну</a>
+    </div>
 
 </body>
 </html>
