@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
+
+<h1>5. Оператор switch</h1>
+
+<p><strong>Синтаксис</strong>:</p>
+
+<p><code><strong>switch </strong>( <em>выражение </em>)</code></p>
+
+<p><code>{ [<em>объявления</em>]</code></p>
+
+<p><code><strong>  case </strong><em>константное-выражение1</em>: [ <em>список-операторов1 </em>]</code></p>
+
+<p><code>  [<strong>case </strong><em>константное-выражение2</em>: [ <em>список-операторов2</em> ]]</code></p>
+
+<p><code>  ...</code></p>
+
+<p><code>  [ <strong>default</strong>: [ <em>список-операторов </em>]]</code></p>
+
+<p><code>}</code></p>
+
+<p>Оператор <strong><code>switch</code></strong>предназначен для организации выбора из множества различных вариантов.</p>
+
+<p>Выражение, следующее за ключевым словом <strong><code>switch</code></strong>в круглых скобках, может быть любым выражением, допустимым в языках C/C++, значение которого должно быть целым. Значение этого выражения является <em>ключевым</em> для выбора из нескольких вариантов. Тело оператора <strong><code>switch</code></strong>состоит из нескольких операторов, помеченных ключевым словом <strong>case </strong>с последующим константным выражением. Оно не может содержать переменные или вызовы функций. Обычно в качестве константного выражения используются целые или символьные константы. Список операторов можно помечать несколькими метками <code><strong>case</strong></code>.</p>
+
+<p>Все константные выражения в операторе <strong><code>switch</code></strong>должны быть уникальны (не должны повторяться). Кроме операторов, помеченных ключевым словом <code><strong>case</strong></code>, может быть, но не более одного, фрагмент помеченный ключевым словом <code><strong>default</strong></code>.</p>
+
+<p>Список операторов может быть пустым, либо содержать один или более операторов. Причем в операторе <strong><code>switch</code> </strong>не требуется заключать последовательность операторов в фигурные скобки - хотя это и не запрещается.</p>
+
+<p>Отметим также, что в операторе <strong><code>switch</code></strong> можно использовать свои локальные переменные, объявления которых находятся перед первым ключевым словом <strong><code>case</code></strong>, однако в объявлениях нет смысла использовать инициализацию - так как она не будет выполнена. Вообще, при желании использовать внутренние переменные в блоках <strong><code>case</code> </strong>оператора <strong><code>switch</code> </strong>лучше использовать составные операторы, то есть заключать списки операторов каждого блока <strong><code>case</code> </strong>в фигурные скобки (и получать переменную, локальную в данном блоке).</p>
+
+<p>Схема выполнения оператора <strong><code>switch</code></strong> следующая:</p>
+
+<ul>
+	<li>
+	<p>вычисляется выражение в круглых скобках;</p>
+	</li>
+	<li>
+	<p>вычисленные значения последовательно сравниваются с константными выражениями, следующими за ключевыми словами <code><strong>case</strong></code>;</p>
+	</li>
+	<li>
+	<p>если одно из константных выражений совпадает со значением выражения, то управление передается на оператор, помеченный соответствующим ключевым словом <code><strong>case</strong></code>, далее выполняются все операторы, в том числе помеченные другими ключевыми словами <code><strong>case</strong></code>, до конца оператора <code><strong>switch</strong></code>, если не встретиться оператор <code><strong>break</strong></code>;</p>
+	</li>
+	<li>
+	<p>если ни одно из константных выражений не равно выражению, то управление передается на оператор, помеченный ключевым словом <code><strong>default</strong></code>, а в случае его отсутствия управление передается на следующий после <strong><code>switch</code> </strong>оператор.</p>
+	</li>
+</ul>
+
+<p>Чтобы не выполнялись операторы для следующих ключевых слов <strong><code>case</code> </strong>в конце списка операторов ставится оператор <code><strong>break</strong></code>. Оператор <strong><code>switch</code> </strong>принимает вид:</p>
+
+<p><code>switch ( <em>выражение </em>)</code></p>
+
+<p><code>{ [<em>объявления</em>]</code></p>
+
+<p><code>  <strong>case </strong><em>константное-выражение1</em>: <em>список-операторов1</em>; <strong>break</strong>;</code></p>
+
+<p><code>  <strong>case </strong>константное-выражение2: <em>список-операторов2</em>; <strong>break</strong>;</code></p>
+
+<p><code>  ...</code></p>
+
+<p><code>  [ <strong>default</strong>: [ список операторов ]]</code></p>
+
+<p><code>}</code></p>
+
+<p>В таком случае выполняется ровно один из списков операторов (если есть <code><strong>default</strong></code>) или максимум один список операторов (если <code><strong>default</strong></code> отсутствует). Пропуск ключевого слова <code><strong>break</strong></code> является типичной ошибкой.</p>
+
+<p><strong>Примеры</strong><strong>.</strong></p>
+
+<pre><code class="language-cpp">int i,j,k,s;
+
+...
+
+switch (i)
+{
+  case 1:case 2: j++;
+  case 3: k++;
+  default: s++;
+}</code></pre>
+
+<p>В случае <code>i</code>=1 или <code>i</code>=2 увеличатся на 1 все три переменные <code>j</code>,<code>k</code>,<code>s</code>, в случае <code>i</code>=3 – только переменные <code>k</code> и <code>s</code>, иначе – только <code>s</code>. Крайне не советую использовать такой стиль без четкого понимания, зачем это нужно в программе.</p>
+
+<pre><code class="language-cpp">int i,j,k,s;
+
+...
+
+switch (i)
+{
+  case 1: case 2: j++; break;
+  case 3: k++; break;
+  default: s++; 
+}</code></pre>
+
+<p>В случае <code>i</code>=1 или <code>i</code>=2 увеличатся на 1 все только переменная <code>j</code>, в случае <code>i</code>=3 – только переменная <code>k</code>, иначе – только <code>s</code>.</p>
+
+<p>Приведем пример, в котором управляющее выражение будет иметь символьный тип – точнее оно будет определять символ той операции, которую необходимо выполнить. Заметим, что использовать строку в качестве управляющего выражения нельзя.</p>
+
+<pre><code>char op;
+
+int result, x, y;
+
+...
+
+switch (op)
+
+{
+
+  case '+': result = x + y; break;
+
+  case '-': result = x - y; break;
+
+  case '*': result = x * y; break;
+
+  case '/': result = x / y; break;
+
+  default : result = 0;
+
+}</code></pre>
+
+<p>Отметим, что в теле оператора <strong><code>switch</code> </strong>можно использовать вложенные операторы <code><strong>switch</strong></code>. Оператор <strong><code>break</code> </strong>прерывает при этом только внутренний <code><strong>switch</strong></code>.</p>
+
+<p>Пример цельной программы, использующий оператор <code><strong>switch</strong></code> Вы уже видели в разделе <a href="1_4_2.html" rel="noopener noreferrer nofollow">Программа "Калькулятор"</a>.</p>

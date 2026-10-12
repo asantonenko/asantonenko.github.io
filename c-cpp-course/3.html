@@ -1,46 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модуль 3 - Операції та вирази</title>
+
     <link rel="stylesheet" href="styles.css">
-    <title>Модуль 3</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
             text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
             padding: 20px;
         }
-        nav {
-            margin: 20px;
+
+        h1 {
+            color: #222;
+            margin-bottom: 30px;
         }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         a {
             display: block;
-            padding: 10px;
-            margin: 5px;
+            padding: 14px 18px;
             text-decoration: none;
             color: white;
             background-color: #007BFF;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            margin-top: 25px;
+            background-color: #6c757d;
+        }
+
+        .back-link:hover {
+            background-color: #545b62;
         }
     </style>
 </head>
 <body>
 
-<h1>Модуль 3 - Операції та вирази</h1>
+    <div class="container">
+        <h1>Модуль 3 - Операції та вирази</h1>
 
-<nav>
-    <a href="3_1.html">3.1 Введення в операції</a>
-    <a href="3_2.html">3.2 Арифметичні операції</a>
-    <a href="3_3.html">3.3 Операції порівняння</a>
-    <a href="3_4.html">3.4 Логічні операції</a>
-    <a href="3_5.html">3.5 Побітові операції</a>
-    <a href="3_6.html">3.6 Складені оператори присвоєння</a>
-    <a href="3_7.html">3.7 Операції інкременту та декременту</a>
-    <a href="3_8.html">3.8 Операції роботи з вказівниками та членами класу</a>
-    <a href="3_9.html">3.9 Інші операції</a>
-    <a href="3_10.html">3.10 Вирази</a>
-</nav>
+        <nav>
+            <a href="3_1.html">3.1 Введення в операції</a>
+            <a href="3_2.html">3.2 Арифметичні операції</a>
+            <a href="3_3.html">3.3 Операції порівняння</a>
+            <a href="3_4.html">3.4 Логічні операції</a>
+            <a href="3_5.html">3.5 Побітові операції</a>
+            <a href="3_6.html">3.6 Складені оператори присвоєння</a>
+            <a href="3_7.html">3.7 Операції інкременту та декременту</a>
+            <a href="3_8.html">3.8 Операції роботи з вказівниками та членами класу</a>
+            <a href="3_9.html">3.9 Інші операції</a>
+            <a href="3_10.html">3.10 Вирази</a>
+        </nav>
+
+        <a class="back-link" href="index.html">← Повернутися на головну</a>
+    </div>
 
 </body>
 </html>
