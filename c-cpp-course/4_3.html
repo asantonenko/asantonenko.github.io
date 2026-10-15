@@ -1,42 +1,289 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4.3 Оператори циклу</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+ <script>hljs.highlightAll();</script>
 
-    <link rel="stylesheet" href="lesson-page.css">
-</head>
-<body>
+<h1>4.3. Оператори циклу: while, do while, for</h1>
 
-<div class="page-wrapper">
+<h2>Оператор while</h2>
 
-    <section class="top-panel">
-        <div class="top-row">
-            <h1>4.3 Оператори циклу</h1>
-            <a href="4.html" class="back-button">← Назад до модуля 4</a>
-        </div>
+<p><strong>Синтаксис:</strong></p>
 
-        <nav class="lesson-nav">
-            <button type="button" class="active" onclick="navigate('4_3_1.html', this)">Крок 1</button>
-            <button type="button" onclick="navigate('4_3_2.html', this)">Крок 2</button>
-            <button type="button" onclick="navigate('4_3_3.html', this)">Крок 3</button>
-            <button type="button" onclick="navigate('4_3_4.html', this)">Крок 4</button>
-            <button type="button" onclick="navigate('4_3_5.html', this)">Крок 5</button>
-            <button type="button" onclick="navigate('4_3_6.html', this)">Крок 6</button>
-            <button type="button" onclick="navigate('4_3_7.html', this)">Крок 7</button>
-            <button type="button" onclick="navigate('4_3_8.html', this)">Крок 8</button>
-            <button type="button" onclick="navigate('4_3_9.html', this)">Крок 9</button>
-        </nav>
-    </section>
+<p><code><strong>while </strong>(<em>вираз</em>) <em>оператор</em>;</code></p>
 
-    <section class="iframe-container">
-        <iframe id="contentFrame" src="4_3_1.html"></iframe>
-    </section>
+<p><em>Вираз</em> тут називається <em>умовою циклу</em>, а <em>оператор</em> – <em>тілом циклу</em>. Оператор <strong><code>while</code></strong> називається циклом <em>з передумовою</em>, оскільки умова перевіряється до виконання тіла. Саме тому <strong><code>while</code></strong> зручно використовувати в ситуаціях, коли тіло циклу потенційно може не виконатися жодного разу - якщо умова виявиться хибною одразу.</p>
 
-</div>
+<p>Як вираз допускається використовувати будь-який вираз мови С++, а як тіло - будь-який оператор, зокрема порожній або складений. Тіло циклу може містити інший оператор <strong><code>while</code></strong> - це називається <em>вкладеним циклом</em>.</p>
 
-<script src="iframe-lesson.js"></script>
+<p>Схема виконання оператора <strong><code>while</code></strong> така:</p>
 
-</body>
-</html>
+<ul>
+	<li>
+	<p>обчислюється вираз;</p>
+	</li>
+	<li>
+	<p>якщо вираз хибний, виконання оператора <strong><code>while</code></strong> завершується, і виконується наступний за порядком оператор;</p>
+	</li>
+	<li>
+	<p>якщо вираз істинний, виконується тіло циклу, після чого процес повторюється з першого пункту.</p>
+	</li>
+</ul>
+
+<p>Відмінності оператора <strong>while </strong>в C/C++ від однойменного оператора мови Паскаль:</p>
+
+<ul>
+	<li>
+	<p>умова циклу береться в дужки;</p>
+	</li>
+	<li>
+	<p>не використовується ключове слово <strong>do</strong>.</p>
+	</li>
+</ul>
+
+<p><em>Порада професійного програмування:</em> так само, як і для <strong><code>if</code></strong>, усередині <strong><code>while</code></strong> тіло циклу прийнято брати у фігурні дужки, навіть якщо воно складається з одного оператора. Це робить код однаково оформленим і зменшує ризик помилки, якщо пізніше в тіло доведеться додати ще один оператор.</p>
+
+<p><strong>Приклад.</strong> Порахуємо, скільки цифр у десятковому записі цілого числа.</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main()
+{
+	int number;
+	cout &lt;&lt;"Введіть ціле число: ";
+	cin &gt;&gt;number;
+
+	if (number &lt; 0)
+	{
+		number = -number; //для від'ємних чисел рахуємо цифри модуля
+	}
+
+	int count = 0;
+
+	if (number == 0) //особливий випадок: у числа 0 рівно одна цифра
+	{
+		count = 1;
+	}
+
+	while (number &gt; 0)
+	{
+		count++;
+		number /= 10;
+	}
+
+	cout &lt;&lt;"Кількість цифр: " &lt;&lt;count &lt;&lt;endl;
+
+	return 0;
+}</code></pre>
+
+<p>Ідея проста: поки в числі залишаються цифри (тобто поки <code>number &gt; 0</code>), ми "відрізаємо" останню цифру цілочисельним діленням на 10 і збільшуємо лічильник <code>count</code>. Коли число стає рівним нулю, цифр більше не лишилося, і цикл завершується.</p>
+
+<p>Тут якраз добре видно суть циклу <strong>з передумовою</strong>: якщо на вхід подати <code>0</code>, умова <code>number &gt; 0</code> виявиться хибною одразу, і тіло циклу не виконається жодного разу. Тому довелося окремо обробити цей випадок до циклу - інакше для числа <code>0</code> програма видала б <code>0</code> цифр замість однієї.</p>
+
+<h2>Оператор do while</h2>
+
+<p><strong>Синтаксис:</strong></p>
+
+<p><code><strong>do </strong><em>оператор</em> <strong>while </strong>(<em>вираз</em>);</code></p>
+
+<p>Оператор циклу <strong><code>do while</code></strong> називається циклом <em>з післяумовою</em> і використовується тоді, коли тіло циклу треба виконати хоча б один раз - перш ніж уперше перевіряти умову. Схема виконання:</p>
+
+<ul>
+	<li>
+	<p>виконується тіло циклу (яке може бути складеним оператором);</p>
+	</li>
+	<li>
+	<p>обчислюється вираз;</p>
+	</li>
+	<li>
+	<p>якщо вираз хибний, виконання оператора <strong><code>do while</code></strong> завершується, і виконується наступний за порядком оператор; якщо вираз істинний, виконання продовжується з першого пункту.</p>
+	</li>
+</ul>
+
+<p><em>Зверніть увагу:</em> це не те саме, що <strong>repeat ... until</strong> мови Паскаль, хоча структурно вони дуже схожі. У Паскалі цикл <strong>repeat ... until </strong>завершується, коли умова стає <em>істинною</em>, а <strong><code>do while</code></strong> на С++, навпаки, продовжує виконуватися, поки умова істинна, і завершується, коли вона стає <em>хибною</em>. Якщо механічно переносити умову з Паскаля на С++ без інверсії - вийде цикл з точністю до навпаки.</p>
+
+<p>Щоб перервати виконання циклу достроково, не чекаючи, поки умова сама стане хибною, можна використовувати оператор <strong>break</strong>.</p>
+
+<p><strong>Приклад.</strong> Гра "Вгадай число": комп'ютер загадує число, а гравець намагається його відгадати, отримуючи після кожної спроби підказку "забагато" або "замало".</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;
+
+using namespace std;
+
+int main()
+{
+	const int MIN = 0;
+	const int MAX = 999;
+
+	srand (static_cast&lt;unsigned int&gt;(time(nullptr))); //ініціалізуємо генератор випадкових чисел
+
+	int number = MIN + rand() % (MAX - MIN + 1); //число від MIN до MAX включно
+
+	cout &lt;&lt;"Загадано число від " &lt;&lt;MIN &lt;&lt;" до " &lt;&lt;MAX &lt;&lt;"." &lt;&lt;endl;
+
+	int tries = 0;
+	int guess;
+
+	do
+	{
+		cout &lt;&lt;"Ваша здогадка? ";
+		cin &gt;&gt;guess;
+		tries++;
+
+		if (guess &gt; number)
+		{
+			cout &lt;&lt;"Забагато!" &lt;&lt;endl;
+		}
+		else if (guess &lt; number)
+		{
+			cout &lt;&lt;"Замало!" &lt;&lt;endl;
+		}
+	}
+	while (guess != number);
+
+	cout &lt;&lt;"Ви вгадали за " &lt;&lt;tries &lt;&lt;" спроб(и)." &lt;&lt;endl;
+
+	return 0;
+}</code></pre>
+
+<p>Цей приклад якраз чудово демонструє, навіщо потрібен саме <strong><code>do while</code></strong>, а не <strong><code>while</code></strong>: перш ніж перевіряти, чи вгадано число (тобто чи <code>guess == number</code>), гравець обов'язково має зробити хоча б одну спробу - інакше й перевіряти нічого.</p>
+
+<p><em>Зауваження до вихідного варіанта коду:</em></p>
+
+<ul>
+	<li>
+	<p> Щоб узяти всі <code>MAX-MIN+1</code> чисел діапазону <code>[MIN;MAX]</code>, потрібно написати <code>rand() % (MAX - MIN + 1)</code> і потім додати <code>MIN</code>.</p>
+	</li>
+	<li>
+	<p>без виклику <strong>srand</strong> генератор псевдовипадкових чисел завжди стартує з одного й того самого стану, тому <code>number</code> буде однаковим при кожному запуску програми. Потрібно один раз ініціалізувати його, наприклад, поточним часом: <code>srand(time(nullptr))</code> (для цього підключається заголовок <code>&lt;ctime&gt;</code>, а для <strong>rand</strong>/<strong>srand</strong> - <code>&lt;cstdlib&gt;</code>).</p>
+	</li>
+</ul>
+
+<h2>Оператор for</h2>
+
+<p><strong>Синтаксис:</strong></p>
+
+<p><code><strong>for </strong>(<em>вираз-1</em>; <em>вираз-2</em>; <em>вираз-3</em>) <em>оператор</em>;</code></p>
+
+<p>Оператор <strong><code>for</code></strong> - найбільш загальний спосіб організації циклу в С++. Він відповідає циклу з лічильником <strong>for</strong> у Паскалі, але значно гнучкіший за нього.</p>
+
+<ul>
+	<li>
+	<p><em>Вираз-1</em> зазвичай використовується для встановлення початкового значення змінних, що керують циклом (<em>ініціалізація</em>).</p>
+	</li>
+	<li>
+	<p><em>Вираз-2</em> - це умова, за якої тіло циклу продовжує виконуватися.</p>
+	</li>
+	<li>
+	<p><em>Вираз-3</em> визначає, як змінюються керуючі змінні після кожного виконання тіла циклу (<em>крок, або інкремент</em>).</p>
+	</li>
+</ul>
+
+<p>Схема виконання оператора <strong><code>for</code></strong>:</p>
+
+<ul>
+	<li>
+	<p>обчислюється вираз-1;</p>
+	</li>
+	<li>
+	<p>обчислюється вираз-2;</p>
+	</li>
+	<li>
+	<p>якщо значення виразу-2 відмінне від нуля (істина) - виконується тіло циклу, потім обчислюється вираз-3, і відбувається перехід до повторної перевірки виразу-2; якщо ж вираз-2 дорівнює нулю (хиба) - керування передається на оператор, що йде одразу за <strong><code>for</code></strong>.</p>
+	</li>
+</ul>
+
+<p>Істотно, що перевірка умови завжди виконується на початку ітерації - перед тілом циклу. Це означає, що тіло циклу може не виконатися жодного разу, якщо вираз-2 одразу виявиться хибним. Таким чином, <strong><code>for</code></strong>, як і <strong><code>while</code></strong>, є циклом <em>з передумовою</em>.</p>
+
+<p><strong>Оператор <code>for</code> як скорочений запис <code>while</code>.</strong> Цикл</p>
+
+<pre><code class="language-cpp">for (вираз-1; вираз-2; вираз-3)
+    тіло;</code></pre>
+
+<p>за змістом еквівалентний такому запису через <strong><code>while</code></strong>:</p>
+
+<pre><code class="language-cpp">вираз-1;
+while (вираз-2)
+{
+    тіло;
+    вираз-3;
+}</code></pre>
+
+<p><em>Порада професійного програмування:</em> ця еквівалентність точна лише доти, доки в тілі циклу немає оператора <strong>continue</strong>. У справжньому <strong><code>for</code></strong> оператор <strong>continue</strong> передає керування на вираз-3 (крок), а вже потім - на перевірку умови. А у "наївному" перекладі через <strong><code>while</code></strong>, наведеному вище, <strong>continue</strong> вискочить одразу з тіла <strong>while</strong>, минаючи вираз-3, - і це вже інша поведінка. Якщо потрібен справді точний еквівалент циклу <strong><code>for</code></strong> з <strong>continue</strong> всередині, вираз-3 доводиться дублювати перед кожним <strong>continue</strong> або обгортати тіло в додаткову конструкцію.</p>
+
+<p>Класичний паскалівський оператор</p>
+
+<pre><code>for змінна := поч_знач to кін_знач do оператор;</code></pre>
+
+<p>який послідовно виконує оператор для значень змінної від початкового до кінцевого значення, на С++ записується так:</p>
+
+<pre><code class="language-cpp">for (змінна = поч_знач; змінна &lt;= кін_знач; змінна++)
+    оператор;</code></pre>
+
+<p>Такий вигляд оператора використовується для циклів із заздалегідь відомою кількістю повторень.</p>
+
+<p><strong>Приклади</strong>:</p>
+
+<pre><code class="language-cpp">for (i=1; i&lt;=10; i++) printf ("%d ", i*i); //СІ: квадрати чисел від 1 до 10</code></pre>
+
+<pre><code>for i:=1 to 10 do write (i*i,' ');
+(*еквівалентний код на Паскалі*)</code></pre>
+
+<pre><code class="language-cpp">double i;
+for (i=0; i&lt;2*3.14; i+=3.14/16) printf ("%f ", sin(i)); //крок - дробове число</code></pre>
+
+<pre><code class="language-cpp">for (j=1; j&lt;1000; j*=2) printf ("%d ", j); //крок - множення, а не додавання</code></pre>
+
+<p>Останні два приклади не мають прямих еквівалентів у класичному паскалівському <strong>for</strong>, оскільки там крок завжди ціле число, що додається до змінної, тоді як у С++ вираз-3 може бути будь-якою дією - множенням, діленням, викликом функції тощо.</p>
+
+<p>Гнучкість оператора <strong><code>for</code></strong> також виявляється в тому, що вираз-1 і вираз-3 можуть містити одразу кілька виразів, перелічених через кому, - це дозволяє керувати циклом за допомогою не однієї, а кількох змінних одночасно.</p>
+
+<p><strong>Приклад.</strong> Розвернемо рядок символів "на місці", рухаючись назустріч двома індексами - з початку й з кінця:</p>
+
+<pre><code class="language-cpp">char str[100];
+//...
+
+for (int top=0, bot=99; top&lt;bot; top++, bot--)
+{
+    char temp = str[top];
+    str[top] = str[bot];
+    str[bot] = temp;
+}</code></pre>
+
+<p>Тут для керування циклом використовуються одразу дві змінні, <code>top</code> і <code>bot</code>, - кожна з них на початку ініціалізується (у виразі-1) і на кожному кроці змінюється (у виразі-3), а умова виразу-2 перевіряє, що вони ще не зустрілися.</p>
+
+<p>Іншим важливим варіантом використання <strong><code>for</code></strong> є <em>нескінченний цикл</em>. Для цього умовний вираз (вираз-2) залишають порожнім, а для виходу з циклу використовують додаткову умову всередині тіла та оператор <strong>break</strong>. Зазвичай у такому разі порожніми лишають і вираз-1, і вираз-3, і цикл набуває вигляду:</p>
+
+<pre><code class="language-cpp">for (;;)
+{
+    //...
+    if (/*умова завершення*/) break;
+    //...
+}</code></pre>
+
+<p>Аналог цього циклу через <strong><code>while</code></strong>: <code><strong>while </strong>(1) {...}</code> або, що те саме й читається зрозуміліше, <code><strong>while </strong>(<strong>true</strong>) {...}</code>.</p>
+
+<p><strong>Приклад</strong> - підсумовування чисел, що вводяться з клавіатури, доки не введуть 0:</p>
+
+<pre><code class="language-cpp">int x, sum = 0;
+
+for (;;)
+{
+    cin &gt;&gt;x;
+    if (x == 0) break;
+    sum += x;
+    cout &lt;&lt;"Sum=" &lt;&lt;sum &lt;&lt;endl;
+}</code></pre>
+
+<p>Оскільки за синтаксисом мови С++ оператор може бути порожнім, тіло оператора <strong><code>for</code></strong> також може бути порожнім (просто крапка з комою). Така форма іноді використовується для пошуку - весь "сенс" циклу тоді переноситься у вираз-2.</p>
+
+<p><strong>Приклад</strong>:</p>
+
+<pre><code class="language-cpp">int i;
+for (i=0; t[i]&lt;10; i++) ;</code></pre>
+
+<p>Тут змінна циклу <code>i</code> після завершення циклу набуде значення індексу першого елемента масиву <code>t</code>, що не менший за 10 (перший елемент, для якого умова <code>t[i]&lt;10</code> перестає виконуватися).</p>
+
+<p>По можливості не зловживайте порожнім тілом і виразами з побічними ефектами, розкиданими по всіх трьох частинах заголовка <strong><code>for</code></strong>, - такий код компактний, але важко читається. Якщо логіку циклу складно охопити одним поглядом на рядок <code>for (...; ...; ...)</code>, часто краще явно виписати тіло циклу чи взагалі скористатися <strong><code>while</code></strong>.</p>
